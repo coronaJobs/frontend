@@ -1,4 +1,31 @@
+# CoronaJobs Web Frontend
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Setup for Development Environment
+
++ clone this repo
++ `$ cd frontend`
++ build and tag the docker image, named corona-jobs-frontend
+  ```
+  $ docker build -t corona-jobs-frontend:dev .
+  ```
++ run container
+  ```
+  $ docker run \
+        -it \
+        --rm \
+        -v ${PWD}:/app \
+        -v /app/node_modules \
+        -p 3001:3000 \
+        -e CHOKIDAR_USEPOLLING=true \
+        corona-jobs-frontend:dev
+  ```
+
+    **Note**: {PWD} may not work on Windows if you're not in PowerShell. Check [this](https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10) for more info.
+
+[Initial Setup Source](https://mherman.org/blog/dockerizing-a-react-app/)
+
 
 ## Available Scripts
 
