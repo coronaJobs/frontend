@@ -24,6 +24,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
     **Note**: {PWD} may not work on Windows if you're not in PowerShell. Check [this](https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10) for more info.
 
++ open [http://localhost:3001](http://localhost:3001) to view it in the browser.
+
 [Initial Setup Source](https://mherman.org/blog/dockerizing-a-react-app/)
 
 
