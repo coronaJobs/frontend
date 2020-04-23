@@ -10,7 +10,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   ```
   $ docker build -t corona-jobs-frontend:dev .
   ```
-+ run container
++ run container (very important to be in the correct directory!)
+  
+  Windows:
   ```
   $ docker run \
         -it \
@@ -22,9 +24,30 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
         corona-jobs-frontend:dev
   ```
 
-    **Note**: {PWD} may not work on Windows if you're not in PowerShell. Check [this](https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10) for more info.
+    **Note:** {PWD} may not work on Windows if you're not in PowerShell. Check [this](https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10) for more info.
+
+  Mac:
+  ```
+  $ docker run \
+        -it \
+        --rm \
+        -v pwd:/app \
+        -v /app/node_modules \
+        -p 3001:3000 \
+        -e CHOKIDAR_USEPOLLING=true \
+        corona-jobs-frontend:dev
+  ```
 
 + open [http://localhost:3001](http://localhost:3001) to view it in the browser.
+
++ to open the container's terminal:
+  ```
+  $ docker exec -it <container-name> /bin/sh
+  ```
+  **Note:** To get container names, run
+  ```
+  $ docker container ls
+  ```
 
 [Initial Setup Source](https://mherman.org/blog/dockerizing-a-react-app/)
 
