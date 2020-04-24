@@ -3,6 +3,8 @@ version: '3.7'
 services:
 
   app:
+    env_file:
+      - .env
     container_name: corona-jobs
     build:
       context: .
