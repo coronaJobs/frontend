@@ -4,49 +4,25 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Setup for Development Environment
 
-+ clone this repo
-+ `$ cd frontend`
-+ build and tag the docker image, named corona-jobs-frontend
++ Clone this repo
++ In the command line:
   ```
-  $ docker build -t corona-jobs-frontend:dev .
+    $ cd frontend
   ```
-+ run container (very important to be in the correct directory!)
-  
-  Windows:
++ To build the image with docker-compose:
   ```
-  $ docker run \
-        -it \
-        --rm \
-        -v ${PWD}:/app \
-        -v /app/node_modules \
-        -p 3001:3000 \
-        -e CHOKIDAR_USEPOLLING=true \
-        corona-jobs-frontend:dev
+    $ docker-compose build
   ```
-
-    **Note:** {PWD} may not work on Windows if you're not in PowerShell. Check [this](https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10) for more info.
-
-  Mac:
++ Run container:
   ```
-  $ docker run \
-        -it \
-        --rm \
-        -v pwd:/app \
-        -v /app/node_modules \
-        -p 3001:3000 \
-        -e CHOKIDAR_USEPOLLING=true \
-        corona-jobs-frontend:dev
+  $ docker-compose up
   ```
 
 + open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 + to open the container's terminal:
   ```
-  $ docker exec -it <container-name> /bin/sh
-  ```
-  **Note:** To get container names, run
-  ```
-  $ docker container ls
+  $ docker exec -it corona-jobs /bin/sh
   ```
 
 [Initial Setup Source](https://mherman.org/blog/dockerizing-a-react-app/)
