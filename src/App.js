@@ -1,3 +1,4 @@
+// React
 import React from 'react';
 import {
   BrowserRouter as Router,
@@ -5,6 +6,11 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { useQuery } from '@apollo/client';
+
+// graphql
+import { USERS } from './graphql/queries/users';
+
 import logo from './assets/logo.svg';
 import './assets/css/App.css';
 
@@ -86,6 +92,9 @@ function About() {
 }
 
 function Users() {
+  const { data, loading, error } = useQuery(USERS);
+  console.log(data);
+  
   return (
     <div className="App">
       <header className="App-header">
