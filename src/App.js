@@ -11,13 +11,18 @@ import { useQuery } from '@apollo/client';
 // graphql
 import { USERS } from './graphql/queries/users';
 
+import CoronaNavBar from './navbar';
+
 import logo from './assets/logo.svg';
 import './assets/css/App.css';
 
 function App() {
+  // TODO: create inner query to know if there is a user logged in
+  let userLoggedIn = true;
+
   return (
     <Router>
-      <nav>
+      {/* <nav>
         <ul>
           <li>
             <Link to="/">Home</Link>
@@ -29,7 +34,8 @@ function App() {
             <Link to="/users">Users</Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
+      <CoronaNavBar userLoggedIn={userLoggedIn} />
 
       {/* A <Switch> looks through its children <Route>s and
       renders the first one that matches the current URL. */}

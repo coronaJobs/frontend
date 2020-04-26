@@ -6,7 +6,12 @@ import ReactDOM from 'react-dom';
 import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 
+
+// CSS
 import './assets/css/index.css';
+import './assets/css/colorPalette.css';
+import './assets/css/Navigation-with-Search.css';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
