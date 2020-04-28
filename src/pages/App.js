@@ -13,6 +13,7 @@ import { USERS } from '../graphql/queries/users';
 
 import logo from '../assets/logo.svg';
 import '../assets/css/App.css';
+import UserProfile from './UserProfile';
 
 function App() {
   return (
@@ -37,9 +38,13 @@ function App() {
         <Route path="/about">
           <About />
         </Route>
-        <Route path="/users">
+        <Route exact path="/users">
           <Users />
         </Route>
+        <Route exact path="/users/:userId">
+          <UserProfile />
+        </Route>
+        
         <Route path="/">
           <Home />
         </Route>
