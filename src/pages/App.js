@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,48 +9,36 @@ import {
 import { useQuery } from '@apollo/client';
 
 // graphql
-import { USERS } from './graphql/queries/users';
+import { USERS } from '../graphql/queries/users';
 
-import CoronaNavBar from './navbar';
+import { CoronaNavBar } from '../containers';
 
-import logo from './assets/logo.svg';
-import './assets/css/App.css';
+import logo from '../assets/logo.svg';
+import '../assets/css/App.css';
 
 function App() {
   // TODO: create inner query to know if there is a user logged in
   let userLoggedIn = true;
 
   return (
-    <Router>
-      {/* <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav> */}
+    <Fragment>
       <CoronaNavBar userLoggedIn={userLoggedIn} />
-
-      {/* A <Switch> looks through its children <Route>s and
-      renders the first one that matches the current URL. */}
-      <Switch>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/users">
-          <Users />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+      <Router>
+        {/* A <Switch> looks through its children <Route>s and
+        renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/users">
+            <Users />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </Fragment>
   );
 }
 

@@ -4,7 +4,37 @@ import React from 'react';
 // Bootstrap
 import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
 
+function EmployeesLinks() {
+    {/* TODO: set correct hrefs for each link */}
+    return([
+        <Nav.Link href="/">
+            Ofertas Disponibles
+        </Nav.Link>,
+        <Nav.Link href="/">
+            Postulaciones Vigentes
+        </Nav.Link>
+    ]);
+};
+
+function EmployersLinks() {
+    {/* TODO: set correct hrefs for each link */}
+    return([
+        <Nav.Link href="/">
+            Nueva Oferta
+        </Nav.Link>,
+        <Nav.Link href="/">
+            Ofertas Vigentes
+        </Nav.Link>
+    ]);
+};
+
 export default function CoronaNavBar({ userLoggedIn }) {
+    // TODO: inner query to get current user from cache
+    let currentUser;
+    if (userLoggedIn) {
+        currentUser = { role: 'employer' }
+    }
+
     return (
         <Navbar
             collapseOnSelect
@@ -21,18 +51,12 @@ export default function CoronaNavBar({ userLoggedIn }) {
             >
                 { userLoggedIn ? (
                     <Nav>
-                        <Nav.Link href="/">
-                            Home
-                        </Nav.Link>
-                        <Nav.Link href="/about">
-                            About
-                        </Nav.Link>
-                        <Nav.Link href="users">
-                            Users
-                        </Nav.Link>
+                        {currentUser.role === 'employer' ? <EmployersLinks /> : <EmployeesLinks />}
+                        {/* TODO: set correct hrefs for each link */}
+                        <Nav.Link href="/"> Perfil </Nav.Link>
                         <Form inline className="ml-4">
                             <Form.Group>
-                                <Form.Label> <i className="fas fa-search"/> </Form.Label>
+                                <Form.Label> <i className="fas fa-search" /> </Form.Label>
                                 <FormControl type="text" placeholder="Búsqueda" />
                             </Form.Group>
                         </Form>
@@ -41,10 +65,12 @@ export default function CoronaNavBar({ userLoggedIn }) {
                 <Nav className="ml-auto">
                     {
                         userLoggedIn ? (
+                            // TODO: componente botón logout
                             <Button variant="outline-light" className="background-pink">
                                 Cerrar Sesión
                             </Button>
                         ) : (
+                            // TODO: componente botón login
                             <Button variant="outline-light" className="background-pink">
                                 Iniciar Sesión
                             </Button>
