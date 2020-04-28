@@ -13,6 +13,7 @@ import { USERS } from '../graphql/queries/users';
 
 import logo from '../assets/logo.svg';
 import '../assets/css/App.css';
+import SignUp from './signup';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
       {/* A <Switch> looks through its children <Route>s and
       renders the first one that matches the current URL. */}
       <Switch>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
         <Route path="/about">
           <About />
         </Route>
