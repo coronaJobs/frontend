@@ -1,4 +1,5 @@
 import React from 'react';
+import '../assets/css/signup.css';
 
 import { SignUpComponent } from '../components';
 
