@@ -7,7 +7,7 @@ import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider, gql } from '@apo
 import { persistCache } from 'apollo-cache-persist';
 
 import './assets/css/index.css';
-import App from './App';
+import App from './pages/App';
 import * as serviceWorker from './serviceWorker';
 
 

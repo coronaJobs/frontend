@@ -9,10 +9,10 @@ import {
 import { useQuery } from '@apollo/client';
 
 // graphql
-import { USERS } from './graphql/queries/users';
+import { USERS } from '../graphql/queries/users';
 
-import logo from './assets/logo.svg';
-import './assets/css/App.css';
+import logo from '../assets/logo.svg';
+import '../assets/css/App.css';
 
 function App() {
   return (
