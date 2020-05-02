@@ -1,19 +1,44 @@
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useMutation } from '@apollo/client';
+
+import { CREATE_USER } from '../graphql/mutations/users';
+ 
+
 
 export default function SignUpComponent() {
   const [name, setName] = useState('');
   const [rut, setRut] = useState('');
-  const [email, setEmail] = useState('');
+  const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [role, setRole] = useState('employer');
   // TODO: profile picture & CV
 
-  const onHandleSubmit = () => {
+  const [signUp, {data}] = useMutation(CREATE_USER, {
+    onCompleted(data) {
+      console.log(data)},
+    onError(error) {
+      console.log(error)
+    }});
+
+  // TODO: obtener roles (lista de roles)
+  // 
+
+  const onHandleSubmit = (event) => {
     // TODO: backend call
+    event.preventDefault();
     console.log(name);
+    signUp({ variables: { 
+      name: name,
+      rut: rut,
+      mail: mail,
+      password: password,
+      address: address,
+      phone: phone,
+      roleId: role,
+     }})
   }
 
   return(
@@ -28,7 +53,7 @@ export default function SignUpComponent() {
             <Form.Control type="rut" placeholder="Rut" onChange={(event)=>setRut(event.target.value)} className="text-input"/>
           </Form.Group>
           <Form.Group>
-            <Form.Control type="email" placeholder="Correo" onChange={(event)=>setEmail(event.target.value)} className="text-input"/>
+            <Form.Control type="mail" placeholder="Correo" onChange={(event)=>setMail(event.target.value)} className="text-input"/>
           </Form.Group>
           <Form.Group>
             <Form.Control type="password" placeholder="Contraseña" onChange={(event)=>setPassword(event.target.value)} className="text-input"/>
@@ -43,10 +68,10 @@ export default function SignUpComponent() {
             <Form.Label>Selecciona un tipo de usuario:</Form.Label>
             <Row>
               <Col>
-                <Form.Check type="radio" label="Empleador" checked={role==='employer'} onChange={()=>(setRole('employer'))} />
+                <Form.Check type="radio" label="Empleador" checked={role===1} onChange={()=>(setRole(1))} />
               </Col>
               <Col>
-                <Form.Check type="radio" label="Trabajador" checked={role==='employee'} onChange={()=>(setRole('employee'))} />
+                <Form.Check type="radio" label="Trabajador" checked={role===2} onChange={()=>(setRole(2))} />
               </Col>
             </Row>
           </Form.Group>
