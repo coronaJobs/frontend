@@ -14,6 +14,7 @@ import { USERS } from '../graphql/queries/users';
 import logo from '../assets/logo.svg';
 import '../assets/css/App.css';
 import SignUp from './signup';
+import Login from './login';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
       <Switch>
         <Route path="/signup">
           <SignUp />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
         <Route path="/about">
           <About />

@@ -18,6 +18,7 @@ export default function SignUpComponent() {
 
   const [signUp, {data}] = useMutation(CREATE_USER, {
     onCompleted(data) {
+      // TODO: hacer login con el correo y la contraseña del form
       console.log(data)},
     onError(error) {
       console.log(error)
@@ -52,8 +53,8 @@ export default function SignUpComponent() {
   }
 
   return(
-    <div class="background">
-      <div class="form-container">
+    <div class="signup-background">
+      <div class="signup-form-container">
         <h1>Regístrate</h1>
         <p id="error-message">{validationError}</p>
         <Form>
@@ -89,7 +90,7 @@ export default function SignUpComponent() {
           <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="signup-button">Registrar</Button>
           {/* TODO: validation */}
         </Form>
-        <span><a id="login-link" href=''>¿Ya tienes una cuenta? Ingresa aquí</a></span>
+        <span><a id="login-link" href='/login'>¿Ya tienes una cuenta? Ingresa aquí</a></span>
       </div>
     </div>
   )
