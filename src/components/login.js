@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useMutation } from '@apollo/client';
+
+import { LOGIN } from '../graphql/mutations/users';
 
 
 export default function LoginComponent() {
@@ -7,10 +10,20 @@ export default function LoginComponent() {
   const [password, setPassword] = useState('');
   const [validationError, setValidationError] = useState(''); 
   
+  const [login, {loginData}] = useMutation(LOGIN, {
+    onCompleted(loginData) {
+      console.log(loginData);
+      // guardar el token en store
+      // enviar al homepage
+    },
+    onError(error) {
+      console.log(error);
+      setValidationError('Correo o contraseña inválidos.');
+    }});
 
   const validateForm = () => {
     if (!mail || !password) {
-      setValidationError('Debes rellenar todos los campos para poder registrarte.');
+      setValidationError('Debes rellenar todos los campos para poder iniciar sesión.');
       return false;
     } else {
       setValidationError('');
@@ -20,8 +33,10 @@ export default function LoginComponent() {
 
   const onHandleSubmit = () => {
     if (validateForm()){
-      // hermanito mio llamate al login
-      console.log('llamando login');
+      login({variables:{
+        mail: mail,
+        password: password,
+      }});
     } 
   }
 
@@ -37,7 +52,7 @@ export default function LoginComponent() {
           <Form.Group>
             <Form.Control type="password" placeholder="Contraseña" onChange={(event)=>setPassword(event.target.value)} className="text-input"/>
           </Form.Group>
-          <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="login-button">Ingresar</Button>
+          <Button variant="primary" onClick={onHandleSubmit} block className="login-button">Ingresar</Button>
         </Form>
         <span><a id="signup-link" href='/signup'>¿No tienes una cuenta? Regístrate aquí</a></span>
       </div>

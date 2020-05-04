@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 
-import { CREATE_USER } from '../graphql/mutations/users';
+import { CREATE_USER, LOGIN } from '../graphql/mutations/users';
  
 
 export default function SignUpComponent() {
@@ -16,11 +16,12 @@ export default function SignUpComponent() {
   const [validationError, setValidationError] = useState('');
   // TODO: profile picture & CV
 
-  const [signUp, {data}] = useMutation(CREATE_USER, {
-    onCompleted(data) {
+  const [signUp, {signUpData}] = useMutation(CREATE_USER, {
+    onCompleted(signUpData) {
       // TODO: hacer login con el correo y la contraseña del form
-      console.log(data)},
+      console.log(signUpData)},
     onError(error) {
+      setValidationError('Error. Por favor inténtelo de nuevo.')
       console.log(error)
     }});
 
@@ -88,7 +89,6 @@ export default function SignUpComponent() {
             </Row>
           </Form.Group>
           <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="signup-button">Registrar</Button>
-          {/* TODO: validation */}
         </Form>
         <span><a id="login-link" href='/login'>¿Ya tienes una cuenta? Ingresa aquí</a></span>
       </div>

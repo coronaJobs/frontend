@@ -21,21 +21,21 @@ export const CREATE_USER = gql`
       address: $address
       profilePicture: $profilePicture
       resumeUrl: $resumeUrl
-      roleId: $roleId) {
+      roleId: $roleId
+    ) {
         mail
       }
   }
 `;
 
-
-// query getUsers {
-//   getUsers {
-//       id
-//       rut
-//       name
-//       mail
-//       phone
-//       address
-//       resumeUrl
-//   }
-// }
+export const LOGIN = gql`
+  mutation login(
+    $mail: String!
+    $password: String!
+  ) {
+    login(
+      mail: $mail
+      password: $password
+    )
+  }
+`;
