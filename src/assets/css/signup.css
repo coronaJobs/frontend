@@ -44,3 +44,7 @@
   text-indent: 6px;
   height: 40px;
 }
+
+#error-message {
+  color: #f4476b;
+}
