@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,48 +11,44 @@ import { useQuery } from '@apollo/client';
 // graphql
 import { USERS } from '../graphql/queries/users';
 
+import { CoronaNavBar } from '../containers';
+
 import logo from '../assets/logo.svg';
 import '../assets/css/App.css';
 import SignUp from './signup';
 import Login from './login';
 
 function App() {
-  return (
-    <Router>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
-          <li>
-            <Link to="/users">Users</Link>
-          </li>
-        </ul>
-      </nav>
+  // TODO: create inner query to know if there is a user logged in
+  let userLoggedIn = true;
 
-      {/* A <Switch> looks through its children <Route>s and
-      renders the first one that matches the current URL. */}
-      <Switch>
-        <Route path="/signup">
-          <SignUp />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/users">
-          <Users />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
-    </Router>
+  return (
+    <Fragment>
+      <CoronaNavBar userLoggedIn={userLoggedIn} />
+      <Router>
+        {/* A <Switch> looks through its children <Route>s and
+        renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+          {/* TODO: Delete about page */}
+          <Route path="/about">
+            <About />
+          </Route>
+          {/* TODO: Delete users page */}
+          <Route path="/users">
+            <Users />
+          </Route>
+        </Switch>
+      </Router>
+    </Fragment>
   );
 }
 
