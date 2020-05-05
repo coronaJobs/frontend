@@ -14,18 +14,19 @@ export default function SignUpComponent() {
   const [phone, setPhone] = useState('');
   const [role, setRole] = useState(1);
   const [validationError, setValidationError] = useState('');
-  // TODO: profile picture & CV
+  // TODO: profile picture & CV (proximo sprint)
 
   const [signUp, {signUpData}] = useMutation(CREATE_USER, {
     onCompleted(signUpData) {
       // TODO: hacer login con el correo y la contraseña del form
+      // TODO: enviar al homepage
       console.log(signUpData)},
     onError(error) {
       setValidationError('Error. Por favor inténtelo de nuevo.')
       console.log(error)
     }});
 
-  // TODO: obtener roles (lista de roles)
+  // TODO: obtener roles (lista de roles) (no esta listo en backend)
   // 
 
   const validateForm = () => {
