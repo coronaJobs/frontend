@@ -76,7 +76,19 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                     {
                         userLoggedIn ? (
                             // TODO: componente botón logout
-                            <Button variant="outline-light" className="background-pink">
+                            <Button
+                                variant="outline-light"
+                                className="background-pink"
+                                onClick = {() => {
+                                    client.cache.writeData({
+                                        data: {
+                                            isLoggedIn: false,
+                                            currentUser: null,
+                                        }
+                                    });
+                                    localStorage.clear();
+                                }}
+                            >
                                 Cerrar Sesión
                             </Button>
                         ) : (
