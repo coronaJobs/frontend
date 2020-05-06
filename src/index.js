@@ -2,9 +2,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// Apollo
-import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+// Apollo & GraphQL
+import { ApolloClient, HttpLink, ApolloProvider, gql } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,7 +27,7 @@ const httpLink = new HttpLink({
 
 persistCache({
   cache,
-	storage: window.localStorage
+  storage: window.localStorage
 }).then(() => {
 	const client = new ApolloClient({
 		cache,
@@ -35,16 +36,11 @@ persistCache({
 		// typeDefs
   });
   
-	// cache.writeData({
-	// 	data: {
-	// 		isLoggedIn: !!localStorage.getItem('token')
-	// 	}
-	// });
-
-	// function IsLoggedIn() {
-	// 	const { data } = useQuery(IS_LOGGED_IN);
-	// 	return data.isLoggedIn ? <Pages /> : <Login />;
-	// }
+	cache.writeData({
+		data: {
+			isLoggedIn: !!localStorage.getItem('token')
+		}
+	});
 
 	ReactDOM.render(
 		<ApolloProvider client={client}>
