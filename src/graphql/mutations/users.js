@@ -10,7 +10,7 @@ export const CREATE_USER = gql`
     $address: String!
     $profilePicture: String
     $resumeUrl: String
-    $roleId: Int!
+    $role: Int!
   ) {
     createUser(
       rut: $rut
@@ -21,9 +21,15 @@ export const CREATE_USER = gql`
       address: $address
       profilePicture: $profilePicture
       resumeUrl: $resumeUrl
-      roleId: $roleId
+      roleId: $role
     ) {
+        rut
+        name
         mail
+        role {
+          id
+          name
+        }
       }
   }
 `;
