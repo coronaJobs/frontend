@@ -1,6 +1,10 @@
 // React
 import React from 'react';
 
+// Apollo & GraphQL
+import { useApolloClient, useQuery } from '@apollo/client';
+// import { CURRENT_USER } from '../graphql/queries/inner_queries';
+import { GET_USER } from '../graphql/queries/users';
 // Bootstrap
 import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
 
@@ -28,12 +32,18 @@ function EmployersLinks() {
     ]);
 };
 
-export default function CoronaNavBar({ userLoggedIn }) {
+export default function CoronaNavBar({ userLoggedIn, currentUser }) {
+    const client = useApolloClient();
+
     // TODO: inner query to get current user from cache
-    let currentUser;
-    if (userLoggedIn) {
-        currentUser = { role: 'employer' }
-    }
+    // const { data } = useQuery(CURRENT_USER);
+    // let currentUser = data ? data.currentUser : null;
+    // const decoded_token = decode(localStorage.getItem('token'));
+    // const { data, loading, error } = useQuery(GET_USER, {
+    //     variables: {id: decoded_token ? decoded_token.id : null}
+    // });
+    // console.log(data);
+    // const currentUser = data.getUser;
 
     return (
         <Navbar
@@ -51,7 +61,7 @@ export default function CoronaNavBar({ userLoggedIn }) {
             >
                 { userLoggedIn ? (
                     <Nav>
-                        {currentUser.role === 'employer' ? <EmployersLinks /> : <EmployeesLinks />}
+                        {currentUser && currentUser.role.id === 1 ? <EmployersLinks /> : <EmployeesLinks />}
                         {/* TODO: set correct hrefs for each link */}
                         <Nav.Link href="/"> Perfil </Nav.Link>
                         <Form inline className="ml-4">
@@ -71,7 +81,7 @@ export default function CoronaNavBar({ userLoggedIn }) {
                             </Button>
                         ) : (
                             // TODO: componente botón login
-                            <Button variant="outline-light" className="background-pink">
+                            <Button variant="outline-light" className="background-pink" href="/login">
                                 Iniciar Sesión
                             </Button>
                         )
