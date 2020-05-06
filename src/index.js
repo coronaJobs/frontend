@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import { ApolloClient, HttpLink, ApolloProvider, gql } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { typeDefs, resolvers } from './graphql/resolvers';
 
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,9 +33,9 @@ persistCache({
 	const client = new ApolloClient({
 		cache,
 		link: httpLink,
-		// resolvers,
-		// typeDefs
-  });
+		resolvers,
+		typeDefs
+  	});
   
 	cache.writeData({
 		data: {
