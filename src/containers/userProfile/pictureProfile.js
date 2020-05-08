@@ -9,8 +9,8 @@ function PictureProfile (props){
         <div>
             <div className='center'>
                 <Image src={DefaultPicture} className='picture-profile'/>
-                <h5>Nombre apellido</h5>
-                <p>Tipo de usuario | Comuna</p>
+                <h5>{props.name}</h5>
+                <p>{props.role == 'employer'? 'Empleador' : 'Trabajador'}</p>
             </div>
         </div>
       )

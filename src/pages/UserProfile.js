@@ -1,12 +1,20 @@
 import React from 'react';
+import { GET_USER_PROFILE } from '../graphql/queries/users';
+import { useQuery } from '@apollo/client';
 import '../assets/css/userProfile.css';
 import { useParams } from "react-router-dom";
 import { DataProfile, PictureProfile, ExperienceProfile } from '../containers';
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
+
 
 
 function UserProfile (props){
     let { userId } = useParams();
+    const { data, loading, error } = useQuery(GET_USER_PROFILE, {
+        variables: {id: parseInt(userId)}
+      });
+    console.log(data);
+    const {name, address, role, mail, rut, phone} = data.getUser;
     return (  
             <div className='container'>
                 <h1>Mi perfil</h1>
@@ -14,12 +22,21 @@ function UserProfile (props){
                 <Row>
                     <Col>
                         <div className='container'>
-                            <PictureProfile userId={userId}/>
+                            { (loading)?
+                                <Spinner animation="grow" variant="danger" />
+                                :
+                                <PictureProfile name={name} role={role.name}/>
+                            }
+                            
                         </div>
                     </Col>
                     <Col>
-                        <div className='container'>          
-                            <DataProfile userId={userId}/>
+                        <div className='container'>  
+                        { (loading)?
+                                <Spinner animation="grow" variant="danger" />
+                                :        
+                            <DataProfile address={address} mail={mail} rut={rut} phone={phone}/>
+                        } 
                         </div>
                     </Col>
                 </Row>    

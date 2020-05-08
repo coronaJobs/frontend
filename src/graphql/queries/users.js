@@ -13,3 +13,37 @@ export const USERS = gql`
         }
     }
 `;
+
+export const GET_USER = gql`
+  query getUser($id: Int!) {
+    getUser(
+      id: $id
+    ) {
+      id
+      name
+      mail
+      role {
+        id
+      }
+    }
+  }
+`;
+
+export const GET_USER_PROFILE = gql`
+  query getUser($id: Int!) {
+    getUser(
+      id: $id
+    ) {
+      id
+      name
+      mail
+      address
+      rut
+      phone
+      role {
+        id
+        name
+      }
+    }
+  }
+`;
