@@ -7,7 +7,7 @@ import DefaultPictureExp from '../../assets/images/experienceProfile-default.png
 function ExperienceProfile (props){
     let { userId } = useParams();
     return (  
-            <div>
+            <div className='center'>
                 <h5>Nombre experiencia</h5>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
                     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
