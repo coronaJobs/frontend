@@ -16,6 +16,7 @@ import { CoronaNavBar } from '../containers';
 
 import logo from '../assets/logo.svg';
 import '../assets/css/App.css';
+import UserProfile from './UserProfile';
 import SignUp from './signup';
 import Login from './login';
 
@@ -48,6 +49,9 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
+          {isLoggedIn? <Route exact path="/users/:userId">
+            <UserProfile />
+          </Route> : null}
           <Route path="/">
             <Home />
           </Route>

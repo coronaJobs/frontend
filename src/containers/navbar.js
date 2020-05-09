@@ -63,7 +63,7 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                     <Nav>
                         {currentUser && currentUser.role.id === 1 ? <EmployersLinks /> : <EmployeesLinks />}
                         {/* TODO: set correct hrefs for each link */}
-                        <Nav.Link href="/"> Perfil </Nav.Link>
+                        <Nav.Link href={`/users/${currentUser.id}`}> Perfil </Nav.Link>
                         <Form inline className="ml-4">
                             <Form.Group>
                                 <Form.Label> <i className="fas fa-search" /> </Form.Label>
