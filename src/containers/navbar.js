@@ -34,7 +34,6 @@ function EmployersLinks() {
 
 export default function CoronaNavBar({ userLoggedIn, currentUser }) {
     const client = useApolloClient();
-
     // TODO: inner query to get current user from cache
     // const { data } = useQuery(CURRENT_USER);
     // let currentUser = data ? data.currentUser : null;
@@ -63,7 +62,12 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                     <Nav>
                         {currentUser && currentUser.role.id === 1 ? <EmployersLinks /> : <EmployeesLinks />}
                         {/* TODO: set correct hrefs for each link */}
-                        <Nav.Link href={`/users/${currentUser.id}`}> Perfil </Nav.Link>
+                        <Nav.Link
+                            href={currentUser ? `/users/${currentUser.id}` : '/'}
+                            disabled={currentUser ? false : true}
+                        >
+                            Perfil
+                        </Nav.Link>
                         <Form inline className="ml-4">
                             <Form.Group>
                                 <Form.Label> <i className="fas fa-search" /> </Form.Label>
@@ -93,6 +97,7 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                             </Button>
                         ) : (
                             // TODO: componente botón login
+                            // TODO: No mostrar botón si la vista actual es la de login
                             <Button variant="outline-light" className="background-pink" href="/login">
                                 Iniciar Sesión
                             </Button>
