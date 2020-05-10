@@ -20,8 +20,10 @@ import UserProfile from './UserProfile';
 import SignUp from './signup';
 import Login from './login';
 
+
 // JWT
 import { decode } from 'jsonwebtoken';
+import PostForm from './postForm';
 
 function App() {
   const loggedInQuery = useQuery(IS_LOGGED_IN);
@@ -48,6 +50,10 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          {/* Permitir ingresar al form de un post solo si esta loggeado y es un empleador */}
+          <Route path="/post/new">
+            <PostForm />
           </Route>
           {isLoggedIn? <Route exact path="/users/:userId">
             <UserProfile />
