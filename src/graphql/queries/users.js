@@ -21,7 +21,6 @@ export const GET_USER = gql`
     ) {
       id
       name
-      mail
       role {
         id
       }

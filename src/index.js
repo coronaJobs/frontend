@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Apollo & GraphQL
-import { ApolloClient, HttpLink, ApolloProvider, gql } from '@apollo/client';
+import { ApolloClient, HttpLink, ApolloProvider, concat, ApolloLink } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { typeDefs, resolvers } from './graphql/resolvers';
@@ -25,6 +25,16 @@ const cache = new InMemoryCache({});
 const httpLink = new HttpLink({
   uri: 'https://api-corona-jobs-staging.herokuapp.com/'
 });
+
+// TODO: Set auth middleware
+// const authMiddleware = new ApolloLink((operation, forward) => {
+// 	operation.setContext({
+// 		headers: {
+// 			authorization: localStorage.getItem('token') || null
+// 		}
+// 	});
+// 	return forward(operation);
+// });
 
 persistCache({
   cache,

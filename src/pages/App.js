@@ -14,6 +14,9 @@ import { IS_LOGGED_IN, CURRENT_USER } from '../graphql/queries/inner_queries';
 
 import { CoronaNavBar } from '../containers';
 
+// Bootstrap
+import { Spinner } from 'react-bootstrap';
+
 import logo from '../assets/logo.svg';
 import '../assets/css/App.css';
 import UserProfile from './UserProfile';
@@ -32,31 +35,36 @@ function App() {
 
   const decoded_token = decode(localStorage.getItem('token'));
   const { data, loading, error } = useQuery(GET_USER, {
-    variables: {id: decoded_token ? decoded_token.id : null}
+    variables: {id: decoded_token ? parseInt(decoded_token.id) : null},
+    fetchPolicy: 'network-only',
   });
-  console.log(data);
 
+  // TODO: Handle errors
   return (
     <Fragment>
-      <CoronaNavBar userLoggedIn={isLoggedIn} currentUser={data ? data.getUser : null} />
-      <Router>
-        {/* A <Switch> looks through its children <Route>s and
-        renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          {isLoggedIn? <Route exact path="/users/:userId">
-            <UserProfile />
-          </Route> : null}
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+      {loading ? (
+        <Spinner animation="grow" role="status" as="h1" />
+      ) : [
+        <CoronaNavBar userLoggedIn={isLoggedIn} currentUser={data ? data.getUser : null} />,
+        <Router>
+          {/* A <Switch> looks through its children <Route>s and
+          renders the first one that matches the current URL. */}
+          <Switch>
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            {isLoggedIn? <Route exact path="/users/:userId">
+              <UserProfile />
+            </Route> : null}
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
+      ]}
     </Fragment>
   );
 }

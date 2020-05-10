@@ -70,6 +70,7 @@ export default function LoginComponent() {
             <Form.Group>
               <Form.Control type="password" placeholder="Contraseña" onChange={(event)=>setPassword(event.target.value)} className="text-input"/>
             </Form.Group>
+            {/* TODO: Cambiar color botón al hacer click */}
             <Button variant="primary" onClick={onHandleSubmit} block className="login-button">Ingresar</Button>
           </Form>
           <span><a id="signup-link" href='/signup'>¿No tienes una cuenta? Regístrate aquí</a></span>
