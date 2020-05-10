@@ -19,11 +19,11 @@ import '../assets/css/App.css';
 import UserProfile from './UserProfile';
 import SignUp from './signup';
 import Login from './login';
-
+import PostForm from './postForm';
 
 // JWT
 import { decode } from 'jsonwebtoken';
-import PostForm from './postForm';
+
 
 function App() {
   const loggedInQuery = useQuery(IS_LOGGED_IN);

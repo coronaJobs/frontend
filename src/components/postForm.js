@@ -1,20 +1,86 @@
 // React
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 // Bootstrap
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Row, Col, Modal } from 'react-bootstrap';
 
 // Apollo & GraphQL
-import { useApolloClient, useMutation, useQuery} from '@apollo/client';
-import { LOGIN } from '../graphql/mutations/users';
-import { IS_LOGGED_IN } from '../graphql/queries/inner_queries';
+// import { useApolloClient, useMutation, useQuery} from '@apollo/client';
+// import { LOGIN } from '../graphql/mutations/users';
+// import { IS_LOGGED_IN } from '../graphql/queries/inner_queries';
+
+ function PostForm () {
+
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [applicantLimit, setApplicantLimit] = useState(1); 
+  
+  const onHandleSubmit = () => {
+    console.log("name: ", name);
+    console.log("description: ", description);
+    console.log("applicantLimit: ", applicantLimit);
+  }
+
+  return(
+
+    <Form>
+      <Row>
+        <Col>
+          <Form.Group>
+            <Form.Label>Título del trabajo</Form.Label>
+            <Form.Control type="name" onChange={(event)=>setName(event.target.value)} className="text-input"/>
+          </Form.Group>
+        </Col>
+        <Col>
+          <Form.Group controlId="exampleForm.SelectCustom">
+            <Form.Label>Cantidad de trabajadores</Form.Label>
+            <Form.Control as="select" custom onChange={(event)=>setApplicantLimit(+event.target.value)}>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </Form.Control>
+          </Form.Group>
+        </Col>
+      </Row>
+      <Form.Group>
+        <Form.Label>Descripción</Form.Label>
+        <Form.Control as="textarea" rows="3" placeholder="Escribe la descripción del trabajo..." onChange={(event)=>setDescription(event.target.value)} className="text-input"/>
+      </Form.Group>
+      <Button variant="primary" onClick={onHandleSubmit} block className="signup-button">Registrar</Button>
+    </Form>
+  )
+}
+
+// type="submit"
 
 
 export default function PostFormComponent () {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+
   return(
-    <div>
-      <p>Ola</p>
-    </div>
+    <>
+      <Button variant="primary" onClick={handleShow}>
+        Publicar oferta de trabajo
+      </Button>
+      <Modal show={showModal} onHide={handleClose} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Nueva publicación de trabajo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <PostForm />
+        </Modal.Body>
+      </Modal>
+    </>
   )
 }
