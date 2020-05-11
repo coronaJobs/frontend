@@ -19,6 +19,7 @@ import { CREATE_POST } from '../graphql/mutations/posts';
   
   const [createPost] = useMutation(CREATE_POST, {
     onCompleted({ data }){
+      props.closeModal();
       setTriggerRedirect(true);
     },
     onError(error){
@@ -103,7 +104,7 @@ export default function PostFormComponent (props) {
           <Modal.Title>Nueva publicación de trabajo</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <PostForm userId={props.userId} />
+          <PostForm userId={props.userId} closeModal={handleClose} />
         </Modal.Body>
       </Modal>
     </>
