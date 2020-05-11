@@ -4,3 +4,4 @@ export { default as PictureProfile } from './userProfile/pictureProfile'
 export { default as ExperienceProfile } from './userProfile/experienceProfile'
 
 export { default as CoronaNavBar } from './navbar';
+export { default as Loading } from './loading';

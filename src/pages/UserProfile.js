@@ -3,7 +3,7 @@ import { GET_USER_PROFILE } from '../graphql/queries/users';
 import { useQuery } from '@apollo/client';
 import '../assets/css/userProfile.css';
 import { useParams } from "react-router-dom";
-import { DataProfile, PictureProfile, ExperienceProfile } from '../containers';
+import { DataProfile, PictureProfile, ExperienceProfile, Loading } from '../containers';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import { PostFormComponent } from '../components';
 
@@ -15,6 +15,7 @@ function UserProfile (props){
         variables: {id: parseInt(userId)}
       });
     console.log(data);
+    if (loading) return <Loading />;
     const {name, address, role, mail, rut, phone} = data.getUser;
     let formButton;
     switch (role.name) {

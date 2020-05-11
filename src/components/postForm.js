@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { Button, Form, Row, Col, Modal } from 'react-bootstrap';
 
 // Apollo & GraphQL
-import { useApolloClient, useMutation, useQuery} from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { CREATE_POST } from '../graphql/mutations/posts';
 
  function PostForm (props) {
@@ -19,11 +19,9 @@ import { CREATE_POST } from '../graphql/mutations/posts';
   
   const [createPost] = useMutation(CREATE_POST, {
     onCompleted({ data }){
-      console.log(data);
       setTriggerRedirect(true);
     },
     onError(error){
-      console.log(error);
       setValidationError('Ha ocurrido un error. Por favor inténtelo de nuevo.')
     }
   });
