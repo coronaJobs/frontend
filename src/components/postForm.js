@@ -35,7 +35,7 @@ import { CREATE_POST } from '../graphql/mutations/posts';
         name: name,
         description: description,
         applicantLimit: applicantLimit,
-        ownerId: 1,
+        ownerId: +props.userId,
       }})
     }
   }
@@ -85,7 +85,7 @@ import { CREATE_POST } from '../graphql/mutations/posts';
       </Form.Group>
       <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="signup-button">Registrar</Button>
     </Form>
-    ) : <Redirect to={'/'} /> 
+    ) : <Redirect to={`/users/${props.userId}`} /> 
   )
 }
 
