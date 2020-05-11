@@ -1,30 +1,59 @@
 // React
 import React, { useState } from 'react';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // Bootstrap
 import { Button, Form, Row, Col, Modal } from 'react-bootstrap';
 
 // Apollo & GraphQL
-// import { useApolloClient, useMutation, useQuery} from '@apollo/client';
-// import { LOGIN } from '../graphql/mutations/users';
-// import { IS_LOGGED_IN } from '../graphql/queries/inner_queries';
+import { useApolloClient, useMutation, useQuery} from '@apollo/client';
+import { CREATE_POST } from '../graphql/mutations/posts';
 
- function PostForm () {
+ function PostForm (props) {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [applicantLimit, setApplicantLimit] = useState(1); 
+  const [validationError, setValidationError] = useState('');
+  const [triggerRedirect, setTriggerRedirect] = useState(false);
   
-  const onHandleSubmit = () => {
-    console.log("name: ", name);
-    console.log("description: ", description);
-    console.log("applicantLimit: ", applicantLimit);
+  const [createPost] = useMutation(CREATE_POST, {
+    onCompleted({ data }){
+      console.log(data);
+      setTriggerRedirect(true);
+    },
+    onError(error){
+      console.log(error);
+      setValidationError('Ha ocurrido un error. Por favor inténtelo de nuevo.')
+    }
+  });
+
+  const onHandleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      createPost({variables: {
+        name: name,
+        description: description,
+        applicantLimit: applicantLimit,
+        ownerId: 1,
+      }})
+    }
+  }
+
+  const validateForm = () => {
+    if (!name || !description) {
+      setValidationError('Debes rellenar todos los campos para poder publicar una oferta.');
+      return false;
+    } else {
+      setValidationError('');
+      return true;
+    }
   }
 
   return(
-
+    !triggerRedirect ? (
     <Form>
+      <p id="error-message">{validationError}</p>
       <Row>
         <Col>
           <Form.Group>
@@ -54,15 +83,13 @@ import { Button, Form, Row, Col, Modal } from 'react-bootstrap';
         <Form.Label>Descripción</Form.Label>
         <Form.Control as="textarea" rows="3" placeholder="Escribe la descripción del trabajo..." onChange={(event)=>setDescription(event.target.value)} className="text-input"/>
       </Form.Group>
-      <Button variant="primary" onClick={onHandleSubmit} block className="signup-button">Registrar</Button>
+      <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="signup-button">Registrar</Button>
     </Form>
+    ) : <Redirect to={'/'} /> 
   )
 }
 
-// type="submit"
-
-
-export default function PostFormComponent () {
+export default function PostFormComponent (props) {
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
@@ -78,7 +105,7 @@ export default function PostFormComponent () {
           <Modal.Title>Nueva publicación de trabajo</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <PostForm />
+          <PostForm userId={props.userId} />
         </Modal.Body>
       </Modal>
     </>
