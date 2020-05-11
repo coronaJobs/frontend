@@ -16,12 +16,11 @@ import { CoronaNavBar } from '../containers';
 
 // Bootstrap
 import { Spinner } from 'react-bootstrap';
-
-import logo from '../assets/logo.svg';
 import '../assets/css/App.css';
 import UserProfile from './UserProfile';
 import SignUp from './signup';
 import Login from './login';
+import Home from './Home';
 
 // JWT
 import { decode } from 'jsonwebtoken';
@@ -67,27 +66,6 @@ function App() {
       ]}
     </Fragment>
   );
-}
-
-function Home() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  )
 }
 
 export default App;

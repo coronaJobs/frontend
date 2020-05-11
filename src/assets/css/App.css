@@ -3,12 +3,39 @@ h1 {
 }
 
 .App {
-  text-align: center;
+  
+  background-image: url('../images/background.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.8;
 }
 
-.App-logo {
+.App-message {
   height: 40vmin;
+  padding: 5vmin;
   pointer-events: none;
+  color: #021d20;
+  opacity: 1 !important;
+  font-size: 45px;
+}
+
+.center {
+  text-align: center;
+}
+.some-space {
+  margin: 0rem auto;
+  height: 10vmin;
+}
+
+.strong-color {
+  opacity: 1 !important;
+  color: white;
+}
+.strong-color:hover {
+  color: #021d20;
+  background-color: white;
+  text-decoration: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
