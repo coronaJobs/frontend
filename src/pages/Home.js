@@ -1,11 +1,14 @@
 import React from 'react';
 
 import { useQuery } from '@apollo/client';
-
 import { useParams } from "react-router-dom";
 import logo from '../assets/logo.svg';
-import background from '../assets/images/background.png';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import PictureOne from '../assets/images/publicar-home.jpg';
+import PictureTwo from '../assets/images/editar-home.jpg';
+import PictureThree from '../assets/images/conectar-home.jpg';
+import DefaultPicture from '../assets/images/userProfile-default.png';
+import { PencilSquare, FileRichtext, Link } from 'react-bootstrap-icons';
+import { Container, Row, Col, Spinner, Image } from 'react-bootstrap';
 
 
 
@@ -26,74 +29,72 @@ function Home() {
                 </Row>
             </Container>
         </div>
-        <div>
+        <div className='margin-container'>
             <Container>
                 <Row>
                     <Col>
-                        <div>
+                        <div className='center'>
                             <div>
-                                <p>Ícono</p>
+                                <FileRichtext color="royalblue" size={96} />
                             </div>
-                            <h3>Publica tu oferta de trabajo</h3>
-                            <p>Para que los postulantes postulen xd</p>
+                            <h3>Publica tu oferta</h3>
+                            <p>Publica tu oferta de trabajo para que trabajadores puedan postular.</p>
                         </div>
                     </Col>
                     <Col>
-                        <div>
+                        <div className='center'>
                             <div>
-                                <p>Ícono</p>
+                                <PencilSquare color="royalblue" size={96} />
                             </div>
                             <h3>Edita tu perfil</h3>
-                            <p>Déjalo entero nítido pa que te contraten</p>
+                            <p>Completa tu perfil con tus habilidades y experiencias para que te contraten.</p>
                         </div>
                     </Col>
                     <Col>
-                        <div>
+                        <div className='center'>
                             <div>
-                                <p>Ícono</p>
+                                <Link color="royalblue" size={96} />
                             </div>
                             <h3>¡Conectados!</h3>
-                            <p>¡Ya están listos para trabajar!</p>
+                            <p>Ya estás listo para explorar las ofertas o perfiles de trabajadores para crear redes de contacto.</p>
                         </div>
                     </Col>
                 </Row>
             </Container>
         </div>
-        <div>
-            <Container>
-                <Row>
+        <div className='margin-container'>
+            <Container className='expand-container'>
+                <Row  className='background-gray blue-container'>
                     <Col>
-                        <span></span>
+                        <Image src={PictureOne} />
                     </Col>
-                    <Col>
+                    <Col className='margin-column'>
                     <h2>Publica tu oferta de trabajo</h2>
-                    <p>Crea una publicación con tu oferta de trabajo "puntual" para que los trabajadores puedan ver
+                    <p>Crea una publicación con tu oferta de trabajo para que los trabajadores puedan verla
                          y postular. Accede al perfil de los postulantes para ver si cumplen los requisitos, 
                         comunícate con ellos por el foro, y ponte de acuerdo para llevar a cabo el trabajo.
                     </p>
                     </Col>
                 </Row>
-                <Row>
-                    <Col>
-                        <h2>Publica tu oferta de trabajo</h2>
-                        <p>Crea una publicación con tu oferta de trabajo "puntual" para que los trabajadores puedan ver
-                            y postular. Accede al perfil de los postulantes para ver si cumplen los requisitos, 
-                            comunícate con ellos por el foro, y ponte de acuerdo para llevar a cabo el trabajo.
+                <Row className='blue-container'>
+                    <Col className='margin-column'>
+                        <h2>Crea tu perfil</h2>
+                        <p>Y asegúrate de incluir todas tus habilidades e intereses, 
+                            para que los empleadores puedan hacerse una idea integral respecto a ti.
                         </p>
                     </Col>
                     <Col>
-                        <span></span>
+                    <Image src={PictureTwo} />
                     </Col>
                 </Row>
-                <Row>
+                <Row  className='background-gray blue-container'>
                     <Col>
-                        <span></span>
+                    <Image src={PictureThree} />
                     </Col>
-                    <Col>
-                    <h2>Publica tu oferta de trabajo</h2>
-                    <p>Crea una publicación con tu oferta de trabajo "puntual" para que los trabajadores puedan ver
-                         y postular. Accede al perfil de los postulantes para ver si cumplen los requisitos, 
-                        comunícate con ellos por el foro, y ponte de acuerdo para llevar a cabo el trabajo.
+                    <Col className='margin-column'>
+                    <h2>Conexión rápida y fácil</h2>
+                    <p>Una vez el empleador haya aceptado postulantes para su oferta, 
+                        podrá ponerse en contacto con ellos para comenzar el trabajo.
                     </p>
                     </Col>
                 </Row>
@@ -102,35 +103,34 @@ function Home() {
         </div>
         <div>
             <Container>
-                <h2 className='center'>Experiencias CoronaJobs</h2>
+                <h2 className='center blue'>Experiencias CoronaJobs</h2>
                 <Row>
                     <Col>
-                        <div>
-                            <span></span>
-                            <h5>Nombre apellido</h5>
+                        <div className='center'>
+                            <Image src={DefaultPicture} className='picture-profile'/>
+                            <h5 className='blue'>Rafaela Karachon</h5>
                             <p>
-                            "Me quedé sin trabajo, y CoronaJobs me permitió obtener 
-                            una fuente de ingreso"
+                            "Desde que existe CoronaJobs puedo encontrar trabajos puntuales
+                            de forma rápida y sencilla."
                             </p>
                         </div>
                     </Col>
                     <Col>
-                        <div>
-                            <span></span>
-                            <h5>Nombre apellido</h5>
+                        <div className='center'>
+                            <Image src={DefaultPicture} className='picture-profile'/>
+                            <h5 className='blue'>Claudio Scheihing</h5>
                             <p>
-                            "Me quedé sin trabajo, y CoronaJobs me permitió obtener 
-                            una fuente de ingreso"
+                            "CoronaJobs cambió mi vida."
                             </p>
                         </div>
                     </Col>
                     <Col>
-                        <div>
-                            <span></span>
-                            <h5>Nombre apellido</h5>
+                        <div className='center'>
+                            <Image src={DefaultPicture} className='picture-profile'/>
+                            <h5 className='blue'>Daniela Vásquez</h5>
                             <p>
                             "Me quedé sin trabajo, y CoronaJobs me permitió obtener 
-                            una fuente de ingreso"
+                            una fuente de ingreso de forma inmediata."
                             </p>
                         </div>
                     </Col>

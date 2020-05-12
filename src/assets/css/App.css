@@ -2,6 +2,10 @@ h1 {
   margin-left: 10px;
 }
 
+p {
+  color: rgb(33,37,41);
+}
+
 .App {
   
   background-image: url('../images/background.png');
@@ -26,6 +30,28 @@ h1 {
 .some-space {
   margin: 0rem auto;
   height: 10vmin;
+}
+
+.margin-container {
+  margin: 5rem 0rem;
+}
+
+.expand-container {
+  display: contents;
+}
+
+.margin-column {
+  padding-left: 3rem;
+  margin: auto;
+}
+
+.blue-container{
+  color: #4169e1;
+  font-size: 20px;
+}
+
+.blue {
+  color: #4169e1;
 }
 
 .strong-color {
