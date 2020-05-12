@@ -1,16 +1,19 @@
 import { gql } from '@apollo/client';
 
 export const GET_ALL_POSTS = gql`
-  query getAllPosts($id: Int!) {
-    getAllPosts(
-      id: $id
-    ) {
+  query getAllPosts {
+    getAllPosts { 
       id
       name
       description
       applicantLimit
-      owner
-      state
+      owner {
+        id
+        name
+      }
+      state {
+    		id
+      }
     }
   }
 `;
