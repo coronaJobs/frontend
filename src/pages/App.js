@@ -60,7 +60,7 @@ function App() {
               <UserProfile />
             </Route> : null}
             <Route path="/">
-              <Home />
+              <Home userLoggedIn={isLoggedIn}/>
             </Route>
           </Switch>
         </Router>

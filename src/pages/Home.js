@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useQuery } from '@apollo/client';
+import { GET_ALL_POSTS } from '../graphql/queries/posts';
 import { useParams } from "react-router-dom";
 import logo from '../assets/logo.svg';
 import PictureOne from '../assets/images/publicar-home.jpg';
@@ -12,9 +13,16 @@ import { Container, Row, Col, Spinner, Image } from 'react-bootstrap';
 
 
 
-function Home() {
+function Home(props) {
     return (
-      <div>
+        <div>
+        {
+            props.userLoggedIn? 
+            
+            <div>
+
+            </div> : 
+        <div>
         <div className="App">
             <Container className='center'>
                 <Row className='App-message'>
@@ -138,9 +146,9 @@ function Home() {
             </Container>
         </div>
       </div>
-      
+        }
+    </div>   
     )
   }
 
-
-  export default Home;
+export default Home;
