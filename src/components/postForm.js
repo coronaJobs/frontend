@@ -82,7 +82,7 @@ import { CREATE_POST } from '../graphql/mutations/posts';
         <Form.Label>Descripción</Form.Label>
         <Form.Control as="textarea" rows="3" placeholder="Escribe la descripción del trabajo..." onChange={(event)=>setDescription(event.target.value)} className="text-input"/>
       </Form.Group>
-      <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="signup-button">Registrar</Button>
+      <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="signup-button">Publicar</Button>
     </Form>
     ) : <Redirect to={`/users/${props.userId}`} /> 
   )
