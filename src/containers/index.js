@@ -5,3 +5,6 @@ export { default as ExperienceProfile } from './userProfile/experienceProfile'
 
 export { default as CoronaNavBar } from './navbar';
 export { default as Loading } from './loading';
+
+export { default as HomeDefault } from './home';
+export { default as HomeUser } from './homeUser';

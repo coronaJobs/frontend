@@ -2,13 +2,66 @@ h1 {
   margin-left: 10px;
 }
 
-.App {
-  text-align: center;
+p {
+  color: rgb(33,37,41);
 }
 
-.App-logo {
+.App {
+  
+  background-image: url('../images/background.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.8;
+}
+
+.App-message {
   height: 40vmin;
+  padding: 5vmin;
   pointer-events: none;
+  color: #021d20;
+  opacity: 1 !important;
+  font-size: 45px;
+}
+
+.center {
+  text-align: center;
+}
+.some-space {
+  margin: 0rem auto;
+  height: 10vmin;
+}
+
+.margin-container {
+  margin: 5rem 0rem;
+}
+
+.expand-container {
+  display: contents;
+}
+
+.margin-column {
+  padding-left: 3rem;
+  margin: auto;
+}
+
+.blue-container{
+  color: #4169e1;
+  font-size: 20px;
+}
+
+.blue {
+  color: #4169e1;
+}
+
+.strong-color {
+  opacity: 1 !important;
+  color: white;
+}
+.strong-color:hover {
+  color: #021d20;
+  background-color: white;
+  text-decoration: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
