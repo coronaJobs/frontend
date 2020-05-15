@@ -17,7 +17,7 @@ function HomeDefault() {
             <Container className='center'>
                 <Row className='App-message'>
                     <Col>
-                    <h1 className="mx-5 px-5">Conectamos instituciones con personas dispuestas a suplir las necesidades generadas por el COVID-19</h1>
+                    <h1 className="mx-5 px-5 invitation">Conectamos instituciones con personas dispuestas a suplir las necesidades generadas por el COVID-19</h1>
                     </Col>
                 </Row>
                 <Row className='some-space'>
@@ -64,7 +64,7 @@ function HomeDefault() {
             <Container className='expand-container'>
                 <Row  className='background-gray blue-container'>
                     <Col>
-                        <Image src={PictureOne} />
+                        <Image src={PictureOne} className='default-homepage-image'/>
                     </Col>
                     <Col className='margin-column'>
                     <h2>Publica tu oferta de trabajo</h2>
@@ -74,7 +74,7 @@ function HomeDefault() {
                     </p>
                     </Col>
                 </Row>
-                <Row className='blue-container'>
+                <Row className='blue-container' >
                     <Col className='margin-column'>
                         <h2>Crea tu perfil</h2>
                         <p>Y asegúrate de incluir todas tus habilidades e intereses, 
@@ -82,12 +82,12 @@ function HomeDefault() {
                         </p>
                     </Col>
                     <Col>
-                    <Image src={PictureTwo} />
+                    <Image src={PictureTwo} className='default-homepage-image'/>
                     </Col>
                 </Row>
                 <Row  className='background-gray blue-container'>
                     <Col>
-                    <Image src={PictureThree} />
+                    <Image src={PictureThree} className='default-homepage-image'/>
                     </Col>
                     <Col className='margin-column'>
                     <h2>Conexión rápida y fácil</h2>
