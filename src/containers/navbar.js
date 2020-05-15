@@ -8,19 +8,17 @@ import { useApolloClient } from '@apollo/client';
 import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
 
 function EmployeesLinks() {
-    {/* TODO: set correct hrefs for each link */}
     return([
-        <Nav.Link href="/">
+        <Nav.Link href="/" key='available posts'>
             Ofertas Disponibles
         </Nav.Link>,
-        <Nav.Link href="/">
+        <Nav.Link href="/" key='current applications'>
             Postulaciones Vigentes
         </Nav.Link>
     ]);
 };
 
 function EmployersLinks() {
-    {/* TODO: set correct hrefs for each link */}
     return([
         <Nav.Link href="/">
             Nueva Oferta

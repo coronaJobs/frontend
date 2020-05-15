@@ -26,8 +26,8 @@ function HomeUser(props) {
                         </div>
                         <Row>
                             {
-                                posts.map(post =>
-                                    <Col className='center'>
+                                posts.map((post, index) =>
+                                    <Col key={'profile-' + index.toString()} className='center'>
                                         <Image src={DefaultPicture} className='picture-profile'/>
                                         <h3>{post.name}</h3>
                                         <p>{post.description}</p>
