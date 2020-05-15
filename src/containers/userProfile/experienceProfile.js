@@ -1,11 +1,10 @@
 import React from 'react';
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { Image } from 'react-bootstrap';
 import DefaultPictureExp from '../../assets/images/experienceProfile-default.png';
 
 
 function ExperienceProfile (props){
-    let { userId } = useParams();
     return (  
             <div className='center'>
                 <h5>Nombre experiencia</h5>

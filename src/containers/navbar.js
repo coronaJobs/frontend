@@ -2,9 +2,8 @@
 import React from 'react';
 
 // Apollo & GraphQL
-import { useApolloClient, useQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 // import { CURRENT_USER } from '../graphql/queries/inner_queries';
-import { GET_USER } from '../graphql/queries/users';
 // Bootstrap
 import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
 

@@ -6,7 +6,7 @@ import PictureTwo from '../assets/images/editar-home.jpg';
 import PictureThree from '../assets/images/conectar-home.jpg';
 import DefaultPicture from '../assets/images/userProfile-default.png';
 import { PencilSquare, FileRichtext, Link } from 'react-bootstrap-icons';
-import { Container, Row, Col, Spinner, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 
 
 
