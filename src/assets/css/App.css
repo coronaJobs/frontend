@@ -105,12 +105,3 @@ p {
 .right {
   text-align: right;
 }
-
-.invitation {
-  font-size: 3.5vw; 
-}
-
-.default-homepage-image {
-  max-width: 100vw;
-  height: auto;
-}

@@ -6,7 +6,7 @@ import PictureTwo from '../assets/images/editar-home.jpg';
 import PictureThree from '../assets/images/conectar-home.jpg';
 import DefaultPicture from '../assets/images/userProfile-default.png';
 import { PencilSquare, FileRichtext, Link } from 'react-bootstrap-icons';
-import { Container, Row, Col, Spinner, Image } from 'react-bootstrap';
+import { Container, Row, Col, Image } from 'react-bootstrap';
 
 
 
@@ -17,12 +17,12 @@ function HomeDefault() {
             <Container className='center'>
                 <Row className='App-message'>
                     <Col>
-                    <h1 className="mx-5 px-5 invitation">Conectamos instituciones con personas dispuestas a suplir las necesidades generadas por el COVID-19</h1>
+                    <h1 className="mx-5 px-5 .homeDefault-invitation-text">Conectamos instituciones con personas dispuestas a suplir las necesidades generadas por el COVID-19</h1>
                     </Col>
                 </Row>
                 <Row className='some-space'>
                 <Col>
-                <span><a className="signup-button strong-color some-space" href='/signup'>Regístrate aquí</a></span>
+                <span><a className="homeDefault-signup-button strong-color some-space" href='/signup'>Regístrate aquí</a></span>
                     </Col>
                 </Row>
             </Container>
@@ -64,7 +64,7 @@ function HomeDefault() {
             <Container className='expand-container'>
                 <Row  className='background-gray blue-container'>
                     <Col>
-                        <Image src={PictureOne} className='default-homepage-image'/>
+                        <Image src={PictureOne} className='homeDefault-image'/>
                     </Col>
                     <Col className='margin-column'>
                     <h2>Publica tu oferta de trabajo</h2>
@@ -82,12 +82,12 @@ function HomeDefault() {
                         </p>
                     </Col>
                     <Col>
-                    <Image src={PictureTwo} className='default-homepage-image'/>
+                    <Image src={PictureTwo} className='homeDefault-image'/>
                     </Col>
                 </Row>
                 <Row  className='background-gray blue-container'>
                     <Col>
-                    <Image src={PictureThree} className='default-homepage-image'/>
+                    <Image src={PictureThree} className='homeDefault-image'/>
                     </Col>
                     <Col className='margin-column'>
                     <h2>Conexión rápida y fácil</h2>
@@ -105,7 +105,7 @@ function HomeDefault() {
                 <Row>
                     <Col>
                         <div className='center'>
-                            <Image src={DefaultPicture} className='picture-profile'/>
+                            <Image src={DefaultPicture} className='homeDefault-profile-picture '/>
                             <h5 className='blue'>Rafaela Karachon</h5>
                             <p>
                             "Desde que existe CoronaJobs puedo encontrar trabajos puntuales
@@ -115,7 +115,7 @@ function HomeDefault() {
                     </Col>
                     <Col>
                         <div className='center'>
-                            <Image src={DefaultPicture} className='picture-profile'/>
+                            <Image src={DefaultPicture} className='homeDefault-profile-picture '/>
                             <h5 className='blue'>Claudio Scheihing</h5>
                             <p>
                             "CoronaJobs cambió mi vida."
@@ -124,7 +124,7 @@ function HomeDefault() {
                     </Col>
                     <Col>
                         <div className='center'>
-                            <Image src={DefaultPicture} className='picture-profile'/>
+                            <Image src={DefaultPicture} className='homeDefault-profile-picture '/>
                             <h5 className='blue'>Daniela Vásquez</h5>
                             <p>
                             "Me quedé sin trabajo, y CoronaJobs me permitió obtener 

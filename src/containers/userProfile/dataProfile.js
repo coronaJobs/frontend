@@ -1,11 +1,10 @@
 import React from 'react';
 import '../../assets/css/userProfile.css';
 
-
 function DataProfile (props){
     return (  
         <div>
-            <div className='move-left'>
+            <div className='dataProfile-move-left'>
                 <h3>Datos</h3>
                 <ul>
                     <li class="text-left">Dirección: {props.address} </li>
@@ -17,7 +16,5 @@ function DataProfile (props){
         </div>
       )
 };
-
-
 
 export default DataProfile;

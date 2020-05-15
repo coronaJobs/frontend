@@ -25,7 +25,7 @@
   text-shadow: none;
 }
 
-#signup-link {
+#login-signup-link {
   margin-top: 10px;
   display: block;
   text-align: center;
@@ -35,7 +35,7 @@
   text-decoration: none;
 }
 
-.text-input {
+.login-text-input {
   background: var(--background-secondary);
   border: none;
   border-bottom: 1px solid var(--border-primary);
@@ -47,6 +47,6 @@
   height: 40px;
 }
 
-#error-message {
+#login-error-message {
   color:var(--pink-primary);
 }
