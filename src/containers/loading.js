@@ -2,6 +2,7 @@
 import React, { Fragment } from 'react';
 
 // Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Spinner } from 'react-bootstrap';
 
 export default function Loading() {
@@ -10,8 +11,7 @@ export default function Loading() {
             <Container fluid className='d-flex flex-column justify-content-center align-items-stretch'>
                 <Row className='d-flex justify-content-center'>
                     {/* TODO: Bigger spinner */}
-                    {/* TODO: Ubicar spinner más abajo */}
-                    <Spinner animation="grow" role="status" variant="danger" />
+                    <Spinner animation="grow" variant="danger" className="mt-5" />
                 </Row>
             </Container>
         </Fragment>
