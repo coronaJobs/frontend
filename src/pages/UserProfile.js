@@ -4,7 +4,7 @@ import { useQuery } from '@apollo/client';
 import '../assets/css/userProfile.css';
 import { useParams } from "react-router-dom";
 import { DataProfile, PictureProfile, ExperienceProfile, Loading } from '../containers';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { PostFormComponent } from '../components';
 
 
@@ -38,7 +38,8 @@ function UserProfile (props){
                         <Col>
                             <div className='container'>
                                 { (loading)?
-                                    <Spinner animation="grow" variant="danger" />
+                                    // <Spinner animation="grow" variant="danger" />
+                                    <Loading />
                                     :
                                     <PictureProfile name={name} role={role.name}/>
                                 }
@@ -48,7 +49,8 @@ function UserProfile (props){
                         <Col>
                             <div className='container'>  
                             { (loading)?
-                                    <Spinner animation="grow" variant="danger" />
+                                    // <Spinner animation="grow" variant="danger" />
+                                    <Loading />
                                     :        
                                 <DataProfile address={address} mail={mail} rut={rut} phone={phone}/>
                             } 
