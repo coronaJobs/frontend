@@ -62,9 +62,7 @@ function UserProfile (props){
                     <div id="experience-container">
                         <h3>Mis experiencias</h3>
                         {formButton}
-                          {/* <PostFormComponent userId={userId}/>   */}
-                    
-                        
+                        {/* <PostFormComponent userId={userId}/>   */}
                     </div>
                     <Row>
                         <Col>
