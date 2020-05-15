@@ -12,11 +12,12 @@ import { useQuery } from '@apollo/client';
 import { GET_USER } from '../graphql/queries/users';
 import { IS_LOGGED_IN, CURRENT_USER } from '../graphql/queries/inner_queries';
 
-import { CoronaNavBar } from '../containers';
+import { CoronaNavBar, Loading } from '../containers';
 
 // Bootstrap
 import { Spinner } from 'react-bootstrap';
 import '../assets/css/App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import UserProfile from './UserProfile';
 import SignUp from './signup';
 import Login from './login';
@@ -42,10 +43,10 @@ function App() {
   // TODO: Handle errors
   return (
     <Fragment>
+      <CoronaNavBar userLoggedIn={isLoggedIn} currentUser={data ? data.getUser : null} />,
       {loading ? (
-        <Spinner animation="grow" role="status" as="h1" />
+        <Loading />
       ) : [
-        <CoronaNavBar userLoggedIn={isLoggedIn} currentUser={data ? data.getUser : null} />,
         <Router>
           {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
