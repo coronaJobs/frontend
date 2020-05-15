@@ -8,3 +8,5 @@ export { default as Loading } from './loading';
 
 export { default as HomeDefault } from './home';
 export { default as HomeUser } from './homeUser';
+
+export { default as JobOffer } from './jobOffer';

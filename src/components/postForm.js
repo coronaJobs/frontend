@@ -96,7 +96,7 @@ export default function PostFormComponent (props) {
 
   return(
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="outline-light" onClick={handleShow} className="background-pink">
         Publicar oferta de trabajo
       </Button>
       <Modal show={showModal} onHide={handleClose} size="lg">
