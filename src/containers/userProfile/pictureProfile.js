@@ -10,7 +10,7 @@ function PictureProfile (props){
             <div className='center'>
                 <Image src={DefaultPicture} className='picture-profile'/>
                 <h5>{props.name}</h5>
-                <p>{props.role == 'employer'? 'Empleador' : 'Trabajador'}</p>
+                <p>{props.role === 'employer'? 'Empleador' : 'Trabajador'}</p>
             </div>
         </div>
       )
