@@ -45,9 +45,7 @@ function App() {
       {loading ? (
         <Loading />
       ) : [
-        <Router>
-          {/* A <Switch> looks through its children <Route>s and
-          renders the first one that matches the current URL. */}
+        <Router key='router'>
           <Switch>
             <Route path="/signup">
               <SignUp />
