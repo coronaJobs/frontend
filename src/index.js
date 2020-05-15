@@ -22,8 +22,9 @@ import * as serviceWorker from './serviceWorker';
 
 const cache = new InMemoryCache({});
 
+
 const httpLink = new HttpLink({
-  uri: 'https://api-corona-jobs-staging.herokuapp.com/'
+  uri: process.env.REACT_APP_BACKEND_URL
 });
 
 // TODO: Set auth middleware
