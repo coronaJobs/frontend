@@ -38,7 +38,7 @@ const httpLink = new HttpLink({
 
 persistCache({
   cache,
-  storage: window.localStorage
+  storage: window.localStorage,
 }).then(() => {
 	const client = new ApolloClient({
 		cache,

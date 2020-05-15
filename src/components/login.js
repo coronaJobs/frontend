@@ -1,66 +1,46 @@
 // React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 
 // Bootstrap
 import { Button, Form } from 'react-bootstrap';
 
 // Apollo & GraphQL
-import { useApolloClient, useMutation, useQuery} from '@apollo/client';
-import { LOGIN } from '../graphql/mutations/users';
+import { useQuery } from '@apollo/client';
 import { IS_LOGGED_IN } from '../graphql/queries/inner_queries';
+
+// Custom Hooks
+import { useLogin } from '../hooks';
 
 
 export default function LoginComponent() {
-  const client = useApolloClient();
-
   const { data } = useQuery(IS_LOGGED_IN);
   const { isLoggedIn } = data;
 
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
-  const [validationError, setValidationError] = useState(''); 
+  const [validationError, setValidationError] = useState('');
   
-  const [login] = useMutation(LOGIN, {
-    onCompleted({ login }) {
-      localStorage.setItem('token', login);
+  const [validForm, setValidForm] = useState(false);
 
-			client.cache.writeData({
-				data: {
-					isLoggedIn: true,
-				}
-      });
-    },
-    onError(error) {
-      console.log(error);
-      setValidationError('Correo o contraseña inválidos.');
-    }});
+  const { error } = useLogin(mail, password, validForm);
+
+  useEffect(() => { setValidationError(error) }, [error]);
 
   const validateForm = () => {
     if (!mail || !password) {
       setValidationError('Debes rellenar todos los campos para poder iniciar sesión.');
-      return false;
+      setValidForm(false);
     } else {
-      setValidationError('');
-      return true;
+      setValidationError();
+      setValidForm(true);
     }
-  }
-
-  const onHandleSubmit = () => {
-    if (validateForm()){
-      login({
-        variables:{
-          mail: mail,
-          password: password,
-        }
-      });
-    } 
   }
 
   return(
     !isLoggedIn ? (
-      <div class="login-background">
-        <div class="login-form-container">
+      <div className="login-background">
+        <div className="login-form-container">
           <h1>Inicia sesión</h1>
           <p id="error-message">{validationError}</p>
           <Form>
@@ -71,7 +51,14 @@ export default function LoginComponent() {
               <Form.Control type="password" placeholder="Contraseña" onChange={(event)=>setPassword(event.target.value)} className="text-input"/>
             </Form.Group>
             {/* TODO: Cambiar color botón al hacer click */}
-            <Button variant="primary" onClick={onHandleSubmit} block className="login-button">Ingresar</Button>
+            <Button
+              variant="primary"
+              onClick={validateForm}
+              block
+              className="login-button"
+            >
+              Ingresar
+            </Button>
           </Form>
           <span><a id="signup-link" href='/signup'>¿No tienes una cuenta? Regístrate aquí</a></span>
         </div>
