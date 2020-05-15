@@ -1,0 +1,23 @@
+.picture-profile{
+    max-width: 12rem;
+    margin: 2rem;
+}
+
+.move-left{
+    float: left;
+}
+
+.move-right{
+    float: right;
+}
+
+.box-margin{
+    margin: 2rem;
+}
+
+#experience-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}

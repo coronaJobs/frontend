@@ -4,49 +4,25 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Setup for Development Environment
 
-+ clone this repo
-+ `$ cd frontend`
-+ build and tag the docker image, named corona-jobs-frontend
++ Clone this repo
++ In the command line:
   ```
-  $ docker build -t corona-jobs-frontend:dev .
+    $ cd frontend
   ```
-+ run container (very important to be in the correct directory!)
-  
-  Windows:
++ To build the image with docker-compose:
   ```
-  $ docker run \
-        -it \
-        --rm \
-        -v ${PWD}:/app \
-        -v /app/node_modules \
-        -p 3001:3000 \
-        -e CHOKIDAR_USEPOLLING=true \
-        corona-jobs-frontend:dev
+    $ docker-compose build
   ```
-
-    **Note:** {PWD} may not work on Windows if you're not in PowerShell. Check [this](https://stackoverflow.com/questions/41485217/mount-current-directory-as-a-volume-in-docker-on-windows-10) for more info.
-
-  Mac:
++ Run container:
   ```
-  $ docker run \
-        -it \
-        --rm \
-        -v pwd:/app \
-        -v /app/node_modules \
-        -p 3001:3000 \
-        -e CHOKIDAR_USEPOLLING=true \
-        corona-jobs-frontend:dev
+  $ docker-compose up
   ```
 
 + open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 + to open the container's terminal:
   ```
-  $ docker exec -it <container-name> /bin/sh
-  ```
-  **Note:** To get container names, run
-  ```
-  $ docker container ls
+  $ docker exec -it corona-jobs /bin/sh
   ```
 
 [Initial Setup Source](https://mherman.org/blog/dockerizing-a-react-app/)
@@ -118,3 +94,32 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+
+## Pull Request Template
+
+# Description
+Please include a description of the changes and relevant information. List any dependencies that are required for this change.
+## Type of change
+Please delete options that are not relevant.
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature HTML / CSS (please include before/after screenshot)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
+# How Has This Been Tested?
+Please describe the tests that you ran to verify your changes (Like web browser's or mobile devices). Provide instructions so we can reproduce.
+- [ ] Chrome Desktop
+- [ ] Safari Desktop
+- [ ] Chrome Mobile (not desktop emulator)
+- [ ] iOS Mobile (not desktop emulator)
+# Screenshots (Only if need)
+#### Before this PR
+#### After this PR
+# Checklist:
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my own code
+- [ ] I have unsuscribed from observables in Components when not using the async Pipe
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] My changes generate no new warnings
+- [ ] The target of this commit is 'dev'
+- [ ] Any dependent changes have been merged and published in downstream modules
