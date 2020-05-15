@@ -12,8 +12,9 @@ import { PostFormComponent } from '../components';
 function UserProfile (props){
     let { userId } = useParams();
     const { data, loading, error } = useQuery(GET_USER_PROFILE, {
-        variables: {id: parseInt(userId)},
         fetchPolicy: 'network-only',
+        variables: {id: parseInt(userId)}
+
       });
     console.log(data);
     if (loading) return <Loading />;
