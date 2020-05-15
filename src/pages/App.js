@@ -43,7 +43,7 @@ function App() {
   // TODO: Handle errors
   return (
     <Fragment>
-      <CoronaNavBar userLoggedIn={isLoggedIn} currentUser={data ? data.getUser : null} />,
+      <CoronaNavBar userLoggedIn={isLoggedIn} currentUser={data ? data.getUser : null} />
       {loading ? (
         <Loading />
       ) : [

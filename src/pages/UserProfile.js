@@ -3,7 +3,7 @@ import { GET_USER_PROFILE } from '../graphql/queries/users';
 import { useQuery } from '@apollo/client';
 import '../assets/css/userProfile.css';
 import { useParams } from "react-router-dom";
-import { DataProfile, PictureProfile, ExperienceProfile, Loading } from '../containers';
+import { DataProfile, PictureProfile, ExperienceProfile, Loading, JobOffer } from '../containers';
 import { Container, Row, Col } from 'react-bootstrap';
 import { PostFormComponent } from '../components';
 
@@ -12,18 +12,49 @@ import { PostFormComponent } from '../components';
 function UserProfile (props){
     let { userId } = useParams();
     const { data, loading, error } = useQuery(GET_USER_PROFILE, {
-        variables: {id: parseInt(userId)}
+        variables: {id: parseInt(userId)},
+        fetchPolicy: 'network-only',
       });
     console.log(data);
     if (loading) return <Loading />;
-    const {name, address, role, mail, rut, phone} = data.getUser;
-    let formButton;
+    const {name, address, role, mail, rut, phone, posts} = data.getUser;
+    let formButton, content;
     switch (role.name) {
         case 'employer':
             formButton = <PostFormComponent userId={userId}/> ;
+            // TODO: Query exclusiva para posts de empleador
+            content = <Container className='container box-margin' fluid>
+            <div id="experience-container">
+                <h3>Ofertas</h3>
+                {formButton}
+            </div>
+            <Row>
+                {posts.map((post) => <JobOffer post={post} />)}
+            </Row>
+        </Container> ;
             break;
         case 'employee':
             formButton = null; // TODO: poner form de agregar experiencia
+            // TODO: sacar info dummy
+            content = <Container className='container box-margin' fluid>
+                <div id="experience-container">
+                    <h3>Mis experiencias</h3>
+                    {formButton}
+                    {/* <PostFormComponent userId={userId}/>   */}
+                </div>
+                <Row>
+                    <Col>
+                        <div className='container'>
+                            <ExperienceProfile userId={userId}/>
+                        </div>
+                    </Col>
+                    <Col>
+                        <div className='container'>          
+                            <ExperienceProfile userId={userId}/>
+                        </div>
+                    </Col>
+                </Row>
+            </Container>;
             break;
         default:
             formButton = null;
@@ -48,7 +79,7 @@ function UserProfile (props){
                         </Col>
                         <Col>
                             <div className='container'>  
-                            { (loading)?
+                            { (loading) ?
                                     // <Spinner animation="grow" variant="danger" />
                                     <Loading />
                                     :        
@@ -58,25 +89,7 @@ function UserProfile (props){
                         </Col>
                     </Row>    
                 </Container>
-                <Container className='container box-margin' fluid>
-                    <div id="experience-container">
-                        <h3>Mis experiencias</h3>
-                        {formButton}
-                        {/* <PostFormComponent userId={userId}/>   */}
-                    </div>
-                    <Row>
-                        <Col>
-                            <div className='container'>
-                                <ExperienceProfile userId={userId}/>
-                            </div>
-                        </Col>
-                        <Col>
-                            <div className='container'>          
-                                <ExperienceProfile userId={userId}/>
-                            </div>
-                        </Col>
-                    </Row>
-                </Container>
+                {content}
             </div>
             
       )
