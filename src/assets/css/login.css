@@ -1,5 +1,7 @@
+@import 'globalVariables.css';
+
 .login-background {
-  background: #f1f7fc;
+  background: var(--background-secondary);
   padding: 80px 0;
 }
 
@@ -8,13 +10,13 @@
   max-width: 900px;
   width: 60%;
   margin: 0 auto;
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
-  background-color: #ffffff;
+  box-shadow: 1px 1px 5px var(--shadow-primary);
+  background-color: var(--white);
   padding: 40px 60px;
 }
 
 .login-button {
-  background: #f4476b;
+  background: var(--button-primary-color);
   border: none;
   border-radius: 4px;
   padding: 11px;
@@ -23,20 +25,20 @@
   text-shadow: none;
 }
 
-#signup-link {
+#login-signup-link {
   margin-top: 10px;
   display: block;
   text-align: center;
   font-size: 12px;
-  color: #6f7a85;
+  color: var(--darkgray);
   opacity: 0.9;
   text-decoration: none;
 }
 
-.text-input {
-  background: #f7f9fc;
+.login-text-input {
+  background: var(--background-secondary);
   border: none;
-  border-bottom: 1px solid #dfe7f1;
+  border-bottom: 1px solid var(--border-primary);
   border-radius: 0;
   box-shadow: none;
   outline: none;
@@ -45,6 +47,6 @@
   height: 40px;
 }
 
-#error-message {
-  color: #f4476b;
+#login-error-message {
+  color:var(--pink-primary);
 }

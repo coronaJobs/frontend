@@ -48,7 +48,7 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
         <Navbar
             collapseOnSelect
             expand="lg"
-            className="navbar-light navigation-clean-search background-gray font-color"
+            className="navbar-light navigation-clean-search navbar-background-gray navbar-font-color"
         >
             <Navbar.Brand href='/'>
                 CoronaJobs
@@ -81,7 +81,7 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                         userLoggedIn ? (
                             <Button
                                 variant="outline-light"
-                                className="background-pink"
+                                className="navbar-pink-button"
                                 onClick = {() => {
                                     client.cache.writeData({
                                         data: {
@@ -96,7 +96,7 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                             </Button>
                         ) : (
                             // TODO: No mostrar botón si la vista actual es la de login
-                            <Button variant="outline-light" className="background-pink" href="/login">
+                            <Button variant="outline-light" className="navbar-pink-button" href="/login">
                                 Iniciar Sesión
                             </Button>
                         )

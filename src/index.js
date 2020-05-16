@@ -13,7 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // CSS
 import './assets/css/index.css';
-import './assets/css/colorPalette.css';
 import './assets/css/Navigation-with-Search.css'
 
 import App from './pages/App';
@@ -22,8 +21,9 @@ import * as serviceWorker from './serviceWorker';
 
 const cache = new InMemoryCache({});
 
+
 const httpLink = new HttpLink({
-  uri: 'https://api-corona-jobs-staging.herokuapp.com/'
+  uri: process.env.REACT_APP_BACKEND_URL
 });
 
 // TODO: Set auth middleware
