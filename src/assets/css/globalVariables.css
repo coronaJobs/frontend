@@ -12,6 +12,7 @@
   /* background */
   --background-primary: #ffffff;
   --background-secondary: #f1f7fc;
+  --background-tertiary:  rgb(248,249,250);
 
   /* shadow */
   --shadow-primary: rgba(0,0,0,0.1);
@@ -24,5 +25,8 @@
   --button-primary-color: #f4476b;
 
   /* paragraphs */
-  --p-primary: rgb(33,37,41);
+  --p-primary: rgb(34,34,34);
+
+  /* navbar */
+  --navbar-text-color: rgb(34,34,34);
 }

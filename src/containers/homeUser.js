@@ -7,7 +7,7 @@ import DefaultPicture from '../assets/images/userProfile-default.png';
 import { Spinner, Container, Row, Col, Image } from 'react-bootstrap';
 
 function HomeUser(props) {
-    const { data, loading, error } = useQuery(GET_ALL_POSTS, {
+    const { data, loading } = useQuery(GET_ALL_POSTS, {
         fetchPolicy: 'network-only',
       });
     if (loading) return <Loading />;

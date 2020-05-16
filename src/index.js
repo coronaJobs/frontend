@@ -13,7 +13,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // CSS
 import './assets/css/index.css';
-import './assets/css/colorPalette.css';
 import './assets/css/Navigation-with-Search.css'
 
 import App from './pages/App';

@@ -62,7 +62,7 @@ function HomeDefault() {
         </div>
         <div className='margin-container'>
             <Container className='expand-container'>
-                <Row  className='background-gray blue-container'>
+                <Row  className='homeDefault-background-gray blue-container'>
                     <Col>
                         <Image src={PictureOne} className='homeDefault-image'/>
                     </Col>
@@ -85,7 +85,7 @@ function HomeDefault() {
                     <Image src={PictureTwo} className='homeDefault-image'/>
                     </Col>
                 </Row>
-                <Row  className='background-gray blue-container'>
+                <Row  className='homeDefault-background-gray blue-container'>
                     <Col>
                     <Image src={PictureThree} className='homeDefault-image'/>
                     </Col>

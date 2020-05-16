@@ -1,0 +1,5 @@
+@import 'globalVariables.css';
+
+.postForm-button-pink {
+  background-color: var(--button-primary-color);
+}

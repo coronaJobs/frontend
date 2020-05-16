@@ -23,3 +23,7 @@
   max-width: 12rem;
   margin: 2rem;
 }
+
+.homeDefault-background-gray {
+  background-color: var(--background-tertiary);
+}

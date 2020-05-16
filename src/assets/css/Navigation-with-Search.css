@@ -110,3 +110,15 @@
 .navigation-clean-search .form-inline .search-field:focus {
   border-bottom: 1px solid var(--lightgray);;
 }
+
+.navbar-pink-button {
+  background-color: var(--button-primary-color);
+}
+
+.navbar-background-gray {
+  background-color: var(--background-tertiary);
+}
+
+.navbar-font-color {
+  color: var(--navbar-text-color);
+}
