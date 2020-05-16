@@ -24,18 +24,19 @@ const cache = new InMemoryCache({});
 
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_BACKEND_URL
+	uri: process.env.REACT_APP_BACKEND_URL,
 });
 
-// TODO: Set auth middleware
-// const authMiddleware = new ApolloLink((operation, forward) => {
-// 	operation.setContext({
-// 		headers: {
-// 			authorization: localStorage.getItem('token') || null
-// 		}
-// 	});
-// 	return forward(operation);
-// });
+const authMiddleware = new ApolloLink((operation, forward) => {
+	if (localStorage.getItem('token')) {
+		operation.setContext({
+			headers: {
+				authorization: localStorage.getItem('token') || null
+			}
+		});
+	}
+	return forward(operation);
+});
 
 persistCache({
   cache,
