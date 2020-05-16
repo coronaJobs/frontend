@@ -3,7 +3,7 @@ import React from 'react';
 
 // Apollo & GraphQL
 import { useApolloClient, useQuery } from '@apollo/client';
-// import { CURRENT_USER } from '../graphql/queries/inner_queries';
+
 import { GET_USER } from '../graphql/queries/users';
 // Bootstrap
 import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
@@ -79,7 +79,6 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                 <Nav className="ml-auto">
                     {
                         userLoggedIn ? (
-                            // TODO: componente botón logout
                             <Button
                                 variant="outline-light"
                                 className="navbar-pink-button"
@@ -96,7 +95,6 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                                 Cerrar Sesión
                             </Button>
                         ) : (
-                            // TODO: componente botón login
                             // TODO: No mostrar botón si la vista actual es la de login
                             <Button variant="outline-light" className="navbar-pink-button" href="/login">
                                 Iniciar Sesión

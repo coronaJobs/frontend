@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import PictureOne from '../assets/images/publicar-home.jpg';
 import PictureTwo from '../assets/images/editar-home.jpg';

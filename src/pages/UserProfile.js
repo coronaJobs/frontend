@@ -16,7 +16,6 @@ function UserProfile (props){
         variables: {id: parseInt(userId)}
 
       });
-    console.log(data);
     if (loading) return <Loading />;
     const {name, address, role, mail, rut, phone, posts} = data.getUser;
     let formButton, content;
@@ -35,26 +34,15 @@ function UserProfile (props){
         </Container> ;
             break;
         case 'employee':
-            formButton = null; // TODO: poner form de agregar experiencia
-            // TODO: sacar info dummy
-            content = <Container className='container UserProfile-box-margin' fluid>
-                <div id="experience-container">
+            formButton = null; // TODO: cuando esté listo lo de los trabajos realizados, colocarlos acá
+            content = <Container className='container box-margin' fluid>
+                { formButton?
+                    <div id="experience-container">
                     <h3>Mis experiencias</h3>
-                    {formButton}
-                    {/* <PostFormComponent userId={userId}/>   */}
-                </div>
-                <Row>
-                    <Col>
-                        <div className='container'>
-                            <ExperienceProfile userId={userId}/>
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className='container'>          
-                            <ExperienceProfile userId={userId}/>
-                        </div>
-                    </Col>
-                </Row>
+                    </div>
+                    :
+                    null                             
+                }
             </Container>;
             break;
         default:
@@ -70,7 +58,6 @@ function UserProfile (props){
                         <Col>
                             <div className='container'>
                                 { (loading)?
-                                    // <Spinner animation="grow" variant="danger" />
                                     <Loading />
                                     :
                                     <PictureProfile name={name} role={role.name}/>
@@ -81,7 +68,6 @@ function UserProfile (props){
                         <Col>
                             <div className='container'>  
                             { (loading) ?
-                                    // <Spinner animation="grow" variant="danger" />
                                     <Loading />
                                     :        
                                 <DataProfile address={address} mail={mail} rut={rut} phone={phone}/>

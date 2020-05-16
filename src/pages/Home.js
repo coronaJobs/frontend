@@ -7,21 +7,21 @@ import '../assets/css/homeDefault.css';
 
 function Home(props) {
 
-    return (
+  return (
+    <div>
+      {
+        props.userLoggedIn? 
+        
         <div>
-        {
-            props.userLoggedIn? 
-            
-            <div>
-                <HomeUser/>
-            </div> 
-            : 
-            <div>
-                <HomeDefault />
-            </div>
-        }
+          <HomeUser/>
+        </div> 
+        : 
+        <div>
+          <HomeDefault />
+        </div>
+      }
     </div>   
-    )
-  }
+  )
+}
 
 export default Home;
