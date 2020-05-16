@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { useApolloClient, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
-import { CREATE_USER, LOGIN } from '../graphql/mutations/users';
+import { CREATE_USER } from '../graphql/mutations/users';
 import { IS_LOGGED_IN } from '../graphql/queries/inner_queries';
 import { Redirect } from 'react-router-dom';
+
+// Custom Hooks
+import { useLogin } from '../hooks';
  
 
 export default function SignUpComponent() {
-  const client = useApolloClient();
 
   const [name, setName] = useState('');
   const [rut, setRut] = useState('');
@@ -19,39 +21,20 @@ export default function SignUpComponent() {
   const [role, setRole] = useState(1);
   const [validationError, setValidationError] = useState('');
 
+  const [userCreated, setUserCreated] = useState(false);
+  useLogin(mail, password, userCreated);
+
   // TODO: profile picture & CV (proximo sprint)
 
   const { data } = useQuery(IS_LOGGED_IN);
   const { isLoggedIn } = data;
 
-  const [login] = useMutation(LOGIN, {
-    onCompleted({ login }) {
-      localStorage.setItem('token', login);
-      client.cache.writeData({
-        data: {
-          isLoggedIn: true,
-        }
-      });
-    }
-  });
-
   const [signUp] = useMutation(CREATE_USER, {
     onCompleted({ createUser }) {
-      login({
-        variables: {
-          mail: createUser.mail,
-          password: password,
-        }
-      });
-      // client.cache.writeData({
-      //   data: {
-      //     currentUser: createUser,
-      //   }
-      // });
+      setUserCreated(true);
     },
-    onError(error) {
+    onError() {
       setValidationError('Error. Por favor inténtelo de nuevo.')
-      console.log(error)
     }});
 
   // TODO: obtener roles (lista de roles) (no esta listo en backend)
