@@ -17,7 +17,7 @@ function HomeDefault() {
             <Container className='center'>
                 <Row className='App-message'>
                     <Col>
-                    <h1 className="mx-5 px-5 .homeDefault-invitation-text">Conectamos instituciones con personas dispuestas a suplir las necesidades generadas por el COVID-19</h1>
+                    <h1 className="mx-5 px-5 homeDefault-invitation-text">Conectamos instituciones con personas dispuestas a suplir las necesidades generadas por el COVID-19</h1>
                     </Col>
                 </Row>
                 <Row className='some-space'>
