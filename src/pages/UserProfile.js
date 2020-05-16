@@ -24,7 +24,7 @@ function UserProfile (props){
         case 'employer':
             formButton = <PostFormComponent userId={userId}/> ;
             // TODO: Query exclusiva para posts de empleador
-            content = <Container className='container box-margin' fluid>
+            content = <Container className='container UserProfile-box-margin' fluid>
             <div id="experience-container">
                 <h3>Ofertas</h3>
                 {formButton}
@@ -37,7 +37,7 @@ function UserProfile (props){
         case 'employee':
             formButton = null; // TODO: poner form de agregar experiencia
             // TODO: sacar info dummy
-            content = <Container className='container box-margin' fluid>
+            content = <Container className='container UserProfile-box-margin' fluid>
                 <div id="experience-container">
                     <h3>Mis experiencias</h3>
                     {formButton}

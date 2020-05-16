@@ -7,7 +7,7 @@ import DefaultPicture from '../assets/images/userProfile-default.png';
 import { Spinner, Container, Row, Col, Image } from 'react-bootstrap';
 
 function HomeUser(props) {
-    const { data, loading, error } = useQuery(GET_ALL_POSTS, {
+    const { data, loading } = useQuery(GET_ALL_POSTS, {
         fetchPolicy: 'network-only',
       });
     if (loading) return <Loading />;
@@ -28,10 +28,10 @@ function HomeUser(props) {
                             {
                                 posts.map(post =>
                                     <Col className='center'>
-                                        <Image src={DefaultPicture} className='picture-profile'/>
+                                        <Image src={DefaultPicture} className='homeUser-post-picture'/>
                                         <h3>{post.name}</h3>
                                         <p>{post.description}</p>
-                                        <span><a className="signup-button strong-color some-space" href='/signup'>Postular</a></span>
+                                        <span><a className="homeUser-application-button strong-color some-space" href='/signup'>Postular</a></span>
                                     </Col>
                                 )
                             }

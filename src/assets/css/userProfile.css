@@ -1,17 +1,18 @@
-.picture-profile{
+.experienceProfile-experience-picture{
     max-width: 12rem;
     margin: 2rem;
 }
 
-.move-left{
+.pictureProfile-picture-profile{
+    max-width: 12rem;
+    margin: 2rem;
+}
+
+.dataProfile-move-left{
     float: left;
 }
 
-.move-right{
-    float: right;
-}
-
-.box-margin{
+.UserProfile-box-margin{
     margin: 2rem;
 }
 
