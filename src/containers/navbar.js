@@ -9,7 +9,7 @@ import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
 
 function EmployeesLinks() {
     return([
-        <Nav.Link href="/" key='available posts'>
+        <Nav.Link href="/" key='available-posts'>
             Ofertas Disponibles
         </Nav.Link>,
         <Nav.Link href="/" key='current applications'>
