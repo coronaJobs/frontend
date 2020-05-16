@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Apollo & GraphQL
-import { ApolloClient, HttpLink, ApolloProvider, concat, ApolloLink } from '@apollo/client';
+import { ApolloClient, HttpLink, ApolloProvider } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { typeDefs, resolvers } from './graphql/resolvers';

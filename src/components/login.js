@@ -59,8 +59,8 @@ export default function LoginComponent() {
 
   return(
     !isLoggedIn ? (
-      <div class="login-background">
-        <div class="login-form-container">
+      <div className="login-background">
+        <div className="login-form-container">
           <h1>Inicia sesión</h1>
           <p id="login-error-message">{validationError}</p>
           <Form>

@@ -2,26 +2,23 @@
 import React from 'react';
 
 // Apollo & GraphQL
-import { useApolloClient, useQuery } from '@apollo/client';
-
-import { GET_USER } from '../graphql/queries/users';
+import { useApolloClient } from '@apollo/client';
+// import { CURRENT_USER } from '../graphql/queries/inner_queries';
 // Bootstrap
 import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
 
 function EmployeesLinks() {
-    {/* TODO: set correct hrefs for each link */}
     return([
-        <Nav.Link href="/">
+        <Nav.Link href="/" key='available-posts'>
             Ofertas Disponibles
         </Nav.Link>,
-        <Nav.Link href="/">
+        <Nav.Link href="/" key='current-applications'>
             Postulaciones Vigentes
         </Nav.Link>
     ]);
 };
 
 function EmployersLinks() {
-    {/* TODO: set correct hrefs for each link */}
     return([
         <Nav.Link href="/">
             Nueva Oferta

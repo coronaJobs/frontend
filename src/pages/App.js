@@ -4,18 +4,16 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import { useQuery } from '@apollo/client';
 
 // GraphQL
 import { GET_USER } from '../graphql/queries/users';
-import { IS_LOGGED_IN, CURRENT_USER } from '../graphql/queries/inner_queries';
+import { IS_LOGGED_IN } from '../graphql/queries/inner_queries';
 
 import { CoronaNavBar, Loading } from '../containers';
 
 // Bootstrap
-import { Spinner } from 'react-bootstrap';
 import '../assets/css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserProfile from './UserProfile';
@@ -32,7 +30,7 @@ function App() {
   const { isLoggedIn } = loggedInQuery.data;
 
   const decoded_token = decode(localStorage.getItem('token'));
-  const { data, loading, error } = useQuery(GET_USER, {
+  const { data, loading } = useQuery(GET_USER, {
     variables: {id: decoded_token ? parseInt(decoded_token.id) : null},
     fetchPolicy: 'network-only',
   });
@@ -44,9 +42,7 @@ function App() {
       {loading ? (
         <Loading />
       ) : [
-        <Router>
-          {/* A <Switch> looks through its children <Route>s and
-          renders the first one that matches the current URL. */}
+        <Router key='router'>
           <Switch>
             <Route path="/signup">
               <SignUp />

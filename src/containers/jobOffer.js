@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Col, Image } from 'react-bootstrap';
+// import { useParams } from "react-router-dom";
+import { Button, Col } from 'react-bootstrap';
+// import DefaultPictureExp from '../../assets/images/experienceProfile-default.png';
 
 
 function JobOffer({ post }){
