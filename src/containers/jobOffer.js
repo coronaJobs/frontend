@@ -5,7 +5,7 @@ import { Button, Col } from 'react-bootstrap';
 
 
 function JobOffer({ post }){
-    // let { userId } = useParams();
+
     return (  
             <Col>
                 <h5>{post.name}</h5>

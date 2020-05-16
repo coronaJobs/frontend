@@ -1,0 +1,32 @@
+:root {
+  /* --COLORS-- */
+  /* global */
+  --white: #ffffff;
+  --darkgray: #6f7a85;
+  --lightgray: #ccc;
+  --blue: #4169e1;
+  --lightblue: #61dafb;
+  --pink-primary: #f4476b;
+  
+  /* CONTAINERS */
+  /* background */
+  --background-primary: #ffffff;
+  --background-secondary: #f1f7fc;
+  --background-tertiary:  rgb(248,249,250);
+
+  /* shadow */
+  --shadow-primary: rgba(0,0,0,0.1);
+
+  /* border */
+  --border-primary: #dfe7f1;
+
+  /* COMPONENTS */
+  /* buttons */
+  --button-primary-color: #f4476b;
+
+  /* paragraphs */
+  --p-primary: rgb(34,34,34);
+
+  /* navbar */
+  --navbar-text-color: rgb(34,34,34);
+}

@@ -29,9 +29,6 @@ function App() {
   const loggedInQuery = useQuery(IS_LOGGED_IN);
   const { isLoggedIn } = loggedInQuery.data;
 
-  // const currentUserQuery = useQuery(CURRENT_USER);
-  // const { currentUser } = currentUserQuery.data;
-
   const decoded_token = decode(localStorage.getItem('token'));
   const { data, loading } = useQuery(GET_USER, {
     variables: {id: decoded_token ? parseInt(decoded_token.id) : null},

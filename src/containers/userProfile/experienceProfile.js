@@ -3,7 +3,6 @@ import React from 'react';
 import { Image } from 'react-bootstrap';
 import DefaultPictureExp from '../../assets/images/experienceProfile-default.png';
 
-
 function ExperienceProfile (props){
     return (  
             <div className='center'>
@@ -15,7 +14,7 @@ function ExperienceProfile (props){
                      reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
                      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
                       qui officia deserunt mollit anim id est laborum</p>
-                <Image src={DefaultPictureExp} className='picture-profile'/>
+                <Image src={DefaultPictureExp} className='experienceProfile-experience-picture'/>
             </div>
             
       )

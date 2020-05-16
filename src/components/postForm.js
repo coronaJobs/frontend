@@ -9,7 +9,9 @@ import { Button, Form, Row, Col, Modal } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { CREATE_POST } from '../graphql/mutations/posts';
 
- function PostForm (props) {
+
+import '../assets/css/postForm.css';
+function PostForm (props) {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -96,7 +98,7 @@ export default function PostFormComponent (props) {
 
   return(
     <>
-      <Button variant="outline-light" onClick={handleShow} className="background-pink">
+      <Button variant="outline-light" onClick={handleShow} className="postForm-button-pink">
         Publicar oferta de trabajo
       </Button>
       <Modal show={showModal} onHide={handleClose} size="lg">
