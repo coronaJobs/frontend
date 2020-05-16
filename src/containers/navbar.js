@@ -12,7 +12,7 @@ function EmployeesLinks() {
         <Nav.Link href="/" key='available-posts'>
             Ofertas Disponibles
         </Nav.Link>,
-        <Nav.Link href="/" key='current applications'>
+        <Nav.Link href="/" key='current-applications'>
             Postulaciones Vigentes
         </Nav.Link>
     ]);
