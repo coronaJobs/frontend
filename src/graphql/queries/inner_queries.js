@@ -9,10 +9,14 @@ export const IS_LOGGED_IN = gql`
 export const CURRENT_USER = gql`
     query currentUser {
         currentUser @client {
+            id
+            rut
             name
-            mail
+            profilePicture
             role {
                 id
+                name
+                description
             }
         }
     }
