@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Apollo & GraphQL
-import { ApolloClient, HttpLink, ApolloProvider, concat, ApolloLink } from '@apollo/client';
+import { ApolloClient, ApolloLink, ApolloProvider, concat, HttpLink } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { typeDefs, resolvers } from './graphql/resolvers';
@@ -44,7 +44,7 @@ persistCache({
 }).then(() => {
 	const client = new ApolloClient({
 		cache,
-		link: httpLink,
+		link: concat(authMiddleware, httpLink),
 		resolvers,
 		typeDefs
   	});
