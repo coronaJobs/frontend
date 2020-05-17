@@ -42,13 +42,13 @@ export default function LoginComponent() {
       <div className="login-background">
         <div className="login-form-container">
           <h1>Inicia sesión</h1>
-          <p id="error-message">{validationError}</p>
+          <p id="login-error-message">{validationError}</p>
           <Form>
             <Form.Group>
-              <Form.Control type="mail" placeholder="Correo" onChange={(event)=>setMail(event.target.value)} className="text-input"/>
+              <Form.Control type="mail" placeholder="Correo" onChange={(event)=>setMail(event.target.value)} className="login-text-input"/>
             </Form.Group>
             <Form.Group>
-              <Form.Control type="password" placeholder="Contraseña" onChange={(event)=>setPassword(event.target.value)} className="text-input"/>
+              <Form.Control type="password" placeholder="Contraseña" onChange={(event)=>setPassword(event.target.value)} className="login-text-input"/>
             </Form.Group>
             {/* TODO: Cambiar color botón al hacer click */}
             <Button
@@ -60,7 +60,7 @@ export default function LoginComponent() {
               Ingresar
             </Button>
           </Form>
-          <span><a id="signup-link" href='/signup'>¿No tienes una cuenta? Regístrate aquí</a></span>
+          <span><a id="login-signup-link" href='/signup'>¿No tienes una cuenta? Regístrate aquí</a></span>
         </div>
       </div>
     ) : <Redirect to="/" />

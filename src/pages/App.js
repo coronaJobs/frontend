@@ -4,18 +4,15 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import { useQuery } from '@apollo/client';
 
 // GraphQL
 import { IS_LOGGED_IN, CURRENT_USER } from '../graphql/queries/inner_queries';
-
 import { CurrentUser } from '../components';
 import { CoronaNavBar } from '../containers';
 
 // Bootstrap
-import { Spinner } from 'react-bootstrap';
 import '../assets/css/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UserProfile from './UserProfile';
