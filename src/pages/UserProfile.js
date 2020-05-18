@@ -5,7 +5,7 @@ import '../assets/css/userProfile.css';
 import { useParams } from "react-router-dom";
 import { DataProfile, PictureProfile, ExperienceProfile, Loading, JobOffer } from '../containers';
 import { Container, Row, Col } from 'react-bootstrap';
-import { PostFormComponent } from '../components';
+import { EditProfileComponent, PostFormComponent } from '../components';
 
 
 
@@ -91,6 +91,7 @@ function UserProfile (props){
                     </Row>    
                 </Container>
                 {content}
+                <EditProfileComponent dataUser={data.getUser}/>
             </div>
             
       )
