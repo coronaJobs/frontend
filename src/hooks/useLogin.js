@@ -8,9 +8,9 @@ export default function useLogin(mail, password, validForm) {
     const client = useApolloClient();
     const result = {
         success: false,
-        error: false,
+        error: null,
     };
-    const [ login ] = useMutation(LOGIN, {
+    const [ login, resultMutation ] = useMutation(LOGIN, {
         onCompleted({ login }) {
             localStorage.setItem('token', login);
             client.cache.writeData({
@@ -19,13 +19,14 @@ export default function useLogin(mail, password, validForm) {
             result.success = true;
             result.error = false;
         },
-        onError(error) {
-            result.success = false;
-            result.error = error;
-        },
+        onError() {},
     });
     if (validForm) {
         login({ variables: { mail, password } });
+    }
+    if (resultMutation.error) {
+        result.success = false;
+        result.error = resultMutation.error;
     }
     return result;
 };
