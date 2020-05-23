@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Apollo & GraphQL
-import { ApolloClient, HttpLink, ApolloProvider } from '@apollo/client';
+import { ApolloClient, ApolloLink, ApolloProvider, concat, HttpLink } from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { typeDefs, resolvers } from './graphql/resolvers';
@@ -23,26 +23,27 @@ const cache = new InMemoryCache({});
 
 
 const httpLink = new HttpLink({
-  uri: process.env.REACT_APP_BACKEND_URL
+	uri: process.env.REACT_APP_BACKEND_URL,
 });
 
-// TODO: Set auth middleware
-// const authMiddleware = new ApolloLink((operation, forward) => {
-// 	operation.setContext({
-// 		headers: {
-// 			authorization: localStorage.getItem('token') || null
-// 		}
-// 	});
-// 	return forward(operation);
-// });
+const authMiddleware = new ApolloLink((operation, forward) => {
+	if (localStorage.getItem('token')) {
+		operation.setContext({
+			headers: {
+				authorization: localStorage.getItem('token') || null
+			}
+		});
+	}
+	return forward(operation);
+});
 
 persistCache({
   cache,
-  storage: window.localStorage
+  storage: window.localStorage,
 }).then(() => {
 	const client = new ApolloClient({
 		cache,
-		link: httpLink,
+		link: concat(authMiddleware, httpLink),
 		resolvers,
 		typeDefs
   	});
