@@ -45,3 +45,34 @@ export const LOGIN = gql`
     )
   }
 `;
+
+export const EDIT_USER = gql`
+  mutation editUser(
+    $id: ID!
+    $rut: String
+    $name: String
+    $mail: String
+    $phone: String
+    $address: String
+    $profilePicture: String
+    $resumeUrl: String
+  ) {
+    editUser(
+      id: $id
+      rut: $rut
+      name: $name
+      mail: $mail
+      phone: $phone
+      address: $address
+      profilePicture: $profilePicture
+      resumeUrl: $resumeUrl
+    ) {
+      rut
+      name
+      mail
+      phone
+      address
+    }
+  }
+
+`;

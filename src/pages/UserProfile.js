@@ -11,7 +11,7 @@ import { EditProfileComponent, PostFormComponent } from '../components';
 
 function UserProfile (props){
     let { userId } = useParams();
-    const { data, loading, error } = useQuery(GET_USER_PROFILE, {
+    const { data, loading } = useQuery(GET_USER_PROFILE, {
         fetchPolicy: 'network-only',
         variables: {id: parseInt(userId)}
 

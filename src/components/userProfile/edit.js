@@ -1,23 +1,38 @@
-// React
 import React, { useState } from 'react';
-
-// Bootstrap
 import { Button, Form, Modal } from 'react-bootstrap';
+import { useMutation } from '@apollo/client';
 
+import { EDIT_USER } from '../../graphql/mutations/users';
 
 function EditProfileForm(props) {
-  
-  const { name, address, mail, rut, phone } = props.dataUser;
+  const { id, name, rut, mail, address, phone } = props.dataUser;
   const [newName, setNewName] = useState(name);
   const [newRut, setNewRut] = useState(rut);
   const [newMail, setNewMail] = useState(mail);
-  const [newPassword, setNewPassword] = useState('');
+  // const [newPassword, setNewPassword] = useState('');
   const [newAddress, setNewAddress] = useState(address);
   const [newPhone, setNewPhone] = useState(phone);
   const [validationError, setValidationError] = useState();
 
-  const onHandleSubmit =(props) => {
-    console.log('submited!')
+  const [editUser] = useMutation(EDIT_USER, {
+    onCompleted({data}){
+      props.closeModal();
+    },
+    onError(error){
+      setValidationError('Ha ocurrido un error. Por favor inténtelo de nuevo.');
+    }
+  })
+
+  const onHandleSubmit = (event) => {
+    event.preventDefault();
+    editUser({variables: {
+      id: id,
+      name: newName,
+      rut: newRut,
+      mail: newMail,
+      address: newAddress,
+      phone: newPhone,
+    }})
   }
   return(
     <div>
@@ -35,10 +50,10 @@ function EditProfileForm(props) {
           <Form.Label>Correo</Form.Label>
           <Form.Control type="mail" placeholder={newMail} onChange={(event)=>setNewMail(event.target.value)} className="text-input"/>
         </Form.Group>
-        <Form.Group>
+        {/* <Form.Group>
           <Form.Label>Contraseña</Form.Label>
           <Form.Control type="password" placeholder={newPassword} onChange={(event)=>setNewPassword(event.target.value)} className="text-input"/>
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group>
           <Form.Label>Dirección</Form.Label>
           <Form.Control type="address" placeholder={newAddress} onChange={(event)=>setNewAddress(event.target.value)} className="text-input"/>
@@ -47,7 +62,7 @@ function EditProfileForm(props) {
           <Form.Label>Teléfono</Form.Label>
           <Form.Control type="phone" placeholder={newPhone} onChange={(event)=>setNewPhone(event.target.value)} className="text-input"/>
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="signup-button">Registrar</Button>
+        <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="signup-button">Enviar</Button>
       </Form>
     </div>
   )
