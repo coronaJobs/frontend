@@ -5,6 +5,7 @@ import { GET_ALL_POSTS } from "../graphql/queries/posts";
 import { Loading } from "../containers";
 import DefaultPicture from "../assets/images/userProfile-default.png";
 import { Spinner, Container, Row, Col, Image } from "react-bootstrap";
+import { SearchBar } from "./../components";
 
 function Posts() {
   const { data, loading } = useQuery(GET_ALL_POSTS, {
@@ -23,6 +24,11 @@ function Posts() {
               <h2>Ofertas de trabajo</h2>
               <p>Revisa las distintas ofertas de trabajo disponibles.</p>
             </div>
+            <div className="center margin-container">
+              <SearchBar></SearchBar>
+            </div>
+          </Container>
+          <Container>
             <Row>
               {posts.map((post, index) => (
                 <Col key={"profile-" + index.toString()} className="center">

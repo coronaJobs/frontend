@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Redirect } from "react-router-dom";
 import { Posts, HomeDefault } from "../containers";
 import "../assets/css/homeUser.css";
 import "../assets/css/homeDefault.css";
@@ -12,9 +12,7 @@ function CurrentPosts(props) {
           <Posts />
         </div>
       ) : (
-        <div>
-          <HomeDefault />
-        </div>
+        <Redirect to="/" />
       )}
     </div>
   );
