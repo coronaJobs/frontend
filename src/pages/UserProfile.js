@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { GET_USER_PROFILE } from "../graphql/queries/users";
 import { useQuery } from "@apollo/client";
-import "../assets/css/userProfile.css";
+import "../assets/css/user/userProfile.css";
+import "../assets/css/user/editUser.css";
 import { useParams } from "react-router-dom";
 import {
   DataProfile,
@@ -86,17 +87,6 @@ function UserProfile(props) {
   return (
     <div className="container">
       <h1>Mi perfil</h1>
-      <EditProfileComponent
-        dataUser={{
-          id: data.getUser.id,
-          name: currentName,
-          rut: currentRut,
-          mail: currentMail,
-          address: currentAddress,
-          phone: currentPhone,
-        }}
-        editUserUpdate={editUserUpdate}
-      />
       <Container fluid>
         <Row>
           <Col>
@@ -120,6 +110,17 @@ function UserProfile(props) {
                   phone={currentPhone}
                 />
               )}
+              <EditProfileComponent
+                dataUser={{
+                  id: data.getUser.id,
+                  name: currentName,
+                  rut: currentRut,
+                  mail: currentMail,
+                  address: currentAddress,
+                  phone: currentPhone,
+                }}
+                editUserUpdate={editUserUpdate}
+              />
             </div>
           </Col>
         </Row>

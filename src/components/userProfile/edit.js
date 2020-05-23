@@ -53,7 +53,7 @@ function EditProfileForm(props) {
             type="name"
             placeholder={newName}
             onChange={(event) => setNewName(event.target.value)}
-            className="text-input"
+            className="editUser-text-input"
           />
         </Form.Group>
         <Form.Group>
@@ -62,7 +62,7 @@ function EditProfileForm(props) {
             type="rut"
             placeholder={newRut}
             onChange={(event) => setNewRut(event.target.value)}
-            className="text-input"
+            className="editUser-text-input"
           />
         </Form.Group>
         <Form.Group>
@@ -71,7 +71,7 @@ function EditProfileForm(props) {
             type="mail"
             placeholder={newMail}
             onChange={(event) => setNewMail(event.target.value)}
-            className="text-input"
+            className="editUser-text-input"
           />
         </Form.Group>
         <Form.Group>
@@ -80,7 +80,7 @@ function EditProfileForm(props) {
             type="address"
             placeholder={newAddress}
             onChange={(event) => setNewAddress(event.target.value)}
-            className="text-input"
+            className="editUser-text-input"
           />
         </Form.Group>
         <Form.Group>
@@ -89,7 +89,7 @@ function EditProfileForm(props) {
             type="phone"
             placeholder={newPhone}
             onChange={(event) => setNewPhone(event.target.value)}
-            className="text-input"
+            className="editUser-text-input"
           />
         </Form.Group>
         <Button
@@ -97,7 +97,7 @@ function EditProfileForm(props) {
           type="submit"
           onClick={onHandleSubmit}
           block
-          className="signup-button"
+          className="editUser-button-pink"
         >
           Enviar
         </Button>
@@ -114,7 +114,7 @@ export default function EditProfileComponent(props) {
 
   return (
     <>
-      <Button onClick={handleShow} className="background-pink">
+      <Button onClick={handleShow} className="editUser-button-pink">
         Editar perfil
       </Button>
       <Modal show={showModal} onHide={handleClose} size="lg">

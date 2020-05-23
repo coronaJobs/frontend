@@ -1,5 +1,5 @@
 import React from "react";
-import "../../assets/css/userProfile.css";
+import "../../assets/css/user/userProfile.css";
 import { Image } from "react-bootstrap";
 import DefaultPicture from "../../assets/images/userProfile-default.png";
 
