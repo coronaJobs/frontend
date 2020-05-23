@@ -2,26 +2,23 @@
 import React from 'react';
 
 // Apollo & GraphQL
-import { useApolloClient, useQuery } from '@apollo/client';
+import { useApolloClient } from '@apollo/client';
 // import { CURRENT_USER } from '../graphql/queries/inner_queries';
-import { GET_USER } from '../graphql/queries/users';
 // Bootstrap
 import { Button, Form, FormControl, Navbar, Nav } from 'react-bootstrap';
 
 function EmployeesLinks() {
-    {/* TODO: set correct hrefs for each link */}
     return([
-        <Nav.Link href="/">
+        <Nav.Link href="/" key='available-posts'>
             Ofertas Disponibles
         </Nav.Link>,
-        <Nav.Link href="/">
+        <Nav.Link href="/" key='current-applications'>
             Postulaciones Vigentes
         </Nav.Link>
     ]);
 };
 
 function EmployersLinks() {
-    {/* TODO: set correct hrefs for each link */}
     return([
         <Nav.Link href="/">
             Nueva Oferta
@@ -48,7 +45,7 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
         <Navbar
             collapseOnSelect
             expand="lg"
-            className="navbar-light navigation-clean-search background-gray font-color"
+            className="navbar-light navigation-clean-search navbar-background-gray navbar-font-color"
         >
             <Navbar.Brand href='/'>
                 CoronaJobs
@@ -79,10 +76,9 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                 <Nav className="ml-auto">
                     {
                         userLoggedIn ? (
-                            // TODO: componente botón logout
                             <Button
                                 variant="outline-light"
-                                className="background-pink"
+                                className="navbar-pink-button"
                                 onClick = {() => {
                                     client.cache.writeData({
                                         data: {
@@ -96,9 +92,8 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
                                 Cerrar Sesión
                             </Button>
                         ) : (
-                            // TODO: componente botón login
                             // TODO: No mostrar botón si la vista actual es la de login
-                            <Button variant="outline-light" className="background-pink" href="/login">
+                            <Button variant="outline-light" className="navbar-pink-button" href="/login">
                                 Iniciar Sesión
                             </Button>
                         )
