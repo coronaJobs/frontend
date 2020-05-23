@@ -50,7 +50,8 @@ persistCache({
   
 	cache.writeData({
 		data: {
-			isLoggedIn: !!localStorage.getItem('token')
+			isLoggedIn: !!localStorage.getItem('token'),
+			currentUser: null,
 		}
 	});
 
