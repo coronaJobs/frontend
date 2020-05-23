@@ -89,7 +89,7 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
             >
               Cerrar Sesión
             </Button>
-          ) : path == "/login" ? null : (
+          ) : path === "/login" ? null : (
             <Button
               variant="outline-light"
               className="navbar-pink-button"
