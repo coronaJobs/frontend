@@ -66,8 +66,8 @@ export default function SignUpComponent() {
 
   return(
     !isLoggedIn ? (
-      <div class="signup-background">
-        <div class="signup-form-container">
+      <div className="signup-background">
+        <div className="signup-form-container">
           <h1>Regístrate</h1>
           <p id="signup-error-message">{validationError}</p>
           <Form>
