@@ -10,6 +10,7 @@ import { PostFormComponent } from "../components";
 
 function HomeUser(props) {
   let posts, formButton;
+  formButton = null;
   const { data, loading } = useQuery(
     props.currentUser.role.name === "employee"
       ? GET_ALL_POSTS
