@@ -30,7 +30,7 @@ export default function SignUpComponent() {
   const { register, handleSubmit, errors, formState } = useForm();
   // Read the formState before render to subscribe the form state through Proxy
   const { touched } = formState;
-  console.log(errors);
+
   const [userCreated, setUserCreated] = useState(false);
   useLogin(mail, password, userCreated);
 
@@ -49,16 +49,6 @@ export default function SignUpComponent() {
 
   // TODO: obtener roles (lista de roles) (no esta listo en backend)
 
-  // const validateForm = () => {
-  //   if (!name || !rut || !mail || !password || !address || !phone) {
-  //     setValidationError('Debes rellenar todos los campos para poder registrarte.');
-  //     return false;
-  //   } else {
-  //     setValidationError('');
-  //     return true;
-  //   }
-  // }
-  // const validateForm = () => setValidForm(true);
   const validateForm = () => {
     signUp({ variables: { 
       name: name,
@@ -70,21 +60,6 @@ export default function SignUpComponent() {
       role: role,
     }})
   }
-
-  // const onHandleSubmit = (event) => {
-  //   event.preventDefault();
-  //   if (validateForm()) {
-  //     signUp({ variables: { 
-  //       name: name,
-  //       rut: rut,
-  //       mail: mail,
-  //       password: password,
-  //       address: address,
-  //       phone: phone,
-  //       role: role,
-  //      }})
-  //   }
-  // }
 
   return(
     !isLoggedIn ? (
@@ -113,7 +88,7 @@ export default function SignUpComponent() {
                 ref={register({
                   required: "Rut requerido",
                   pattern: {
-                    value: /^0*(\d{1,3}(\.?\d{3})*)\-?([\dkK])$/,
+                    value: /^0*(\d{1,3}(\.?\d{3})*)-?([\dkK])$/,
                     message: 'Rut inválido'
                   }
                 })}
@@ -177,7 +152,11 @@ export default function SignUpComponent() {
                 placeholder="Dirección"
                 onChange={(event)=>setAddress(event.target.value)}
                 className="signup-text-input"
+                isInvalid={(touched.address && address === '') || (errors.address)}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.address ? errors.address.message : null}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group>
               <Form.Control
