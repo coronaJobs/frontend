@@ -44,11 +44,7 @@ function App() {
             </Route>
           ) : null}
           <Route path="/">
-<<<<<<< HEAD
             <Home userLoggedIn={isLoggedIn} currentUser={currentUser} />
-=======
-            <Home userLoggedIn={isLoggedIn} />
->>>>>>> 35bd5a22b29f5b64ca84ee6ebcfb3f629f3003d5
           </Route>
         </Switch>
       </Router>
