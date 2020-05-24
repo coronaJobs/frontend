@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useMutation } from "@apollo/client";
+import PropTypes from "prop-types";
 
 import { EDIT_USER } from "../../graphql/mutations/users";
 
@@ -9,13 +10,12 @@ function EditProfileForm(props) {
   const [newName, setNewName] = useState(name);
   const [newRut, setNewRut] = useState(rut);
   const [newMail, setNewMail] = useState(mail);
-  // const [newPassword, setNewPassword] = useState('');
   const [newAddress, setNewAddress] = useState(address);
   const [newPhone, setNewPhone] = useState(phone);
   const [validationError, setValidationError] = useState();
 
   const [editUser] = useMutation(EDIT_USER, {
-    onCompleted({ data }) {
+    onCompleted() {
       props.closeModal();
       props.editUserUpdate({
         newName: newName,
@@ -25,7 +25,7 @@ function EditProfileForm(props) {
         newPhone: newPhone,
       });
     },
-    onError(error) {
+    onError() {
       setValidationError("Ha ocurrido un error. Por favor inténtelo de nuevo.");
     },
   });
@@ -132,3 +132,28 @@ export default function EditProfileComponent(props) {
     </>
   );
 }
+
+EditProfileForm.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  editUserUpdate: PropTypes.func.isRequired,
+  dataUser: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    rut: PropTypes.string.isRequired,
+    mail: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+EditProfileComponent.propTypes = {
+  editUserUpdate: PropTypes.func.isRequired,
+  dataUser: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    rut: PropTypes.string.isRequired,
+    mail: PropTypes.string.isRequired,
+    address: PropTypes.string.isRequired,
+    phone: PropTypes.string.isRequired,
+  }).isRequired,
+};
