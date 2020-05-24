@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { GET_USER_PROFILE } from "../graphql/queries/users";
 import { useQuery } from "@apollo/client";
-import "../assets/css/user/userProfile.css";
-import "../assets/css/user/editUser.css";
 import { useParams } from "react-router-dom";
-import {
-  DataProfile,
-  PictureProfile,
-  ExperienceProfile,
-  Loading,
-  JobOffer,
-} from "../containers";
+import { DataProfile, PictureProfile, Loading, JobOffer } from "../containers";
 import { Container, Row, Col } from "react-bootstrap";
 import { EditProfileComponent, PostFormComponent } from "../components";
 
-function UserProfile(props) {
+import "../assets/css/user/userProfile.css";
+import "../assets/css/user/editUser.css";
+
+function UserProfile() {
   const [currentName, setCurrentName] = useState();
   const [currentAddress, setCurrentAddress] = useState();
   const [currentMail, setCurrentMail] = useState();
@@ -61,8 +56,8 @@ function UserProfile(props) {
             {formButton}
           </div>
           <Row>
-            {posts.map((post) => (
-              <JobOffer post={post} />
+            {posts.map((post, index) => (
+              <JobOffer post={post} key={index} />
             ))}
           </Row>
         </Container>
