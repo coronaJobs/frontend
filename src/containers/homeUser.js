@@ -9,8 +9,7 @@ import { Spinner, Container, Row, Col, Image } from "react-bootstrap";
 import { PostFormComponent } from "../components";
 
 function HomeUser(props) {
-  let posts, formButton;
-  formButton = null;
+  let posts;
   const { data, loading } = useQuery(
     props.currentUser.role.name === "employee"
       ? GET_ALL_POSTS
@@ -25,14 +24,14 @@ function HomeUser(props) {
   );
   if (loading) return <Loading />;
   posts =
-    props.currentUser.role.name === "employee"
+    props.currentUser.role.name === "employer"
       ? data.getUser.posts
       : data.getAllPosts;
   return (
     <div>
       {loading ? (
         <Spinner animation="grow" variant="danger" />
-      ) : posts ? (
+      ) : posts.length > 0 ? (
         <div>
           <Container>
             <div className="center margin-container">
@@ -81,9 +80,9 @@ function HomeUser(props) {
               ? "No hay ofertas de trabajo disponibles actualmente."
               : "No tienes ofertas de trabajo. Si necesitas añadir ofertas, haz click en 'Publicar oferta de trabajo'."}
           </p>
-          {props.currentUser.role.name === "employer"
-            ? (formButton = <PostFormComponent userId={props.currentUser.id} />)
-            : null}
+          {props.currentUser.role.name === "employer" ? (
+            <PostFormComponent userId={props.currentUser.id} />
+          ) : null}
         </div>
       )}
     </div>
