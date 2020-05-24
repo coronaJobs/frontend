@@ -12,7 +12,7 @@ export default function SearchBar(props) {
   const [toDate, setToDate] = useState();
   const [fromApplicantLimit, setFromApplicantLimit] = useState(1);
   const [toApplicantLimit, setToApplicantLimit] = useState(10);
-  const [ownerId, setOwnerId] = useState();
+  const [communeId, setCommuneId] = useState();
 
   const handleSubmit = () => {
     let sendFromDate;
@@ -24,8 +24,6 @@ export default function SearchBar(props) {
       sendFromDate = undefined;
     }
 
-    console.log(sendFromDate);
-
     let sendToDate;
     if (toDate) {
       sendToDate = DateTime.fromISO(toDate.toISOString())
@@ -34,7 +32,6 @@ export default function SearchBar(props) {
     } else {
       sendToDate = undefined;
     }
-    console.log(sendToDate);
   };
 
   // executed when component is updated and mounted
