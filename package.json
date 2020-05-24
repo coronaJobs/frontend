@@ -13,6 +13,7 @@
     "apollo-cache-persist": "^0.1.1",
     "bootstrap": "^4.4.1",
     "graphql": "^15.0.0",
+    "hookrouter": "^1.2.3",
     "jsonwebtoken": "^8.5.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",

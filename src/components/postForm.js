@@ -1,71 +1,81 @@
 // React
-import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
 
 // Bootstrap
-import { Button, Form, Row, Col, Modal } from 'react-bootstrap';
+import { Button, Form, Row, Col, Modal } from "react-bootstrap";
 
 // Apollo & GraphQL
-import { useMutation } from '@apollo/client';
-import { CREATE_POST } from '../graphql/mutations/posts';
+import { useMutation } from "@apollo/client";
+import { CREATE_POST } from "../graphql/mutations/posts";
 
-
-import '../assets/css/postForm.css';
-function PostForm (props) {
-
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [applicantLimit, setApplicantLimit] = useState(1); 
-  const [validationError, setValidationError] = useState('');
+import "../assets/css/postForm.css";
+function PostForm(props) {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [applicantLimit, setApplicantLimit] = useState(1);
+  const [validationError, setValidationError] = useState("");
   const [triggerRedirect, setTriggerRedirect] = useState(false);
-  
+
   const [createPost] = useMutation(CREATE_POST, {
-    onCompleted({ data }){
+    onCompleted({ data }) {
       props.closeModal();
       setTriggerRedirect(true);
     },
-    onError(error){
-      setValidationError('Ha ocurrido un error. Por favor inténtelo de nuevo.')
-    }
+    onError(error) {
+      setValidationError("Ha ocurrido un error. Por favor inténtelo de nuevo.");
+    },
   });
 
   const onHandleSubmit = (event) => {
     event.preventDefault();
     if (validateForm()) {
-      createPost({variables: {
-        name: name,
-        description: description,
-        applicantLimit: applicantLimit,
-        ownerId: +props.userId,
-      }})
+      createPost({
+        variables: {
+          name: name,
+          description: description,
+          applicantLimit: applicantLimit,
+          ownerId: +props.userId,
+        },
+      });
     }
-  }
+  };
 
   const validateForm = () => {
     if (!name || !description) {
-      setValidationError('Debes rellenar todos los campos para poder publicar una oferta.');
+      setValidationError(
+        "Debes rellenar todos los campos para poder publicar una oferta."
+      );
       return false;
     } else {
-      setValidationError('');
+      setValidationError("");
       return true;
     }
-  }
+  };
 
-  return(
-    !triggerRedirect ? (
+  return !triggerRedirect ? (
     <Form>
       <p id="error-message">{validationError}</p>
       <Row>
         <Col>
           <Form.Group>
             <Form.Label>Título del trabajo</Form.Label>
-            <Form.Control type="name" onChange={(event)=>setName(event.target.value)} className="text-input"/>
+            <Form.Control
+              type="name"
+              onChange={(event) => setName(event.target.value)}
+              className="postForm-text-input"
+            />
           </Form.Group>
         </Col>
         <Col>
           <Form.Group controlId="exampleForm.SelectCustom">
             <Form.Label>Cantidad de trabajadores</Form.Label>
-            <Form.Control as="select" custom onChange={(event)=>setApplicantLimit(+event.target.value)}>
+            <Form.Control
+              as="select"
+              custom
+              onChange={(event) => setApplicantLimit(+event.target.value)}
+              className="postForm-dropdown"
+            >
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -82,23 +92,42 @@ function PostForm (props) {
       </Row>
       <Form.Group>
         <Form.Label>Descripción</Form.Label>
-        <Form.Control as="textarea" rows="3" placeholder="Escribe la descripción del trabajo..." onChange={(event)=>setDescription(event.target.value)} className="text-input"/>
+        <Form.Control
+          as="textarea"
+          rows="3"
+          placeholder="Escribe la descripción del trabajo..."
+          onChange={(event) => setDescription(event.target.value)}
+          className="postForm-text-input"
+        />
       </Form.Group>
-      <Button variant="primary" type="submit" onClick={onHandleSubmit} block className="signup-button">Publicar</Button>
+      <Button
+        variant="primary"
+        type="submit"
+        onClick={onHandleSubmit}
+        block
+        className="signup-button"
+      >
+        Publicar
+      </Button>
     </Form>
-    ) : <Redirect to={`/users/${props.userId}`} /> 
-  )
+  ) : (
+    <Redirect to={`/users/${props.userId}`} />
+  );
 }
 
-export default function PostFormComponent (props) {
+export default function PostFormComponent(props) {
   const [showModal, setShowModal] = useState(false);
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
 
-  return(
+  return (
     <>
-      <Button variant="outline-light" onClick={handleShow} className="postForm-button-pink">
+      <Button
+        variant="outline-light"
+        onClick={handleShow}
+        className="postForm-button-pink"
+      >
         Publicar oferta de trabajo
       </Button>
       <Modal show={showModal} onHide={handleClose} size="lg">
@@ -110,5 +139,5 @@ export default function PostFormComponent (props) {
         </Modal.Body>
       </Modal>
     </>
-  )
+  );
 }
