@@ -1,27 +1,23 @@
-import React from 'react';
+import React from "react";
 
-import { HomeDefault, HomeUser } from '../containers';
-import '../assets/css/homeUser.css';
-import '../assets/css/homeDefault.css';
-
+import { HomeDefault, HomeUser } from "../containers";
+import "../assets/css/homeUser.css";
+import "../assets/css/homeDefault.css";
 
 function Home(props) {
-
   return (
     <div>
-      {
-        props.userLoggedIn? 
-        
+      {props.userLoggedIn ? (
         <div>
-          <HomeUser/>
-        </div> 
-        : 
+          <HomeUser />
+        </div>
+      ) : (
         <div>
           <HomeDefault />
         </div>
-      }
-    </div>   
-  )
+      )}
+    </div>
+  );
 }
 
 export default Home;

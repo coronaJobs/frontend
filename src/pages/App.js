@@ -1,25 +1,20 @@
 // React
-import React, { Fragment } from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import { useQuery } from '@apollo/client';
+import React, { Fragment } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useQuery } from "@apollo/client";
 
 // GraphQL
-import { IS_LOGGED_IN, CURRENT_USER } from '../graphql/queries/inner_queries';
-import { CurrentUser } from '../components';
-import { CoronaNavBar } from '../containers';
+import { IS_LOGGED_IN, CURRENT_USER } from "../graphql/queries/inner_queries";
+import { CurrentUser } from "../components";
+import { CoronaNavBar } from "../containers";
 
 // Bootstrap
-import '../assets/css/App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import UserProfile from './UserProfile';
-import SignUp from './signup';
-import Login from './login';
-import Home from './Home';
-
+import "../assets/css/App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import UserProfile from "./UserProfile";
+import SignUp from "./signup";
+import Login from "./login";
+import Home from "./Home";
 
 function App() {
   const loggedInQuery = useQuery(IS_LOGGED_IN);
@@ -43,11 +38,13 @@ function App() {
           <Route path="/login">
             <Login />
           </Route>
-          {isLoggedIn? <Route exact path="/users/:userId">
-            <UserProfile />
-          </Route> : null}
+          {isLoggedIn ? (
+            <Route exact path="/users/:userId">
+              <UserProfile />
+            </Route>
+          ) : null}
           <Route path="/">
-            <Home userLoggedIn={isLoggedIn}/>
+            <Home userLoggedIn={isLoggedIn} />
           </Route>
         </Switch>
       </Router>
