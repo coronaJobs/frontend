@@ -48,17 +48,18 @@ function UserProfile() {
   switch (role.name) {
     case "employer":
       formButton = <PostFormComponent userId={userId} />;
-      // TODO: Query exclusiva para posts de empleador
       content = (
         <Container className="container UserProfile-box-margin" fluid>
           <div id="experience-container">
-            <h3>Ofertas</h3>
+            <h3>Últimas Ofertas</h3>
             {formButton}
           </div>
           <Row>
-            {posts.map((post, index) => (
-              <JobOffer post={post} key={index} />
-            ))}
+            {posts.length > 0 ? (
+              posts.map((post, index) => <JobOffer key={index} post={post} />)
+            ) : (
+              <p>No has publicado ofertas en CoronaJobs.</p>
+            )}
           </Row>
         </Container>
       );
@@ -81,7 +82,7 @@ function UserProfile() {
   }
   return (
     <div className="container">
-      <h1>Mi perfil</h1>
+      <h1 className="py-5">Mi perfil</h1>
       <Container fluid>
         <Row>
           <Col>

@@ -44,7 +44,7 @@ function App() {
             </Route>
           ) : null}
           <Route path="/">
-            <Home userLoggedIn={isLoggedIn} />
+            <Home userLoggedIn={isLoggedIn} currentUser={currentUser} />
           </Route>
         </Switch>
       </Router>
