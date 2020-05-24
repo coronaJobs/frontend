@@ -27,6 +27,7 @@ function EmployersLinks() {
 
 export default function CoronaNavBar({ userLoggedIn, currentUser }) {
     const client = useApolloClient();
+    const path = usePath();
 
   return (
     <Navbar
