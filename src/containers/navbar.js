@@ -26,17 +26,8 @@ function EmployersLinks() {
 }
 
 export default function CoronaNavBar({ userLoggedIn, currentUser }) {
-  const client = useApolloClient();
-  const path = usePath();
-  // TODO: inner query to get current user from cache
-  // const { data } = useQuery(CURRENT_USER);
-  // let currentUser = data ? data.currentUser : null;
-  // const decoded_token = decode(localStorage.getItem('token'));
-  // const { data, loading, error } = useQuery(GET_USER, {
-  //     variables: {id: decoded_token ? decoded_token.id : null}
-  // });
-  // console.log(data);
-  // const currentUser = data.getUser;
+    const client = useApolloClient();
+    const path = usePath();
 
   return (
     <Navbar
