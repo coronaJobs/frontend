@@ -15,6 +15,7 @@ import UserProfile from "./UserProfile";
 import SignUp from "./signup";
 import Login from "./login";
 import Home from "./Home";
+import PostShow from "./post/show";
 
 function App() {
   const loggedInQuery = useQuery(IS_LOGGED_IN);
@@ -39,9 +40,14 @@ function App() {
             <Login />
           </Route>
           {isLoggedIn ? (
-            <Route exact path="/users/:userId">
-              <UserProfile />
-            </Route>
+            <>
+              <Route exact path="/users/:userId">
+                <UserProfile />
+              </Route>
+              <Route exact path="/posts/:postId">
+                <PostShow />
+              </Route>
+            </>
           ) : null}
           <Route path="/">
             <Home userLoggedIn={isLoggedIn} currentUser={currentUser} />
