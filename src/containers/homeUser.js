@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import { useQuery } from "@apollo/client";
 import { GET_ALL_POSTS } from "../graphql/queries/posts";
@@ -55,14 +56,16 @@ function HomeUser(props) {
                   />
                   <h3>{post.name}</h3>
                   <p>{post.description}</p>
-                  <span>
-                    <a
-                      className="homeUser-application-button strong-color some-space"
-                      href={`/posts/${post.id}`}
-                    >
-                      Postular
-                    </a>
-                  </span>
+                  <Link
+                    className="homeUser-application-button strong-color some-space"
+                    to={{
+                      pathname: `/posts/${post.id}`,
+                      state: { ...{ post: post } },
+                    }}
+                  >
+                    {" "}
+                    Postular{" "}
+                  </Link>
                 </Col>
               ))}
             </Row>

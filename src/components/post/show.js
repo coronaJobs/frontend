@@ -35,8 +35,8 @@ export default function PostFormComponent(props) {
         </div>
         <div>
           <ul>
-            <li>{owner.name}</li>
-            <li>{state.name}</li>
+            <li>Empleador: {owner.name}</li>
+            <li>Estado: {state.name}</li>
           </ul>
         </div>
       </Row>

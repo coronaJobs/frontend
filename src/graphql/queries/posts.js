@@ -1,8 +1,8 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_ALL_POSTS = gql`
   query getAllPosts {
-    getAllPosts { 
+    getAllPosts {
       id
       name
       description
@@ -12,7 +12,11 @@ export const GET_ALL_POSTS = gql`
         name
       }
       state {
-    		id
+        id
+        name
+      }
+      applicants {
+        id
       }
     }
   }
