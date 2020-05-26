@@ -1,19 +1,68 @@
 // React
 import React, { useState, useEffect } from "react";
 import { Form, FormControl, Container, Row, Col } from "react-bootstrap";
+import { useApolloClient, useQuery } from "@apollo/client";
+import { GET_COMMUNES } from "./../graphql/queries/communes";
+import { GET_ALL_POSTS } from "./../graphql/queries/posts";
 import DatePicker from "react-datepicker";
+import Select from "react-select";
 import { DateTime } from "luxon";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function SearchBar(props) {
+  const { handleSearch } = props;
   const [text, setText] = useState("");
   const [fromDate, setFromDate] = useState();
   const [toDate, setToDate] = useState();
   const [fromApplicantLimit, setFromApplicantLimit] = useState(1);
   const [toApplicantLimit, setToApplicantLimit] = useState(10);
-  const [communeId, setCommuneId] = useState();
+  const [communeIds, setCommuneIds] = useState(null);
 
+  const client = useApolloClient();
+
+  // get communes
+
+  const { data, loading, error } = useQuery(GET_COMMUNES, {
+    fetchPolicy: "cache-first",
+  });
+
+  let communes = [];
+
+  if (!loading && !error) {
+    const rawCommunes = data.getCommunes;
+    rawCommunes.map((commune, index) => {
+      communes.push({
+        value: commune.id,
+        label: commune.name,
+        __typename: commune.__typename,
+      });
+    });
+    client.cache.writeData({
+      data: { getCommunes: communes },
+    });
+  }
+
+  // get posts
+  // { data, loading, error }
+
+  const postsQuery = useQuery(GET_ALL_POSTS, {
+    fetchPolicy: "cache-first",
+  });
+
+  console.log(postsQuery);
+
+  if (!postsQuery.loading && !postsQuery.error) {
+    const posts = postsQuery.data.getAllPosts;
+    console.log(posts);
+
+    client.cache.writeData({
+      data: { getAllPosts: posts },
+    });
+    handleSearch(posts);
+  }
+
+  console.log("--------------------------------------");
   const handleSubmit = () => {
     let sendFromDate;
     if (fromDate) {
@@ -65,6 +114,17 @@ export default function SearchBar(props) {
     setToApplicantLimit(parseInt(newValue));
   };
 
+  const handleCommuneChange = (event) => {
+    if (event) {
+      console.log(event);
+
+      setCommuneIds(event.value);
+    } else {
+      // nothing selected
+      setCommuneIds(null);
+    }
+  };
+
   const handleFromDateChange = (event) => {
     if (toDate) {
       if (toDate < event) {
@@ -95,6 +155,7 @@ export default function SearchBar(props) {
                 <i className="fas fa-search" />{" "}
               </Form.Label>
               <FormControl
+                className="w-75"
                 type="text"
                 placeholder="Título o descripción"
                 onChange={handleTextChange}
@@ -102,6 +163,48 @@ export default function SearchBar(props) {
               />
             </Form.Group>
           </Col>
+          <Col>
+            <Form.Group controlId="exampleForm.SelectCustom">
+              <Form.Label className="mr-2 w-25">Fecha inicial</Form.Label>
+              <DatePicker
+                selected={fromDate}
+                onChange={(event) => handleFromDateChange(event)}
+                dateFormat="dd - MM - yyyy"
+              ></DatePicker>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row className="mb-4">
+          <Col>
+            <Form.Group className="w-100">
+              <Select
+                isMulti={true}
+                className="basic-single w-75"
+                classNamePrefix="select"
+                isLoading={loading}
+                isClearable={true}
+                isRtl={false}
+                isSearchable={true}
+                name="color"
+                options={communes}
+                placeholder="Selecciona una comuna"
+                onChange={handleCommuneChange}
+                noOptionsMessage={() => "No hay resultados"}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="exampleForm.SelectCustom">
+              <Form.Label className="mr-2 w-25">Fecha final</Form.Label>
+              <DatePicker
+                selected={toDate}
+                onChange={(event) => handleToDateChange(event)}
+                dateFormat="dd - MM - yyyy"
+              ></DatePicker>
+            </Form.Group>
+          </Col>
+        </Row>
+        <Row>
           <Col>
             <Form.Group controlId="exampleForm.SelectCustom">
               <Form.Label className="mr-2">
@@ -128,28 +231,6 @@ export default function SearchBar(props) {
                   <option key={x + 1}>{x + 1}</option>
                 ))}
               </Form.Control>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group controlId="exampleForm.SelectCustom">
-              <Form.Label className="mr-2">Fecha inicial</Form.Label>
-              <DatePicker
-                selected={fromDate}
-                onChange={(event) => handleFromDateChange(event)}
-                dateFormat="dd - MM - yyyy"
-              ></DatePicker>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group controlId="exampleForm.SelectCustom">
-              <Form.Label className="mr-2">Fecha final</Form.Label>
-              <DatePicker
-                selected={toDate}
-                onChange={(event) => handleToDateChange(event)}
-                dateFormat="dd - MM - yyyy"
-              ></DatePicker>
             </Form.Group>
           </Col>
         </Row>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { useQuery } from "@apollo/client";
 import { GET_ALL_POSTS } from "../graphql/queries/posts";
@@ -8,11 +8,13 @@ import { Spinner, Container, Row, Col, Image } from "react-bootstrap";
 import { SearchBar } from "./../components";
 
 function Posts() {
-  const { data, loading } = useQuery(GET_ALL_POSTS, {
-    fetchPolicy: "network-only",
-  });
-  if (loading) return <Loading />;
-  const posts = data.getAllPosts;
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState();
+
+  const handleSearch = (newPosts) => {
+    setPosts(newPosts);
+  };
+
   return (
     <div>
       {loading ? (
@@ -25,7 +27,7 @@ function Posts() {
               <p>Revisa las distintas ofertas de trabajo disponibles.</p>
             </div>
             <div className="center margin-container">
-              <SearchBar></SearchBar>
+              <SearchBar handleSearch={handleSearch}></SearchBar>
             </div>
           </Container>
           <Container>
