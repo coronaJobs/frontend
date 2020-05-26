@@ -29,7 +29,7 @@ export default function PostShow(props) {
 
 PostShow.propTypes = {
   location: PropTypes.shape({
-    state: PropTypes.shaope({
+    state: PropTypes.shape({
       post: PropTypes.object,
     }).isRequired,
   }).isRequired,
