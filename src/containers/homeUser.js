@@ -58,7 +58,7 @@ function HomeUser(props) {
                   <span>
                     <a
                       className="homeUser-application-button strong-color some-space"
-                      href="/signup"
+                      href={`/posts/${post.id}`}
                     >
                       Postular
                     </a>

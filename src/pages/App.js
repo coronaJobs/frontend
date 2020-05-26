@@ -33,6 +33,9 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
         renders the first one that matches the current URL. */}
         <Switch>
+          <Route exact path="/posts/:postId">
+            <PostShow />
+          </Route>
           <Route path="/signup">
             <SignUp />
           </Route>
@@ -40,14 +43,9 @@ function App() {
             <Login />
           </Route>
           {isLoggedIn ? (
-            <>
-              <Route exact path="/users/:userId">
-                <UserProfile />
-              </Route>
-              <Route exact path="/posts/:postId">
-                <PostShow />
-              </Route>
-            </>
+            <Route exact path="/users/:userId">
+              <UserProfile />
+            </Route>
           ) : null}
           <Route path="/">
             <Home userLoggedIn={isLoggedIn} currentUser={currentUser} />

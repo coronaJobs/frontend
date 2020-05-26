@@ -52,5 +52,5 @@ PostFormComponent.propTypes = {
     owner: PropTypes.object.isRequired,
     state: PropTypes.object.isRequired,
     applicants: PropTypes.arrayOf(PropTypes.object).isRequired,
-  }).isRequired,
+  }),
 };
