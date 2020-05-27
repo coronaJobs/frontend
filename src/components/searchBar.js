@@ -13,11 +13,11 @@ import "react-datepicker/dist/react-datepicker.css";
 export default function SearchBar(props) {
   const { handleSearch } = props;
   const [text, setText] = useState("");
-  const [fromDate, setFromDate] = useState();
-  const [toDate, setToDate] = useState();
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
   const [fromApplicantLimit, setFromApplicantLimit] = useState(1);
   const [toApplicantLimit, setToApplicantLimit] = useState(10);
-  const [communeIds, setCommuneIds] = useState(null);
+  const [communeIds, setCommuneIds] = useState([]);
 
   const client = useApolloClient();
 
@@ -46,8 +46,50 @@ export default function SearchBar(props) {
   // get posts
   // { data, loading, error }
 
+  //filters
+
+  let sendText = undefined;
+  if (text !== "") {
+    sendText = text;
+  }
+
+  let sendFromDate = undefined;
+  if (fromDate) {
+    sendFromDate = DateTime.fromISO(fromDate.toISOString())
+      .startOf("day")
+      .toISO();
+  }
+  let sendToDate = undefined;
+  if (toDate) {
+    sendToDate = DateTime.fromISO(toDate.toISOString()).endOf("day").toISO();
+  }
+
+  let sendCommuneIds = undefined;
+  if (communeIds.length) {
+    sendCommuneIds = [];
+    communeIds.map((com, index) => {
+      console.log(com);
+      console.log("--------------------------------------------------");
+
+      sendCommuneIds.push(com.value);
+    });
+  }
+
+  const sendFromApplicantLimit = fromApplicantLimit;
+  const sendToApplicantLimit = toApplicantLimit;
+
+  // fetch
+
   const postsQuery = useQuery(GET_ALL_POSTS, {
-    fetchPolicy: "cache-first",
+    fetchPolicy: "network-only",
+    variables: {
+      sendText,
+      sendFromDate,
+      sendToDate,
+      sendCommuneIds,
+      sendFromApplicantLimit,
+      sendToApplicantLimit,
+    },
   });
 
   console.log(postsQuery);
@@ -118,10 +160,10 @@ export default function SearchBar(props) {
     if (event) {
       console.log(event);
 
-      setCommuneIds(event.value);
+      setCommuneIds(event);
     } else {
       // nothing selected
-      setCommuneIds(null);
+      setCommuneIds([]);
     }
   };
 
