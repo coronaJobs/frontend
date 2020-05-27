@@ -4,3 +4,4 @@ export { default as LoginComponent } from "./login";
 export { default as PostFormComponent } from "./postForm";
 export { default as SignUpComponent } from "./signup";
 export { default as SearchBar } from "./searchBar";
+export { default as EditProfileComponent } from "./userProfile/edit";

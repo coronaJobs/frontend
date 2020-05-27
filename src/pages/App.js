@@ -27,7 +27,7 @@ function App() {
   // TODO: Handle errors
   return (
     <Fragment>
-      {isLoggedIn ? <CurrentUser /> : null}
+      {isLoggedIn && !currentUser ? <CurrentUser /> : null}
       <CoronaNavBar userLoggedIn={isLoggedIn} currentUser={currentUser} />
       <Router>
         {/* A <Switch> looks through its children <Route>s and
@@ -48,7 +48,7 @@ function App() {
             </Route>
           ) : null}
           <Route path="/">
-            <Home userLoggedIn={isLoggedIn} />
+            <Home userLoggedIn={isLoggedIn} currentUser={currentUser} />
           </Route>
         </Switch>
       </Router>

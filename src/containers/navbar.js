@@ -1,6 +1,6 @@
 // React
 import React from "react";
-
+import { usePath } from "hookrouter";
 // Apollo & GraphQL
 import { useApolloClient } from "@apollo/client";
 // import { CURRENT_USER } from '../graphql/queries/inner_queries';
@@ -23,7 +23,7 @@ function EmployersLinks() {
     <Nav.Link key="new-post" href="/">
       Nueva Oferta
     </Nav.Link>,
-    <Nav.Link key="available-posts" href="/posts">
+    <Nav.Link key="available-posts" href="/">
       Ofertas Vigentes
     </Nav.Link>,
   ];
@@ -31,15 +31,7 @@ function EmployersLinks() {
 
 export default function CoronaNavBar({ userLoggedIn, currentUser }) {
   const client = useApolloClient();
-  // TODO: inner query to get current user from cache
-  // const { data } = useQuery(CURRENT_USER);
-  // let currentUser = data ? data.currentUser : null;
-  // const decoded_token = decode(localStorage.getItem('token'));
-  // const { data, loading, error } = useQuery(GET_USER, {
-  //     variables: {id: decoded_token ? decoded_token.id : null}
-  // });
-  // console.log(data);
-  // const currentUser = data.getUser;
+  const path = usePath();
 
   return (
     <Navbar
@@ -64,6 +56,15 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
             >
               Perfil
             </Nav.Link>
+            <Form inline className="ml-4">
+              <Form.Group>
+                <Form.Label>
+                  {" "}
+                  <i className="fas fa-search" />{" "}
+                </Form.Label>
+                <FormControl type="text" placeholder="Búsqueda" />
+              </Form.Group>
+            </Form>
           </Nav>
         ) : null}
         <Nav className="ml-auto">
@@ -83,8 +84,7 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
             >
               Cerrar Sesión
             </Button>
-          ) : (
-            // TODO: No mostrar botón si la vista actual es la de login
+          ) : path === "/login" ? null : (
             <Button
               variant="outline-light"
               className="navbar-pink-button"

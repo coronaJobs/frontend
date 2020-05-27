@@ -1,5 +1,45 @@
-@import 'globalVariables.css';
+@import "globalVariables.css";
 
 .postForm-button-pink {
-  background-color: var(--button-primary-color);
+  background: var(--button-primary-color);
+  border: none;
+  border-radius: 4px;
+  padding: 11px;
+  box-shadow: none;
+  margin-top: 35px;
+  text-shadow: none;
 }
+
+.postForm-text-input {
+  background: var(--background-secondary);
+  border: none;
+  border-bottom: 1px solid var(--border-primary);
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+  text-indent: 6px;
+  height: 40px;
+}
+
+.postForm-dropdown {
+  background: var(--background-secondary);
+  border: none;
+  border-bottom: 1px solid var(--border-primary);
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+  text-indent: 6px;
+  height: 40px;
+}
+
+/* .signup-button {
+  background: var(--button-primary-color);
+  border: none;
+  border-radius: 4px;
+  padding: 11px;
+  box-shadow: none;
+  margin-top: 35px;
+  text-shadow: none;
+} */
