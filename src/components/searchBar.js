@@ -91,14 +91,7 @@ function SearchBar(props) {
         sendToApplicantLimit,
       },
     });
-  }, [
-    text,
-    fromDate,
-    toDate,
-    communeIds,
-    fromApplicantLimit,
-    toApplicantLimit,
-  ]);
+  });
 
   const handleTextChange = (event) => {
     setText(event.target.value);
