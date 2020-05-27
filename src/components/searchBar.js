@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Form, FormControl, Container, Row, Col } from "react-bootstrap";
 import { useApolloClient, useQuery } from "@apollo/client";
 import { GET_COMMUNES } from "./../graphql/queries/communes";
-import { GET_ALL_POSTS } from "./../graphql/queries/posts";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
 import { DateTime } from "luxon";
+import { useDebounceSearchPosts } from "./../hooks";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -43,9 +43,6 @@ export default function SearchBar(props) {
     });
   }
 
-  // get posts
-  // { data, loading, error }
-
   //filters
 
   let sendText = undefined;
@@ -68,9 +65,6 @@ export default function SearchBar(props) {
   if (communeIds.length) {
     sendCommuneIds = [];
     communeIds.map((com, index) => {
-      console.log(com);
-      console.log("--------------------------------------------------");
-
       sendCommuneIds.push(com.value);
     });
   }
@@ -80,29 +74,28 @@ export default function SearchBar(props) {
 
   // fetch
 
-  const postsQuery = useQuery(GET_ALL_POSTS, {
-    fetchPolicy: "network-only",
-    variables: {
-      sendText,
-      sendFromDate,
-      sendToDate,
-      sendCommuneIds,
-      sendFromApplicantLimit,
-      sendToApplicantLimit,
-    },
-  });
+  const searchPosts = useDebounceSearchPosts(handleSearch);
 
-  console.log(postsQuery);
-
-  if (!postsQuery.loading && !postsQuery.error) {
-    const posts = postsQuery.data.getAllPosts;
-    console.log(posts);
-
-    client.cache.writeData({
-      data: { getAllPosts: posts },
+  useEffect(() => {
+    searchPosts({
+      fetchPolicy: "network-only",
+      variables: {
+        sendText,
+        sendFromDate,
+        sendToDate,
+        sendCommuneIds,
+        sendFromApplicantLimit,
+        sendToApplicantLimit,
+      },
     });
-    handleSearch(posts);
-  }
+  }, [
+    text,
+    fromDate,
+    toDate,
+    communeIds,
+    fromApplicantLimit,
+    toApplicantLimit,
+  ]);
 
   const handleTextChange = (event) => {
     setText(event.target.value);
@@ -132,8 +125,6 @@ export default function SearchBar(props) {
 
   const handleCommuneChange = (event) => {
     if (event) {
-      console.log(event);
-
       setCommuneIds(event);
     } else {
       // nothing selected
