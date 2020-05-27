@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { useQuery } from "@apollo/client";
-import { GET_ALL_POSTS } from "../graphql/queries/posts";
-import { Loading } from "../containers";
 import DefaultPicture from "../assets/images/userProfile-default.png";
 import { Spinner, Container, Row, Col, Image } from "react-bootstrap";
 import { SearchBar } from "./../components";

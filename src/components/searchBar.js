@@ -1,17 +1,20 @@
-// React
-import React, { useState, useEffect } from "react";
 import { Form, FormControl, Container, Row, Col } from "react-bootstrap";
 import { useApolloClient, useQuery } from "@apollo/client";
-import { GET_COMMUNES } from "./../graphql/queries/communes";
+import { useDebounceSearchPosts } from "./../hooks";
+import "react-datepicker/dist/react-datepicker.css";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
+import PropTypes from "prop-types";
 import Select from "react-select";
 import { DateTime } from "luxon";
-import { useDebounceSearchPosts } from "./../hooks";
 
-import "react-datepicker/dist/react-datepicker.css";
+import { GET_COMMUNES } from "./../graphql/queries/communes";
 
-export default function SearchBar(props) {
+function SearchBar(props) {
+  // get props
   const { handleSearch } = props;
+
+  // set initial state
   const [text, setText] = useState("");
   const [fromDate, setFromDate] = useState(null);
   const [toDate, setToDate] = useState(null);
@@ -19,19 +22,19 @@ export default function SearchBar(props) {
   const [toApplicantLimit, setToApplicantLimit] = useState(10);
   const [communeIds, setCommuneIds] = useState([]);
 
+  // get apollo client
   const client = useApolloClient();
 
   // get communes
-
   const { data, loading, error } = useQuery(GET_COMMUNES, {
     fetchPolicy: "cache-first",
   });
 
-  let communes = [];
+  const communes = [];
 
   if (!loading && !error) {
     const rawCommunes = data.getCommunes;
-    rawCommunes.map((commune, index) => {
+    rawCommunes.map((commune) => {
       communes.push({
         value: commune.id,
         label: commune.name,
@@ -43,8 +46,7 @@ export default function SearchBar(props) {
     });
   }
 
-  //filters
-
+  // set filters for query
   let sendText = undefined;
   if (text !== "") {
     sendText = text;
@@ -64,7 +66,7 @@ export default function SearchBar(props) {
   let sendCommuneIds = undefined;
   if (communeIds.length) {
     sendCommuneIds = [];
-    communeIds.map((com, index) => {
+    communeIds.map((com) => {
       sendCommuneIds.push(com.value);
     });
   }
@@ -72,11 +74,12 @@ export default function SearchBar(props) {
   const sendFromApplicantLimit = fromApplicantLimit;
   const sendToApplicantLimit = toApplicantLimit;
 
-  // fetch
+  // get query function
 
   const searchPosts = useDebounceSearchPosts(handleSearch);
 
   useEffect(() => {
+    // get filtered posts when component is updated
     searchPosts({
       fetchPolicy: "network-only",
       variables: {
@@ -245,3 +248,9 @@ export default function SearchBar(props) {
     </Form>
   );
 }
+
+SearchBar.propTypes = {
+  handleSearch: PropTypes.func,
+};
+
+export default SearchBar;
