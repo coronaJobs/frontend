@@ -104,32 +104,6 @@ export default function SearchBar(props) {
     handleSearch(posts);
   }
 
-  console.log("--------------------------------------");
-  const handleSubmit = () => {
-    let sendFromDate;
-    if (fromDate) {
-      sendFromDate = DateTime.fromISO(fromDate.toISOString())
-        .startOf("day")
-        .toISO();
-    } else {
-      sendFromDate = undefined;
-    }
-
-    let sendToDate;
-    if (toDate) {
-      sendToDate = DateTime.fromISO(toDate.toISOString())
-        .startOf("day")
-        .toISO();
-    } else {
-      sendToDate = undefined;
-    }
-  };
-
-  // executed when component is updated and mounted
-  useEffect(() => {
-    handleSubmit();
-  });
-
   const handleTextChange = (event) => {
     setText(event.target.value);
   };
