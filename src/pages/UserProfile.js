@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { DataProfile, PictureProfile, Loading, JobOffer } from "../containers";
 import { Container, Row, Col } from "react-bootstrap";
-import { EditProfileComponent, PostFormComponent } from "../components";
+import { EditProfileComponent, PostFormComponent, UpdateResumeComponent } from "../components";
 
 import "../assets/css/user/userProfile.css";
 import "../assets/css/user/editUser.css";
@@ -94,30 +94,32 @@ function UserProfile() {
               )}
             </div>
           </Col>
-          <Col>
-            <div className="container">
-              {loading ? (
-                <Loading />
-              ) : (
-                <DataProfile
-                  address={currentAddress}
-                  mail={currentMail}
-                  rut={currentRut}
-                  phone={currentPhone}
-                />
-              )}
-              <EditProfileComponent
-                dataUser={{
-                  id: data.getUser.id,
-                  name: currentName,
-                  rut: currentRut,
-                  mail: currentMail,
-                  address: currentAddress,
-                  phone: currentPhone,
-                }}
-                editUserUpdate={editUserUpdate}
+          {/* <Col className="d-flex flex-column justify-content-between"> */}
+          <Col className="d-flex flex-column">
+            {loading ? (
+              <Loading />
+            ) : (
+              <DataProfile
+                address={currentAddress}
+                mail={currentMail}
+                rut={currentRut}
+                phone={currentPhone}
               />
-            </div>
+            )}
+            <Row className="d-flex justify-content-around">
+            <EditProfileComponent
+              dataUser={{
+                id: data.getUser.id,
+                name: currentName,
+                rut: currentRut,
+                mail: currentMail,
+                address: currentAddress,
+                phone: currentPhone,
+              }}
+              editUserUpdate={editUserUpdate}
+            />
+            {role && role.id === 2 ? <UpdateResumeComponent /> : null}
+            </Row>
           </Col>
         </Row>
       </Container>

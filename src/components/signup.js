@@ -63,8 +63,6 @@ export default function SignUpComponent() {
     }})
   }
 
-  console.log(errors);
-
   return(
     !isLoggedIn ? (
       <div className="signup-background">
