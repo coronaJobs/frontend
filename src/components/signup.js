@@ -1,8 +1,7 @@
 // React
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import PropTypes from "prop-types";
 
 // Bootstrap
 import Button from 'react-bootstrap/Button';
@@ -18,37 +17,6 @@ import { IS_LOGGED_IN } from '../graphql/queries/inner_queries';
 // Custom Hooks
 import { useLogin } from '../hooks';
 
-
-function ResumeInput({ setResume }) {
-  return(
-    <Fragment>
-      <Form.Group>
-      {/* Opción 1 */}
-        <Form.File
-          id="resume-file"
-        >
-          <Form.File.Label>Curriculum</Form.File.Label>
-          <Form.File.Input onChange={(e)=>setResume(e.currentTarget.value)} />
-        </Form.File>
-      {/* Opción 2 */}
-        {/* <Form.File
-          id="resume-file"
-          label="Curriculum"
-          custom
-        /> */}
-      {/* Opción 3 */}
-        {/* <Form.File
-          id="resume-file"
-          className="signup-file-input"
-          custom
-        >
-          <Form.File.Input className="signup-file-input" />
-          <Form.File.Label className="signup-file-input">Curriculum</Form.File.Label>
-        </Form.File> */}
-      </Form.Group>
-    </Fragment>
-  );
-} 
 
 export default function SignUpComponent() {
   const [name, setName] = useState('');
@@ -74,6 +42,7 @@ export default function SignUpComponent() {
   const [signUp] = useMutation(CREATE_USER, {
     onCompleted() {
       setUserCreated(true);
+      //TODO: post cv to url returned by mutation 
     },
     onError() {
       setValidationError('Error. Por favor inténtelo de nuevo.')
@@ -90,8 +59,11 @@ export default function SignUpComponent() {
       address: address,
       phone: phone,
       role: role,
+      resumeUrl: resume,
     }})
   }
+
+  console.log(errors);
 
   return(
     !isLoggedIn ? (
@@ -222,7 +194,38 @@ export default function SignUpComponent() {
                 </Col>
               </Row>
             </Form.Group>
-            {role && role === 2 ? <ResumeInput setResume={setResume} /> : null}
+            {role && role === 2 ?
+              <Form.Group>
+                <Form.File
+                  id="resume-file"
+                  className="signup-file-input"
+                  custom
+                >
+                  <Form.File.Input
+                    name="resume"
+                    ref={register({
+                      pattern: {
+                        value: /^.*\.(pdf|PDF)$/,
+                        message: "Formato de archivo inválido."
+                      }
+                    })}
+                    isValid={!errors.resume && resume}
+                    isInvalid={!!errors.resume}
+                    onChange={(e)=>{
+                      const filename = e.currentTarget.value.split(/[\\,/]/).pop();
+                      setResume(filename);
+                    }}
+                  />
+                  <Form.File.Label className="signup-file-input">Curriculum</Form.File.Label>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.resume ? `${resume} : ${errors.resume.message}` : null}
+                  </Form.Control.Feedback>
+                  <Form.Control.Feedback type="valid">
+                    {!errors.resume && resume ? `${resume} cargado con éxito` : null}
+                  </Form.Control.Feedback>
+                </Form.File>
+              </Form.Group>
+            : null}
             <Button
               variant="primary"
               block
@@ -237,8 +240,4 @@ export default function SignUpComponent() {
       </div>
     ) : <Redirect to="/" />
   )
-}
-
-ResumeInput.propTypes = {
-  setResume: PropTypes.func.isRequired,
 }
