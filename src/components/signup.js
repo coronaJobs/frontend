@@ -1,10 +1,14 @@
 // React
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import PropTypes from "prop-types";
 
 // Bootstrap
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
 // Apollo & GraphQL
 import { useMutation, useQuery } from '@apollo/client';
@@ -13,7 +17,38 @@ import { IS_LOGGED_IN } from '../graphql/queries/inner_queries';
 
 // Custom Hooks
 import { useLogin } from '../hooks';
- 
+
+
+function ResumeInput({ setResume }) {
+  return(
+    <Fragment>
+      <Form.Group>
+      {/* Opción 1 */}
+        <Form.File
+          id="resume-file"
+        >
+          <Form.File.Label>Curriculum</Form.File.Label>
+          <Form.File.Input onChange={(e)=>setResume(e.currentTarget.value)} />
+        </Form.File>
+      {/* Opción 2 */}
+        {/* <Form.File
+          id="resume-file"
+          label="Curriculum"
+          custom
+        /> */}
+      {/* Opción 3 */}
+        {/* <Form.File
+          id="resume-file"
+          className="signup-file-input"
+          custom
+        >
+          <Form.File.Input className="signup-file-input" />
+          <Form.File.Label className="signup-file-input">Curriculum</Form.File.Label>
+        </Form.File> */}
+      </Form.Group>
+    </Fragment>
+  );
+} 
 
 export default function SignUpComponent() {
   const [name, setName] = useState('');
@@ -23,9 +58,8 @@ export default function SignUpComponent() {
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [role, setRole] = useState(1);
+  const [resume, setResume] = useState();
   const [validationError, setValidationError] = useState('');
-  // Is this state necessary??? (validForm)
-  // const [validForm, setValidForm] = useState(false);
 
   const { register, handleSubmit, errors, formState } = useForm();
   // Read the formState before render to subscribe the form state through Proxy
@@ -33,8 +67,6 @@ export default function SignUpComponent() {
 
   const [userCreated, setUserCreated] = useState(false);
   useLogin(mail, password, userCreated);
-
-  // TODO: profile picture & CV (proximo sprint)
 
   const { data } = useQuery(IS_LOGGED_IN);
   const { isLoggedIn } = data;
@@ -190,6 +222,7 @@ export default function SignUpComponent() {
                 </Col>
               </Row>
             </Form.Group>
+            {role && role === 2 ? <ResumeInput setResume={setResume} /> : null}
             <Button
               variant="primary"
               block
@@ -204,4 +237,8 @@ export default function SignUpComponent() {
       </div>
     ) : <Redirect to="/" />
   )
+}
+
+ResumeInput.propTypes = {
+  setResume: PropTypes.func.isRequired,
 }
