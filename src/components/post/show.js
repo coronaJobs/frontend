@@ -10,18 +10,19 @@ export default function PostFormComponent(props) {
     applicantLimit,
     owner,
     state,
-    applicants,
+    commune,
   } = props.post;
-
+  const stateNames = {
+    open: "Disponible",
+    closed: "No disponible",
+  };
   return (
     <>
       <Row>
         <Col className="postShow-main-description-col">
           <h1 className="postShow-name">{name}</h1>
-          <p>{description}</p> {/* TODO: limitar cantidad de caracteres ... */}
-          <p>
-            Vacantes disponibles: {applicants.length}/{applicantLimit}
-          </p>
+          <p>{description.substring(0, 100) + "..."}</p>
+          <p>Vacantes: {applicantLimit}</p>
         </Col>
         <Col className="postShow-image-col">
           <Image src={DefaultPicture} className="postShow-image" fluid />
@@ -36,7 +37,8 @@ export default function PostFormComponent(props) {
         <div>
           <ul>
             <li>Empleador: {owner.name}</li>
-            <li>Estado: {state.name}</li>
+            <li>Estado: {stateNames[state.name]}</li>
+            <li>Comuna: {commune.name}</li>
           </ul>
         </div>
       </Row>
@@ -51,6 +53,7 @@ PostFormComponent.propTypes = {
     applicantLimit: PropTypes.number.isRequired,
     owner: PropTypes.object.isRequired,
     state: PropTypes.object.isRequired,
+    commune: PropTypes.object.isRequired,
     applicants: PropTypes.arrayOf(PropTypes.object).isRequired,
   }),
 };

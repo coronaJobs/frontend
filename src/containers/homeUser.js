@@ -60,7 +60,6 @@ function HomeUser(props) {
                     className="homeUser-application-button strong-color some-space"
                     to={{
                       pathname: `/posts/${post.id}`,
-                      state: { ...{ post: post } },
                     }}
                   >
                     {" "}

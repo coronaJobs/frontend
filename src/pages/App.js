@@ -33,12 +33,9 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
         renders the first one that matches the current URL. */}
         <Switch>
-          <Route
-            exact
-            path="/posts/:postId"
-            render={(props) => <PostShow {...props} />}
-          />
-
+          <Route exact path="/posts/:postId">
+            <PostShow />
+          </Route>
           <Route path="/signup">
             <SignUp />
           </Route>
