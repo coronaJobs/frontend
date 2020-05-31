@@ -28,6 +28,10 @@ export const GET_ALL_POSTS = gql`
       state {
         id
       }
+      commune {
+        id
+        name
+      }
     }
   }
 `;
