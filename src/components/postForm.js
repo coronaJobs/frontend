@@ -1,13 +1,15 @@
 // React
 import React, { useState } from "react";
+import Select from "react-select";
 import { Redirect } from "react-router-dom";
 
 // Bootstrap
 import { Button, Form, Row, Col, Modal } from "react-bootstrap";
 
 // Apollo & GraphQL
-import { useMutation } from "@apollo/client";
+import { useApolloClient, useQuery, useMutation } from "@apollo/client";
 import { CREATE_POST } from "../graphql/mutations/posts";
+import { GET_COMMUNES } from "./../graphql/queries/communes";
 
 import "../assets/css/postForm.css";
 function PostForm(props) {
@@ -16,6 +18,40 @@ function PostForm(props) {
   const [applicantLimit, setApplicantLimit] = useState(1);
   const [validationError, setValidationError] = useState("");
   const [triggerRedirect, setTriggerRedirect] = useState(false);
+  const [communeId, setCommuneId] = useState("");
+
+  // get apollo client
+  const client = useApolloClient();
+
+  // get communes
+  const { data, loading, error } = useQuery(GET_COMMUNES, {
+    fetchPolicy: "cache-first",
+  });
+
+  const communes = [];
+
+  if (!loading && !error) {
+    const rawCommunes = data.getCommunes;
+    rawCommunes.map((commune) => {
+      communes.push({
+        value: commune.id,
+        label: commune.name,
+        __typename: commune.__typename,
+      });
+    });
+    client.cache.writeData({
+      data: { getCommunes: communes },
+    });
+  }
+
+  const handleCommuneChange = (event) => {
+    if (event) {
+      setCommuneId(event);
+    } else {
+      // nothing selected
+      setCommuneId([]);
+    }
+  };
 
   const [createPost] = useMutation(CREATE_POST, {
     onCompleted({ data }) {
@@ -64,6 +100,22 @@ function PostForm(props) {
               type="name"
               onChange={(event) => setName(event.target.value)}
               className="postForm-text-input"
+            />
+          </Form.Group>
+          <Form.Group className="w-100">
+            <Select
+              isMulti={false}
+              className="basic-single w-75"
+              classNamePrefix="select"
+              isLoading={loading}
+              isClearable={true}
+              isRtl={false}
+              isSearchable={true}
+              name="color"
+              options={communes}
+              placeholder="Selecciona una comuna"
+              onChange={handleCommuneChange}
+              noOptionsMessage={() => "No hay resultados"}
             />
           </Form.Group>
         </Col>
