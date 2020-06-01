@@ -1,0 +1,27 @@
+@import "../globalVariables.css";
+
+.postShow-main-description-col {
+  background-color: var(--background-secondary);
+  width: 50%;
+  padding-left: 80px;
+  padding-top: 80px;
+}
+
+.postShow-secondary-description-row {
+  flex-direction: column;
+  padding: 80px;
+  padding-top: 30px;
+}
+
+.postShow-image-col {
+  padding: 0;
+  width: 50%;
+}
+
+.postShow-image {
+  width: 100%;
+}
+
+.postShow-name {
+  margin-left: 0;
+}
