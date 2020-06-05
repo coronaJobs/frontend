@@ -30,8 +30,12 @@ export default function LoginComponent() {
   const { error } = useLogin(mail, password, validForm);
 
   useEffect(() => {
-    if (error && error.graphQLErrors[0].extensions.code === 'UNAUTHENTICATED') {
-      setValidationError('Credenciales inválidas');
+    if (error) {
+      if (error.graphQLErrors[0].extensions.code === 'UNAUTHENTICATED') {
+        setValidationError('Credenciales inválidas');
+      } else {
+        setValidationError('Error. Intente de nuevo.');
+      }
       setValidForm(false);
     }
   }, [ error ]);
