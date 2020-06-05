@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import DefaultPicture from "../assets/images/userProfile-default.png";
 import { Spinner, Container, Row, Col, Image } from "react-bootstrap";
@@ -38,14 +39,15 @@ function Posts() {
                   <h3>{post.name}</h3>
                   <p>{post.description}</p>
                   <p className="italic-style">{post.commune.name}</p>
-                  <span>
-                    <a
-                      className="homeUser-application-button strong-color some-space"
-                      href="/signup"
-                    >
-                      Postular
-                    </a>
-                  </span>
+                  <Link
+                    className="homeUser-application-button strong-color some-space"
+                    to={{
+                      pathname: `/posts/${post.id}`,
+                    }}
+                  >
+                    {" "}
+                    Postular{" "}
+                  </Link>
                 </Col>
               ))}
             </Row>
