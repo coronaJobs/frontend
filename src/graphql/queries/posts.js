@@ -59,10 +59,6 @@ export const GET_POST = gql`
         id
         name
       }
-      commune {
-        id
-        name
-      }
     }
   }
 `;
