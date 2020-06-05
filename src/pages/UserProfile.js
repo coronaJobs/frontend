@@ -106,19 +106,19 @@ function UserProfile() {
                 phone={currentPhone}
               />
             )}
-            <Row className="d-flex justify-content-around">
-            <EditProfileComponent
-              dataUser={{
-                id: data.getUser.id,
-                name: currentName,
-                rut: currentRut,
-                mail: currentMail,
-                address: currentAddress,
-                phone: currentPhone,
-              }}
-              editUserUpdate={editUserUpdate}
-            />
-            {role && role.id === 2 ? <UpdateResumeComponent /> : null}
+            <Row className={`d-flex ${role && role.id == 2 ? 'justify-content-around' : ''}`}>
+              <EditProfileComponent
+                dataUser={{
+                  id: data.getUser.id,
+                  name: currentName,
+                  rut: currentRut,
+                  mail: currentMail,
+                  address: currentAddress,
+                  phone: currentPhone,
+                }}
+                editUserUpdate={editUserUpdate}
+              />
+              {role && role.id === 2 ? <UpdateResumeComponent /> : null}
             </Row>
           </Col>
         </Row>
