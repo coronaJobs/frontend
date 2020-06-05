@@ -1,3 +1,5 @@
+@import '../globalVariables.css';
+
 .editUser-button-pink {
   background: var(--button-primary-color);
   border: none;

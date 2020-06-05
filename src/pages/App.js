@@ -15,6 +15,7 @@ import UserProfile from "./UserProfile";
 import SignUp from "./signup";
 import Login from "./login";
 import Home from "./Home";
+import PostShow from "./post/show";
 import CurrentPosts from "./Posts";
 
 function App() {
@@ -33,6 +34,9 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
         renders the first one that matches the current URL. */}
         <Switch>
+          <Route exact path="/posts/:postId">
+            <PostShow />
+          </Route>
           <Route path="/signup">
             <SignUp />
           </Route>
