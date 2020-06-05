@@ -6,3 +6,4 @@ export { default as SignUpComponent } from "./signup";
 export { default as SearchBar } from "./searchBar";
 export { default as EditProfileComponent } from "./userProfile/edit";
 export { default as UpdateResumeComponent } from "./userProfile/updateResume";
+export { default as DownloadResumeComponent } from "./userProfile/downloadResume";

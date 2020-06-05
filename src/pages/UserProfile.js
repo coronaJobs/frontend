@@ -4,10 +4,11 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { DataProfile, PictureProfile, Loading, JobOffer } from "../containers";
 import { Container, Row, Col } from "react-bootstrap";
-import { EditProfileComponent, PostFormComponent, UpdateResumeComponent } from "../components";
+import { EditProfileComponent, PostFormComponent, UpdateResumeComponent, DownloadResumeComponent } from "../components";
 
 import "../assets/css/user/userProfile.css";
 import "../assets/css/user/editUser.css";
+import { CURRENT_USER } from "../graphql/queries/inner_queries";
 
 function UserProfile() {
   const [currentName, setCurrentName] = useState();
@@ -22,6 +23,7 @@ function UserProfile() {
     variables: { id: parseInt(userId) },
   });
 
+  const currentUserQuery = useQuery(CURRENT_USER);
   useEffect(() => {
     if (!loading) {
       setCurrentName(name);
@@ -32,8 +34,10 @@ function UserProfile() {
     }
   }, [loading]);
 
-  if (loading) return <Loading />;
+  if (loading || currentUserQuery.loading) return <Loading />;
   const { name, address, role, mail, rut, phone, posts } = data.getUser;
+  const currentUserId = currentUserQuery.data.currentUser ? currentUserQuery.data.currentUser.id : null;
+  const currentUserRole = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.role : null;
 
   const editUserUpdate = (data) => {
     const { newName, newAddress, newMail, newRut, newPhone } = data;
@@ -82,9 +86,9 @@ function UserProfile() {
   }
   return (
     <div className="container">
-      <h1 className="py-5">Mi perfil</h1>
-      <Container fluid>
-        <Row>
+      {/* <h3 className="py-3">Mi perfil</h3> */}
+      <Container className="mt-3" fluid>
+        <Row className="d-flex align-items-center">
           <Col>
             <div className="container">
               {loading ? (
@@ -106,8 +110,10 @@ function UserProfile() {
                 phone={currentPhone}
               />
             )}
-            <Row className={`d-flex ${role && role.id == 2 ? 'justify-content-around' : ''}`}>
+            <Row className={`d-flex`}>
+            {data.getUser.id === currentUserId ?
               <EditProfileComponent
+                key='editProfileButton'
                 dataUser={{
                   id: data.getUser.id,
                   name: currentName,
@@ -117,8 +123,9 @@ function UserProfile() {
                   phone: currentPhone,
                 }}
                 editUserUpdate={editUserUpdate}
-              />
-              {role && role.id === 2 ? <UpdateResumeComponent /> : null}
+              /> : null}
+              {data.getUser.id === currentUserId && role && role.id === 2 ? <UpdateResumeComponent /> : null}
+              {data.getUser.id !== currentUserId && role && role.id === 2 ? <DownloadResumeComponent /> : null}
             </Row>
           </Col>
         </Row>
