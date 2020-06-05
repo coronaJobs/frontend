@@ -53,16 +53,18 @@ function UserProfile() {
     case "employer":
       formButton = <PostFormComponent userId={userId} />;
       content = (
-        <Container className="container UserProfile-box-margin" fluid>
-          <div id="experience-container">
-            <h3>Últimas Ofertas</h3>
-            {formButton}
-          </div>
+        // <Container className="container UserProfile-box-margin" fluid>
+        <Container fluid>
+          <Row className="my-3 p-2 d-flex justify-content-between align-items-center">
+            <h3 className="mb-0">Últimas Ofertas</h3>
+            {data.getUser.id === currentUserId ? formButton : null}
+          </Row>
           <Row>
             {posts.length > 0 ? (
               posts.map((post, index) => <JobOffer key={index} post={post} />)
             ) : (
-              <p>No has publicado ofertas en CoronaJobs.</p>
+              // <p>No has publicado ofertas en CoronaJobs.</p>
+              <p>Sin ofertas publicadas hasta el momento.</p>
             )}
           </Row>
         </Container>
