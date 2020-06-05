@@ -3,7 +3,7 @@ import { Row, Col, Image } from "react-bootstrap";
 import PropTypes from "prop-types";
 import DefaultPicture from "../../assets/images/conectar-home.jpg";
 
-export default function PostFormComponent(props) {
+export default function PostShowComponent(props) {
   const {
     name,
     description,
@@ -46,7 +46,7 @@ export default function PostFormComponent(props) {
   );
 }
 
-PostFormComponent.propTypes = {
+PostShowComponent.propTypes = {
   post: PropTypes.shape({
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

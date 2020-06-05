@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-export const CREATE_POST =  gql`
+export const CREATE_POST = gql`
   mutation createPost(
     $name: String!
     $description: String!
@@ -13,14 +13,15 @@ export const CREATE_POST =  gql`
       applicantLimit: $applicantLimit
       ownerId: $ownerId
     ) {
-    id
-    name
-    description
-    applicantLimit
-    state {
+      id
       name
       description
-    }
+      applicantLimit
+      state {
+        id
+        name
+        description
+      }
     }
   }
 `;
