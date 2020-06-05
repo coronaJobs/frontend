@@ -114,7 +114,11 @@ export default function EditProfileComponent(props) {
 
   return (
     <>
-      <Button onClick={handleShow} className="editUser-button-pink">
+      <Button
+        variant="outline-light"
+        onClick={handleShow}
+        className="editUser-button-pink mr-4"
+      >
         Editar perfil
       </Button>
       <Modal show={showModal} onHide={handleClose} size="lg">
