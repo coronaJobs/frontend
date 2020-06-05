@@ -49,7 +49,7 @@ function PostForm(props) {
       setCommuneId(event);
     } else {
       // nothing selected
-      setCommuneId([]);
+      setCommuneId("");
     }
   };
 
@@ -60,6 +60,8 @@ function PostForm(props) {
     },
     onError(error) {
       setValidationError("Ha ocurrido un error. Por favor inténtelo de nuevo.");
+      console.log(error);
+      console.log(typeof communeId.value);
     },
   });
 
@@ -72,13 +74,14 @@ function PostForm(props) {
           description: description,
           applicantLimit: applicantLimit,
           ownerId: +props.userId,
+          communeId: communeId.value,
         },
       });
     }
   };
 
   const validateForm = () => {
-    if (!name || !description) {
+    if (!name || !description || !communeId) {
       setValidationError(
         "Debes rellenar todos los campos para poder publicar una oferta."
       );
@@ -103,6 +106,7 @@ function PostForm(props) {
             />
           </Form.Group>
           <Form.Group className="w-100">
+            <Form.Label>Comuna del trabajo</Form.Label>
             <Select
               isMulti={false}
               className="basic-single w-75"
