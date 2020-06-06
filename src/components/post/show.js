@@ -19,9 +19,17 @@ export default function PostShowComponent(props) {
     commune,
     id,
   } = props.post;
+
+  function checkApplied(postId, userApplications) {
+    return userApplications.some(function (application) {
+      return application.id === postId;
+    });
+  }
   const [applicationMessage, setApplicationMessage] = useState("");
+  const [isApplied, setIsApplied] = useState(false);
   const [createApplication] = useMutation(CREATE_APPLICATION, {
     onCompleted() {
+      setIsApplied(true);
       setApplicationMessage("¡Postulación realizada!");
     },
     onError() {
@@ -32,14 +40,12 @@ export default function PostShowComponent(props) {
   });
   const currentUserQuery = useQuery(CURRENT_USER);
   const { currentUser } = currentUserQuery.data;
-  console.log(currentUser.id);
-  const { data, loading, error } = useQuery(GET_USER_APPLICATIONS, {
+  const { data, loading } = useQuery(GET_USER_APPLICATIONS, {
     fetchPolicy: "network-only",
     variables: { id: currentUser.id },
   });
   if (loading) return <Loading />;
-  console.log("HOLAAAA");
-  console.log(data);
+  console.log(checkApplied(id, data.getUser.applications));
   const stateNames = {
     open: "Disponible",
     closed: "No disponible",
@@ -47,6 +53,13 @@ export default function PostShowComponent(props) {
   const handleApplication = () => {
     createApplication({ variables: { offerId: id } });
   };
+  const applicationButton = !checkApplied(id, data.getUser.applications) ? (
+    <Button onClick={handleApplication} disabled={isApplied}>
+      Postular
+    </Button>
+  ) : (
+    <p>Ya has postulado a este trabajo</p>
+  );
   return (
     <>
       <Row>
@@ -54,9 +67,7 @@ export default function PostShowComponent(props) {
           <h1 className="postShow-name">{name}</h1>
           <p>{description.substring(0, 100) + "..."}</p>
           <p>Vacantes: {applicantLimit}</p>
-          {currentUser.role.name === "employee" ? (
-            <Button onClick={handleApplication}>Postular</Button>
-          ) : null}
+          {currentUser.role.name === "employee" ? applicationButton : null}
           <p>
             {currentUser.role.name === "employee" ? applicationMessage : null}
           </p>
