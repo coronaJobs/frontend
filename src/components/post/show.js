@@ -19,13 +19,11 @@ export default function PostShowComponent(props) {
     commune,
     id,
   } = props.post;
-
   function checkApplied(postId, userApplications) {
     return userApplications.some(function (application) {
       return application.id === postId;
     });
   }
-  // const [applicationMessage, setApplicationMessage] = useState("");
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [isApplied, setIsApplied] = useState(false);
