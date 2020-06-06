@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Image, Button } from "react-bootstrap";
+import { Row, Col, Image, Button, Alert } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useQuery, useMutation } from "@apollo/client";
 
@@ -25,17 +25,17 @@ export default function PostShowComponent(props) {
       return application.id === postId;
     });
   }
-  const [applicationMessage, setApplicationMessage] = useState("");
+  // const [applicationMessage, setApplicationMessage] = useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
   const [isApplied, setIsApplied] = useState(false);
   const [createApplication] = useMutation(CREATE_APPLICATION, {
     onCompleted() {
       setIsApplied(true);
-      setApplicationMessage("¡Postulación realizada!");
+      setShowSuccessAlert(true);
     },
     onError() {
-      setApplicationMessage(
-        "No se pudo realizar postulación. Inténtelo más tarde."
-      );
+      setShowErrorAlert(true);
     },
   });
   const currentUserQuery = useQuery(CURRENT_USER);
@@ -45,7 +45,6 @@ export default function PostShowComponent(props) {
     variables: { id: currentUser.id },
   });
   if (loading) return <Loading />;
-  console.log(checkApplied(id, data.getUser.applications));
   const stateNames = {
     open: "Disponible",
     closed: "No disponible",
@@ -54,11 +53,15 @@ export default function PostShowComponent(props) {
     createApplication({ variables: { offerId: id } });
   };
   const applicationButton = !checkApplied(id, data.getUser.applications) ? (
-    <Button onClick={handleApplication} disabled={isApplied}>
+    <Button
+      className="postShow-application-button"
+      onClick={handleApplication}
+      disabled={isApplied}
+    >
       Postular
     </Button>
   ) : (
-    <p>Ya has postulado a este trabajo</p>
+    <p className="postShow-applied-text">Ya has postulado a este trabajo</p>
   );
   return (
     <>
@@ -68,9 +71,26 @@ export default function PostShowComponent(props) {
           <p>{description.substring(0, 100) + "..."}</p>
           <p>Vacantes: {applicantLimit}</p>
           {currentUser.role.name === "employee" ? applicationButton : null}
-          <p>
-            {currentUser.role.name === "employee" ? applicationMessage : null}
-          </p>
+          {showSuccessAlert ? (
+            <Alert
+              variant="success"
+              className="postShow-alert"
+              onClose={() => setShowSuccessAlert(false)}
+              dismissible
+            >
+              ¡Postulación realizada!
+            </Alert>
+          ) : null}
+          {showErrorAlert ? (
+            <Alert
+              variant="danger"
+              className="postShow-alert"
+              onClose={() => setShowErrorAlert(false)}
+              dismissible
+            >
+              No se pudo realizar postulación. Inténtelo más tarde.
+            </Alert>
+          ) : null}
         </Col>
         <Col className="postShow-image-col">
           <Image src={DefaultPicture} className="postShow-image" fluid />
