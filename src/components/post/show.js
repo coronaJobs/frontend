@@ -1,9 +1,26 @@
-import React from "react";
-import { Row, Col, Image } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Col, Image, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
-import DefaultPicture from "../../assets/images/conectar-home.jpg";
+import { useQuery, useMutation } from "@apollo/client";
 
-export default function PostFormComponent(props) {
+import DefaultPicture from "../../assets/images/conectar-home.jpg";
+import { CURRENT_USER } from "../../graphql/queries/inner_queries";
+import { CREATE_APPLICATION } from "../../graphql/mutations/applications";
+
+export default function PostShowComponent(props) {
+  const [applicationMessage, setApplicationMessage] = useState("");
+  const [createApplication] = useMutation(CREATE_APPLICATION, {
+    onCompleted() {
+      setApplicationMessage("¡Postulación realizada!");
+    },
+    onError() {
+      setApplicationMessage(
+        "No se pudo realizar postulación. Inténtelo más tarde."
+      );
+    },
+  });
+  const currentUserQuery = useQuery(CURRENT_USER);
+  const { currentUser } = currentUserQuery.data;
   const {
     name,
     description,
@@ -11,10 +28,14 @@ export default function PostFormComponent(props) {
     owner,
     state,
     commune,
+    id,
   } = props.post;
   const stateNames = {
     open: "Disponible",
     closed: "No disponible",
+  };
+  const handleApplication = () => {
+    createApplication({ variables: { offerId: id } });
   };
   return (
     <>
@@ -23,6 +44,12 @@ export default function PostFormComponent(props) {
           <h1 className="postShow-name">{name}</h1>
           <p>{description.substring(0, 100) + "..."}</p>
           <p>Vacantes: {applicantLimit}</p>
+          {currentUser.role.name === "employee" ? (
+            <Button onClick={handleApplication}>Postular</Button>
+          ) : null}
+          <p>
+            {currentUser.role.name === "employee" ? applicationMessage : null}
+          </p>
         </Col>
         <Col className="postShow-image-col">
           <Image src={DefaultPicture} className="postShow-image" fluid />
@@ -46,7 +73,7 @@ export default function PostFormComponent(props) {
   );
 }
 
-PostFormComponent.propTypes = {
+PostShowComponent.propTypes = {
   post: PropTypes.shape({
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
@@ -55,5 +82,6 @@ PostFormComponent.propTypes = {
     state: PropTypes.object.isRequired,
     commune: PropTypes.object.isRequired,
     applicants: PropTypes.arrayOf(PropTypes.object).isRequired,
+    id: PropTypes.number.isRequired,
   }),
 };
