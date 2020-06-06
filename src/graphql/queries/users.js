@@ -52,6 +52,10 @@ export const GET_USER_PROFILE = gql`
           name
           description
         }
+        commune {
+          id
+          name
+        }
       }
     }
   }

@@ -1,4 +1,4 @@
-@import 'globalVariables.css';
+@import "globalVariables.css";
 
 h1 {
   margin-left: 10px;
@@ -9,7 +9,7 @@ p {
 }
 
 .App {
-  background-image: url('../images/background.png');
+  background-image: url("../images/background.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -46,13 +46,17 @@ p {
   margin: auto;
 }
 
-.blue-container{
+.blue-container {
   color: var(--blue);
   font-size: 20px;
 }
 
 .blue {
   color: var(--blue);
+}
+
+.italic-style {
+  font-style: italic;
 }
 
 .strong-color {

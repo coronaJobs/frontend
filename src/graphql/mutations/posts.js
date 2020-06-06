@@ -6,12 +6,14 @@ export const CREATE_POST = gql`
     $description: String!
     $applicantLimit: Int!
     $ownerId: Int!
+    $communeId: Int!
   ) {
     createPost(
       name: $name
       description: $description
       applicantLimit: $applicantLimit
       ownerId: $ownerId
+      communeId: $communeId
     ) {
       id
       name
