@@ -44,9 +44,11 @@ export const GET_USER_PROFILE = gql`
         name
       }
       posts {
+        id
         name
         description
         state {
+          id
           name
           description
         }

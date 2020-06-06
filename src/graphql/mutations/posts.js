@@ -20,6 +20,7 @@ export const CREATE_POST = gql`
       description
       applicantLimit
       state {
+        id
         name
         description
       }

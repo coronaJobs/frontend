@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_USER = gql`
   mutation createUser(
@@ -23,26 +23,21 @@ export const CREATE_USER = gql`
       resumeUrl: $resumeUrl
       roleId: $role
     ) {
-        rut
+      id
+      rut
+      name
+      mail
+      role {
+        id
         name
-        mail
-        role {
-          id
-          name
-        }
       }
+    }
   }
 `;
 
 export const LOGIN = gql`
-  mutation login(
-    $mail: String!
-    $password: String!
-  ) {
-    login(
-      mail: $mail
-      password: $password
-    )
+  mutation login($mail: String!, $password: String!) {
+    login(mail: $mail, password: $password)
   }
 `;
 
@@ -67,6 +62,7 @@ export const EDIT_USER = gql`
       profilePicture: $profilePicture
       resumeUrl: $resumeUrl
     ) {
+      id
       rut
       name
       mail
@@ -74,5 +70,4 @@ export const EDIT_USER = gql`
       address
     }
   }
-
 `;
