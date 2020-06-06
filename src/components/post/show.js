@@ -5,9 +5,20 @@ import { useQuery, useMutation } from "@apollo/client";
 
 import DefaultPicture from "../../assets/images/conectar-home.jpg";
 import { CURRENT_USER } from "../../graphql/queries/inner_queries";
+import { GET_USER_APPLICATIONS } from "../../graphql/queries/applications";
 import { CREATE_APPLICATION } from "../../graphql/mutations/applications";
+import { Loading } from "../../containers";
 
 export default function PostShowComponent(props) {
+  const {
+    name,
+    description,
+    applicantLimit,
+    owner,
+    state,
+    commune,
+    id,
+  } = props.post;
   const [applicationMessage, setApplicationMessage] = useState("");
   const [createApplication] = useMutation(CREATE_APPLICATION, {
     onCompleted() {
@@ -21,15 +32,14 @@ export default function PostShowComponent(props) {
   });
   const currentUserQuery = useQuery(CURRENT_USER);
   const { currentUser } = currentUserQuery.data;
-  const {
-    name,
-    description,
-    applicantLimit,
-    owner,
-    state,
-    commune,
-    id,
-  } = props.post;
+  console.log(currentUser.id);
+  const { data, loading, error } = useQuery(GET_USER_APPLICATIONS, {
+    fetchPolicy: "network-only",
+    variables: { id: currentUser.id },
+  });
+  if (loading) return <Loading />;
+  console.log("HOLAAAA");
+  console.log(data);
   const stateNames = {
     open: "Disponible",
     closed: "No disponible",
