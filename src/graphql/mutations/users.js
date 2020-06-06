@@ -23,6 +23,7 @@ export const CREATE_USER = gql`
       resumeUrl: $resumeUrl
       roleId: $role
     ) {
+      id
       rut
       name
       mail
@@ -61,6 +62,7 @@ export const EDIT_USER = gql`
       profilePicture: $profilePicture
       resumeUrl: $resumeUrl
     ) {
+      id
       rut
       name
       mail
