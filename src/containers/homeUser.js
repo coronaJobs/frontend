@@ -56,7 +56,9 @@ function HomeUser(props) {
                   />
                   <h3>{post.name}</h3>
                   <p>{post.description}</p>
-                  <p className="italic-style">{post.commune.name}</p>
+                  <p className="italic-style">
+                    {post.commune ? post.commune.name : null}
+                  </p>
                   <Link
                     className="homeUser-application-button strong-color some-space"
                     to={{

@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { Row, Col, Image, Form, Button } from "react-bootstrap";
-import { useQuery } from "@apollo/client";
+import { Row, Col, Image, Form, Button, Alert } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { useQuery, useMutation } from "@apollo/client";
+
 import DefaultPicture from "../../assets/images/conectar-home.jpg";
 import { CURRENT_USER } from "../../graphql/queries/inner_queries";
+import { GET_USER_APPLICATIONS } from "../../graphql/queries/applications";
+import {
+  CREATE_APPLICATION,
+  ACCEPT_APPLICANT,
+} from "../../graphql/mutations/applications";
+import { Loading } from "../../containers";
 
 export default function PostShowComponent(props) {
   const {
@@ -15,8 +22,22 @@ export default function PostShowComponent(props) {
     commune,
     applicants,
     employees,
+    id,
   } = props.post;
-
+  function checkApplied(postId, userApplications) {
+    return userApplications.some(function (application) {
+      return application.id === postId;
+    });
+  }
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+  const [showSuccessAlertEmployer, setShowSuccessAlertEmployer] = useState(
+    false
+  );
+  const [showErrorAlertEmployer, setShowErrorAlertEmployer] = useState(false);
+  const [selected, setSelected] = useState([]);
+  const [fired, setFired] = useState([]);
+  const [isApplied, setIsApplied] = useState(false);
   const currentUserQuery = useQuery(CURRENT_USER);
   const { currentUser } = currentUserQuery.data;
 
@@ -25,8 +46,30 @@ export default function PostShowComponent(props) {
     closed: "No disponible",
   };
 
-  const [selected, setSelected] = useState([]);
-  const [fired, setFired] = useState([]);
+  const [createApplication] = useMutation(CREATE_APPLICATION, {
+    onCompleted() {
+      setIsApplied(true);
+      setShowSuccessAlert(true);
+    },
+    onError() {
+      setShowErrorAlert(true);
+    },
+  });
+
+  const [acceptApplicant] = useMutation(ACCEPT_APPLICANT, {
+    onCompleted() {
+      setShowSuccessAlertEmployer(true);
+    },
+    onError() {
+      setShowErrorAlertEmployer(true);
+    },
+  });
+
+  const { data, loading } = useQuery(GET_USER_APPLICATIONS, {
+    fetchPolicy: "network-only",
+    variables: { id: currentUser.id },
+  });
+  if (loading) return <Loading />;
 
   const handleApplicant = (event, applicant) => {
     if (selected.includes(applicant)) {
@@ -49,9 +92,25 @@ export default function PostShowComponent(props) {
   };
 
   const onHandleAccept = () => {
-    selected.map((applicant) => console.log(applicant));
+    selected.map((applicant) =>
+      acceptApplicant({ variables: { offerId: id, applicantId: applicant } })
+    );
   };
 
+  const handleApplication = () => {
+    createApplication({ variables: { offerId: id } });
+  };
+  const applicationButton = !checkApplied(id, data.getUser.applications) ? (
+    <Button
+      className="postShow-application-button"
+      onClick={handleApplication}
+      disabled={isApplied}
+    >
+      Postular
+    </Button>
+  ) : (
+    <p className="postShow-applied-text">Ya has postulado a este trabajo</p>
+  );
   return (
     <>
       <Row>
@@ -59,6 +118,39 @@ export default function PostShowComponent(props) {
           <h1 className="postShow-name">{name}</h1>
           <p>{description.substring(0, 100) + "..."}</p>
           <p>Vacantes: {applicantLimit}</p>
+          {currentUser.role.name === "employee" ? applicationButton : null}
+          {showSuccessAlert || showSuccessAlertEmployer ? (
+            <Alert
+              variant="success"
+              className="postShow-alert"
+              onClose={() =>
+                currentUser.role.name === "employee"
+                  ? setShowSuccessAlert(false)
+                  : setShowSuccessAlertEmployer(false)
+              }
+              dismissible
+            >
+              {currentUser.role.name === "employee"
+                ? "¡Postulación realizada!"
+                : "Postulantes aceptados"}
+            </Alert>
+          ) : null}
+          {showErrorAlert || showErrorAlertEmployer ? (
+            <Alert
+              variant="danger"
+              className="postShow-alert"
+              onClose={() =>
+                currentUser.role.name === "employee"
+                  ? setShowErrorAlert(false)
+                  : setShowErrorAlertEmployer(false)
+              }
+              dismissible
+            >
+              {currentUser.role.name === "employee"
+                ? "No se pudo realizar postulación. Inténtelo más tarde."
+                : "No se pudieron aceptar los postulantes"}
+            </Alert>
+          ) : null}
         </Col>
         <Col className="postShow-image-col">
           <Image src={DefaultPicture} className="postShow-image" fluid />
@@ -130,5 +222,6 @@ PostShowComponent.propTypes = {
     commune: PropTypes.object.isRequired,
     applicants: PropTypes.arrayOf(PropTypes.object).isRequired,
     employees: PropTypes.arrayOf(PropTypes.object).isRequired,
+    id: PropTypes.number.isRequired,
   }),
 };
