@@ -7,3 +7,12 @@ export const CREATE_APPLICATION = gql`
     }
   }
 `;
+
+export const ACCEPT_APPLICANT = gql`
+  mutation createEmployment($offerId: Int!, $applicantId: Int!) {
+    createEmployment(offerId: $offerId, applicantId: $applicantId) {
+      employeeId
+      jobId
+    }
+  }
+`;
