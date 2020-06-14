@@ -33,7 +33,16 @@ function UserProfile() {
   }, [loading]);
 
   if (loading) return <Loading />;
-  const { name, address, role, mail, rut, phone, posts } = data.getUser;
+  const {
+    name,
+    address,
+    role,
+    mail,
+    rut,
+    phone,
+    posts,
+    finishedJobs,
+  } = data.getUser;
 
   const editUserUpdate = (data) => {
     const { newName, newAddress, newMail, newRut, newPhone } = data;
@@ -56,7 +65,9 @@ function UserProfile() {
           </div>
           <Row>
             {posts.length > 0 ? (
-              posts.map((post, index) => <JobOffer key={index} post={post} />)
+              posts.map((post, index) => (
+                <JobOffer key={index} post={post} role={"employer"} />
+              ))
             ) : (
               <p>No has publicado ofertas en CoronaJobs.</p>
             )}
@@ -65,12 +76,22 @@ function UserProfile() {
       );
       break;
     case "employee":
-      formButton = null; // TODO: cuando esté listo lo de los trabajos realizados, colocarlos acá
       content = (
         <Container className="container box-margin" fluid>
-          {formButton ? (
-            <div id="experience-container">
-              <h3>Mis experiencias</h3>
+          {finishedJobs ? (
+            <div>
+              <div id="experience-container">
+                <h3>Mis experiencias</h3>
+              </div>
+              <Row>
+                {finishedJobs.length > 0 ? (
+                  finishedJobs.map((job, index) => (
+                    <JobOffer key={index} post={job} role={"employee"} />
+                  ))
+                ) : (
+                  <p>No has realizado trabajos en CoronaJobs.</p>
+                )}
+              </Row>
             </div>
           ) : null}
         </Container>
