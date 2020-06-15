@@ -44,27 +44,25 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
       <Navbar.Collapse id="responsive-navbar-nav" className="collapse-style">
         {userLoggedIn ? (
           <Nav>
-            {currentUser && currentUser.role.id === 1 ? (
-              <EmployersLinks />
-            ) : (
-              <EmployeesLinks />
-            )}
-            {/* TODO: set correct hrefs for each link */}
-            <Nav.Link
-              href={currentUser ? `/users/${currentUser.id}` : "/"}
-              disabled={currentUser ? false : true}
-            >
-              Perfil
-            </Nav.Link>
-            <Form inline className="ml-4">
-              <Form.Group>
-                <Form.Label>
-                  {" "}
-                  <i className="fas fa-search" />{" "}
-                </Form.Label>
-                <FormControl type="text" placeholder="Búsqueda" />
-              </Form.Group>
-            </Form>
+            {currentUser ? [
+              currentUser.role.id === 1 ? <EmployersLinks /> : <EmployeesLinks />,
+              <Nav.Link
+                href={currentUser ? `/users/${currentUser.id}` : "/"}
+                disabled={currentUser ? false : true}
+                key='profile-nav-link'
+              >
+                Perfil
+              </Nav.Link>,
+              <Form inline className="ml-4" key="search-nav">
+                <Form.Group>
+                  <Form.Label>
+                    {" "}
+                    <i className="fas fa-search" />{" "}
+                  </Form.Label>
+                  <FormControl type="text" placeholder="Búsqueda" />
+                </Form.Group>
+              </Form>
+            ]: null}
           </Nav>
         ) : null}
         <Nav className="ml-auto">
