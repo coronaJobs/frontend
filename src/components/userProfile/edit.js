@@ -117,7 +117,7 @@ export default function EditProfileComponent(props) {
       <Button
         variant="outline-light"
         onClick={handleShow}
-        className="editUser-button-pink mr-4"
+        className="editUser-button-pink my-1"
       >
         Editar perfil
       </Button>

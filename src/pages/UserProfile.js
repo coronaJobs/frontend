@@ -35,7 +35,7 @@ function UserProfile() {
   }, [loading]);
 
   if (loading || currentUserQuery.loading) return <Loading />;
-  const { name, address, role, mail, rut, phone, posts } = data.getUser;
+  const { name, address, role, mail, rut, phone, posts, resumeUrl } = data.getUser;
   const currentUserId = currentUserQuery.data.currentUser ? currentUserQuery.data.currentUser.id : null;
   const currentUserRole = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.role : null;
 
@@ -112,7 +112,7 @@ function UserProfile() {
                 phone={currentPhone}
               />
             )}
-            <Row className={`d-flex`}>
+            <Row className={`d-flex justify-content-around`}>
             {data.getUser.id === currentUserId ?
               <EditProfileComponent
                 key='editProfileButton'
@@ -127,7 +127,7 @@ function UserProfile() {
                 editUserUpdate={editUserUpdate}
               /> : null}
               {data.getUser.id === currentUserId && role && role.id === 2 ? <UpdateResumeComponent /> : null}
-              {data.getUser.id !== currentUserId && role && role.id === 2 ? <DownloadResumeComponent /> : null}
+              {role && role.id === 2 ? <DownloadResumeComponent resumeUrl={resumeUrl} /> : null}
             </Row>
           </Col>
         </Row>
