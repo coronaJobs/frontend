@@ -45,7 +45,7 @@ function HomeUser(props) {
                 ? "Revisa las distintas ofertas de trabajo disponibles."
                 : "Ofertas de trabajo vigentes."}
             </p>
-            <Row xs={1} md={2} lg={4} className="mb-5">
+            <Row xs={1} md={2} lg={4} className="mb-5 d-flex justify-content-center">
               {posts.map((post, index) => (
                 <Col key={"profile-" + index.toString()} className="center">
                   <Image
