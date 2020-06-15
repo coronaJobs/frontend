@@ -30,6 +30,7 @@ export const CREATE_USER = gql`
           id
           name
         }
+        resumeUrl
       }
   }
 `;
@@ -72,7 +73,18 @@ export const EDIT_USER = gql`
       mail
       phone
       address
+      resumeUrl
     }
   }
 
+`;
+
+export const RESUME_ERROR = gql`
+  mutation resumeUploadError{
+    resumeUploadError{
+      id
+      name
+      resumeUrl
+    }
+  }
 `;
