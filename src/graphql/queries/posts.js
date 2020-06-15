@@ -46,6 +46,10 @@ export const GET_POST = gql`
       owner {
         id
         name
+        role {
+          id
+          name
+        }
       }
       state {
         id
@@ -56,6 +60,10 @@ export const GET_POST = gql`
         name
       }
       commune {
+        id
+        name
+      }
+      employees {
         id
         name
       }

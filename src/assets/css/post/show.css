@@ -25,3 +25,20 @@
 .postShow-name {
   margin-left: 0;
 }
+
+.postShow-applied-text {
+  color: gray;
+}
+
+.postShow-alert {
+  margin-top: 10px;
+}
+
+.postShow-application-button {
+  background: var(--button-primary-color);
+  border: none;
+  border-radius: 4px;
+  padding: 11px;
+  box-shadow: none;
+  text-shadow: none;
+}
