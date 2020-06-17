@@ -27,3 +27,21 @@ export const CREATE_POST = gql`
     }
   }
 `;
+
+export const START_JOB = gql`
+  mutation initializeJob($jobId: Int!) {
+    initializeJob(jobId: $jobId)
+  }
+`;
+
+export const CANCEL_JOB = gql`
+  mutation cancelJob($jobId: Int!) {
+    cancelJob(jobId: $jobId)
+  }
+`;
+
+export const FINISH_JOB = gql`
+  mutation finishJob($jobId: Int!) {
+    finishJob(jobId: $jobId)
+  }
+`;

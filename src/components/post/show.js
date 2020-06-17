@@ -10,6 +10,11 @@ import {
   CREATE_APPLICATION,
   ACCEPT_APPLICANT,
 } from "../../graphql/mutations/applications";
+import {
+  START_JOB,
+  CANCEL_JOB,
+  FINISH_JOB,
+} from "../../graphql/mutations/posts";
 import { Loading } from "../../containers";
 
 export default function PostShowComponent(props) {
@@ -44,6 +49,9 @@ export default function PostShowComponent(props) {
   const stateNames = {
     open: "Disponible",
     closed: "No disponible",
+    finished: "Terminada",
+    cancelled: "Cancelada",
+    initialized: "Iniciada",
   };
 
   const [createApplication] = useMutation(CREATE_APPLICATION, {
@@ -63,6 +71,21 @@ export default function PostShowComponent(props) {
     onError() {
       setShowErrorAlertEmployer(true);
     },
+  });
+
+  const [startJob] = useMutation(START_JOB, {
+    onCompleted() {},
+    onError() {},
+  });
+
+  const [cancelJob] = useMutation(CANCEL_JOB, {
+    onCompleted() {},
+    onError() {},
+  });
+
+  const [finishJob] = useMutation(FINISH_JOB, {
+    onCompleted() {},
+    onError() {},
   });
 
   const { data, loading } = useQuery(GET_USER_APPLICATIONS, {
@@ -111,6 +134,18 @@ export default function PostShowComponent(props) {
   ) : (
     <p className="postShow-applied-text">Ya has postulado a este trabajo</p>
   );
+
+  const handleStart = () => {
+    startJob({ variables: { jobId: id } });
+  };
+
+  const handleCancel = () => {
+    cancelJob({ variables: { jobId: id } });
+  };
+
+  const handleFinish = () => {
+    finishJob({ variables: { jobId: id } });
+  };
   return (
     <>
       <Row>
@@ -118,6 +153,33 @@ export default function PostShowComponent(props) {
           <h1 className="postShow-name">{name}</h1>
           <p>{description.substring(0, 100) + "..."}</p>
           <p>Vacantes: {applicantLimit}</p>
+          {state.name === "open" && currentUser.role.name === "employer" ? (
+            <div>
+              <Button
+                className="postShow-application-button mx-2"
+                onClick={handleStart}
+              >
+                Iniciar trabajo
+              </Button>
+              <Button
+                className="postShow-application-button mx-2"
+                onClick={handleCancel}
+              >
+                Cancelar trabajo
+              </Button>
+            </div>
+          ) : null}
+          {state.name === "initialized" &&
+          currentUser.role.name === "employer" ? (
+            <div>
+              <Button
+                className="postShow-application-button mx-2"
+                onClick={handleFinish}
+              >
+                Finalizar trabajo
+              </Button>
+            </div>
+          ) : null}
           {currentUser.role.name === "employee" ? applicationButton : null}
           {showSuccessAlert || showSuccessAlertEmployer ? (
             <Alert
