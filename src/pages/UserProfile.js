@@ -3,11 +3,12 @@ import { GET_USER_PROFILE } from "../graphql/queries/users";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { DataProfile, PictureProfile, Loading, JobOffer } from "../containers";
-import { Container, Row, Col } from "react-bootstrap";
-import { EditProfileComponent, PostFormComponent } from "../components";
+import { Container, Row, Card, ButtonGroup } from "react-bootstrap";
+import { EditProfileComponent, PostFormComponent, UpdateResumeComponent, DownloadResumeComponent } from "../components";
 
 import "../assets/css/user/userProfile.css";
 import "../assets/css/user/editUser.css";
+import { CURRENT_USER } from "../graphql/queries/inner_queries";
 
 function UserProfile() {
   const [currentName, setCurrentName] = useState();
@@ -22,6 +23,7 @@ function UserProfile() {
     variables: { id: parseInt(userId) },
   });
 
+  const currentUserQuery = useQuery(CURRENT_USER);
   useEffect(() => {
     if (!loading) {
       setCurrentName(name);
@@ -32,8 +34,11 @@ function UserProfile() {
     }
   }, [loading]);
 
-  if (loading) return <Loading />;
-  const { name, address, role, mail, rut, phone, posts } = data.getUser;
+  if (loading || currentUserQuery.loading) return <Loading />;
+  const { name, address, role, mail, rut, phone, posts, resumeUrl } = data.getUser;
+  const currentUserId = currentUserQuery.data.currentUser ? currentUserQuery.data.currentUser.id : null;
+  // const currentUserRole = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.role : null;
+  // const currentUserResumeUrl = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.resumeUrl : null;
 
   const editUserUpdate = (data) => {
     const { newName, newAddress, newMail, newRut, newPhone } = data;
@@ -49,16 +54,18 @@ function UserProfile() {
     case "employer":
       formButton = <PostFormComponent userId={userId} />;
       content = (
-        <Container className="container UserProfile-box-margin" fluid>
-          <div id="experience-container">
-            <h3>Últimas Ofertas</h3>
-            {formButton}
-          </div>
+        // <Container className="container UserProfile-box-margin" fluid>
+        <Container fluid>
+          <Row className="my-3 p-2 d-flex justify-content-between align-items-center">
+            <h3 className="mb-0">Últimas Ofertas</h3>
+            {data.getUser.id === currentUserId ? formButton : null}
+          </Row>
           <Row>
             {posts.length > 0 ? (
               posts.map((post, index) => <JobOffer key={index} post={post} />)
             ) : (
-              <p>No has publicado ofertas en CoronaJobs.</p>
+              // <p>No has publicado ofertas en CoronaJobs.</p>
+              <p>Sin ofertas publicadas hasta el momento.</p>
             )}
           </Row>
         </Container>
@@ -80,48 +87,51 @@ function UserProfile() {
       formButton = null;
       break;
   }
+  // console.log(data.getUser);
   return (
-    <div className="container">
-      <h1 className="py-5">Mi perfil</h1>
-      <Container fluid>
-        <Row>
-          <Col>
-            <div className="container">
-              {loading ? (
-                <Loading />
-              ) : (
-                <PictureProfile name={currentName} role={role.name} />
-              )}
-            </div>
-          </Col>
-          <Col>
-            <div className="container">
-              {loading ? (
-                <Loading />
-              ) : (
-                <DataProfile
-                  address={currentAddress}
-                  mail={currentMail}
-                  rut={currentRut}
-                  phone={currentPhone}
-                />
-              )}
-              <EditProfileComponent
-                dataUser={{
-                  id: data.getUser.id,
-                  name: currentName,
-                  rut: currentRut,
-                  mail: currentMail,
-                  address: currentAddress,
-                  phone: currentPhone,
-                }}
-                editUserUpdate={editUserUpdate}
-              />
-            </div>
-          </Col>
-        </Row>
+    <div className="container mt-5">
+      <Container className="my-4" fluid>
+        <Card>
+          {/* Opción 1 */}
+          <Card.Header>
+            <h4> {currentName} </h4>
+          </Card.Header>
+          <Card.Body className="d-flex justify-content-around align-items-center">
+            <PictureProfile role={role.name} />
+            <DataProfile
+              address={currentAddress}
+              mail={currentMail}
+              rut={currentRut}
+              phone={currentPhone}
+            />
+            <ButtonGroup vertical>
+              {data.getUser.id === currentUserId ?
+                <EditProfileComponent
+                  key='editProfileButton'
+                  dataUser={{
+                    id: data.getUser.id,
+                    name: currentName,
+                    rut: currentRut,
+                    mail: currentMail,
+                    address: currentAddress,
+                    phone: currentPhone,
+                  }}
+                  editUserUpdate={editUserUpdate}
+                /> : null
+              }
+              {data.getUser.id === currentUserId && role && role.id === 2 ?
+                <UpdateResumeComponent resumeUrlAvailable={!!resumeUrl} />
+              : null}
+              {role && role.id === 2 ?
+                  <DownloadResumeComponent resumeUrl={resumeUrl} />
+              : null}
+            </ButtonGroup>
+          </Card.Body>
+        </Card>
+        <div className="mb-5">
+          {content}
+        </div>
       </Container>
-      {content}
     </div>
   );
 }

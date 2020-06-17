@@ -1,19 +1,17 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "../../assets/css/user/userProfile.css";
+import { ListGroup, ListGroupItem } from "react-bootstrap";
 
 function DataProfile(props) {
   return (
-    <div>
-      <div className="dataProfile-move-left">
-        <h3>Datos</h3>
-        <ul>
-          <li className="text-left">Dirección: {props.address} </li>
-          <li className="text-left">Correo: {props.mail}</li>
-          <li className="text-left">RUT: {props.rut}</li>
-          <li className="text-left">Teléfono: {props.phone}</li>
-        </ul>
-      </div>
-    </div>
+    <Fragment>
+      <ListGroup className="list-group-flush">
+        <ListGroupItem> <b>Dirección:</b> {props.address} </ListGroupItem>
+        <ListGroupItem> <b>Correo:</b> {props.mail} </ListGroupItem>
+        <ListGroupItem> <b>Rut:</b> {props.rut} </ListGroupItem>
+        <ListGroupItem> <b>Teléfono:</b> {props.phone} </ListGroupItem>
+      </ListGroup>
+    </Fragment>
   );
 }
 
