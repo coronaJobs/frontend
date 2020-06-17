@@ -3,7 +3,7 @@ import { GET_USER_PROFILE } from "../graphql/queries/users";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { DataProfile, PictureProfile, Loading, JobOffer } from "../containers";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Card, ButtonGroup } from "react-bootstrap";
 import { EditProfileComponent, PostFormComponent, UpdateResumeComponent, DownloadResumeComponent } from "../components";
 
 import "../assets/css/user/userProfile.css";
@@ -37,7 +37,8 @@ function UserProfile() {
   if (loading || currentUserQuery.loading) return <Loading />;
   const { name, address, role, mail, rut, phone, posts, resumeUrl } = data.getUser;
   const currentUserId = currentUserQuery.data.currentUser ? currentUserQuery.data.currentUser.id : null;
-  const currentUserRole = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.role : null;
+  // const currentUserRole = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.role : null;
+  // const currentUserResumeUrl = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.resumeUrl : null;
 
   const editUserUpdate = (data) => {
     const { newName, newAddress, newMail, newRut, newPhone } = data;
@@ -86,53 +87,51 @@ function UserProfile() {
       formButton = null;
       break;
   }
+  // console.log(data.getUser);
   return (
-    <div className="container">
-      {/* <h3 className="py-3">Mi perfil</h3> */}
-      <Container className="mt-3" fluid>
-        <Row className="d-flex align-items-center">
-          <Col>
-            <div className="container">
-              {loading ? (
-                <Loading />
-              ) : (
-                <PictureProfile name={currentName} role={role.name} />
-              )}
-            </div>
-          </Col>
-          {/* <Col className="d-flex flex-column justify-content-between"> */}
-          <Col className="d-flex flex-column">
-            {loading ? (
-              <Loading />
-            ) : (
-              <DataProfile
-                address={currentAddress}
-                mail={currentMail}
-                rut={currentRut}
-                phone={currentPhone}
-              />
-            )}
-            <Row className={`d-flex justify-content-around`}>
-            {data.getUser.id === currentUserId ?
-              <EditProfileComponent
-                key='editProfileButton'
-                dataUser={{
-                  id: data.getUser.id,
-                  name: currentName,
-                  rut: currentRut,
-                  mail: currentMail,
-                  address: currentAddress,
-                  phone: currentPhone,
-                }}
-                editUserUpdate={editUserUpdate}
-              /> : null}
-              {data.getUser.id === currentUserId && role && role.id === 2 ? <UpdateResumeComponent /> : null}
-              {role && role.id === 2 ? <DownloadResumeComponent resumeUrl={resumeUrl} /> : null}
-            </Row>
-          </Col>
-        </Row>
+    <div className="container mt-5">
+      <Container className="my-4" fluid>
+        <Card>
+          {/* Opción 1 */}
+          <Card.Header>
+            <h4> {currentName} </h4>
+          </Card.Header>
+          <Card.Body className="d-flex justify-content-around align-items-center">
+            <PictureProfile role={role.name} />
+            <DataProfile
+              address={currentAddress}
+              mail={currentMail}
+              rut={currentRut}
+              phone={currentPhone}
+            />
+            <ButtonGroup vertical>
+              {data.getUser.id === currentUserId ?
+                <EditProfileComponent
+                  key='editProfileButton'
+                  dataUser={{
+                    id: data.getUser.id,
+                    name: currentName,
+                    rut: currentRut,
+                    mail: currentMail,
+                    address: currentAddress,
+                    phone: currentPhone,
+                  }}
+                  editUserUpdate={editUserUpdate}
+                /> : null
+              }
+              {data.getUser.id === currentUserId && role && role.id === 2 ?
+                <UpdateResumeComponent resumeUrlAvailable={!!resumeUrl} />
+              : null}
+              {role && role.id === 2 ?
+                  <DownloadResumeComponent resumeUrl={resumeUrl} />
+              : null}
+            </ButtonGroup>
+          </Card.Body>
+        </Card>
+        <div className="mb-5">
+          {content}
+        </div>
       </Container>
-      {content}
     </div>
   );
 }

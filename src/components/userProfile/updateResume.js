@@ -18,7 +18,7 @@ import { EDIT_USER, RESUME_ERROR } from "../../graphql/mutations/users";
 import axios from 'axios';
 
 
-export default function UpdateResumeComponent() {
+export default function UpdateResumeComponent({ resumeUrlAvailable }) {
   const [showModal, setShowModal] = useState(false);
   const [newResume, setNewResume] = useState();
   const [newResumeMime, setNewResumeMime] = useState();
@@ -62,10 +62,10 @@ export default function UpdateResumeComponent() {
         newResume,
         options
       ).then(function (response) {
-        console.log('CV UPLOADED CORRECTLY');
-        console.log(response);
+        // console.log('CV UPLOADED CORRECTLY');
+        // console.log(response);
         setShowModal(false);
-        toast('CV UPLOADED CORRECTLY', {
+        toast('Curriculum actualizado con éxito', {
           position: "top-center",
           autoClose: false,
           hideProgressBar: false,
@@ -74,8 +74,8 @@ export default function UpdateResumeComponent() {
           draggable: true,
         })
       }).catch(function (error) {
-        console.log('ERROR UPLOADING CV');
-        console.log(error);
+        // console.log('ERROR UPLOADING CV');
+        // console.log(error);
         cancelResumeUpload();
       });
     },
@@ -99,9 +99,15 @@ export default function UpdateResumeComponent() {
 
   return(
     <Fragment>
-      <Button onClick={handleShow} className="editUser-button-pink my-1" variant="outline-light">
-        Actualizar Curriculum
-      </Button>
+      {resumeUrlAvailable ? (
+        <Button onClick={handleShow} className="editUser-button-pink my-1" variant="outline-light">
+          Actualizar Curriculum
+        </Button>
+      ) : (
+        <Button variant="light" disabled>
+          Actualizar Curriculum No Disponible
+        </Button>
+      )}
       <ToastContainer />
       <Modal show={showModal} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
