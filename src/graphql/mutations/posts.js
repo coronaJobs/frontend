@@ -39,3 +39,9 @@ export const CANCEL_JOB = gql`
     cancelJob(jobId: $jobId)
   }
 `;
+
+export const FINISH_JOB = gql`
+  mutation finishJob($jobId: Int!) {
+    finishJob(jobId: $jobId)
+  }
+`;

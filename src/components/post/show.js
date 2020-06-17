@@ -10,7 +10,11 @@ import {
   CREATE_APPLICATION,
   ACCEPT_APPLICANT,
 } from "../../graphql/mutations/applications";
-import { START_JOB, CANCEL_JOB } from "../../graphql/mutations/posts";
+import {
+  START_JOB,
+  CANCEL_JOB,
+  FINISH_JOB,
+} from "../../graphql/mutations/posts";
 import { Loading } from "../../containers";
 
 export default function PostShowComponent(props) {
@@ -79,6 +83,11 @@ export default function PostShowComponent(props) {
     onError() {},
   });
 
+  const [finishJob] = useMutation(FINISH_JOB, {
+    onCompleted() {},
+    onError() {},
+  });
+
   const { data, loading } = useQuery(GET_USER_APPLICATIONS, {
     fetchPolicy: "network-only",
     variables: { id: currentUser.id },
@@ -133,6 +142,10 @@ export default function PostShowComponent(props) {
   const handleCancel = () => {
     cancelJob({ variables: { jobId: id } });
   };
+
+  const handleFinish = () => {
+    finishJob({ variables: { jobId: id } });
+  };
   return (
     <>
       <Row>
@@ -153,6 +166,16 @@ export default function PostShowComponent(props) {
                 onClick={handleCancel}
               >
                 Cancelar trabajo
+              </Button>
+            </div>
+          ) : null}
+          {state.name === "initialized" ? (
+            <div>
+              <Button
+                className="postShow-application-button mx-2"
+                onClick={handleFinish}
+              >
+                Finalizar trabajo
               </Button>
             </div>
           ) : null}
