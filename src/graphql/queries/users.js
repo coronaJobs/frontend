@@ -20,7 +20,6 @@ export const GET_USER = gql`
       id
       rut
       name
-      profilePicture
       role {
         id
         name
@@ -63,6 +62,8 @@ export const GET_USER_PROFILE = gql`
         name
         description
       }
+      profilePicture
     }
   }
 `;
+

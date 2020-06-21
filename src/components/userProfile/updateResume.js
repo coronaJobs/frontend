@@ -52,6 +52,7 @@ export default function UpdateResumeComponent({ resumeUrlAvailable }) {
         },
         headers: {
           'Content-Type': newResume.type,
+          "x-amz-acl": "public-read",
         }
       };
       // console.log('RESUME URL');
