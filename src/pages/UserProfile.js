@@ -35,7 +35,7 @@ function UserProfile() {
   }, [loading]);
 
   if (loading || currentUserQuery.loading) return <Loading />;
-  const { name, address, role, mail, rut, phone, posts, resumeUrl } = data.getUser;
+  const { name, address, role, mail, rut, phone, posts, resumeUrl, profilePicture } = data.getUser;
   const currentUserId = currentUserQuery.data.currentUser ? currentUserQuery.data.currentUser.id : null;
   // const currentUserRole = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.role : null;
   // const currentUserResumeUrl = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.resumeUrl : null;
@@ -97,7 +97,7 @@ function UserProfile() {
             <h4> {currentName} </h4>
           </Card.Header>
           <Card.Body className="d-flex justify-content-around align-items-center">
-            <PictureProfile role={role.name} />
+            <PictureProfile role={role.name} canEdit={data.getUser.id === currentUserId} pictureUrl={profilePicture} />
             <DataProfile
               address={currentAddress}
               mail={currentMail}
