@@ -40,8 +40,21 @@ function UserProfile() {
   }, [loading]);
 
   if (loading || currentUserQuery.loading) return <Loading />;
-  const { name, address, role, mail, rut, phone, posts, resumeUrl, finishedJobs, profilePicture } = data.getUser;
-  const currentUserId = currentUserQuery.data.currentUser ? currentUserQuery.data.currentUser.id : null;
+  const {
+    name,
+    address,
+    role,
+    mail,
+    rut,
+    phone,
+    posts,
+    resumeUrl,
+    finishedJobs,
+    profilePicture,
+  } = data.getUser;
+  const currentUserId = currentUserQuery.data.currentUser
+    ? currentUserQuery.data.currentUser.id
+    : null;
   // const currentUserRole = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.role : null;
   // const currentUserResumeUrl = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.resumeUrl : null;
 
@@ -97,6 +110,22 @@ function UserProfile() {
               </Row>
             </div>
           ) : null}
+          {finishedJobs ? ( //Cambiar condición
+            <div>
+              <div id="experience-container">
+                <h4>Comentarios</h4>
+              </div>
+              <Row>
+                {finishedJobs.length > 0 ? (
+                  finishedJobs.map((job, index) => (
+                    <JobOffer key={index} post={job} role={"employee"} />
+                  ))
+                ) : (
+                  <p>No has realizado trabajos en CoronaJobs.</p>
+                )}
+              </Row>
+            </div>
+          ) : null}
         </Container>
       );
       break;
@@ -114,7 +143,11 @@ function UserProfile() {
             <h4> {currentName} </h4>
           </Card.Header>
           <Card.Body className="d-flex justify-content-around align-items-center">
-            <PictureProfile role={role.name} canEdit={data.getUser.id === currentUserId} pictureUrl={profilePicture} />
+            <PictureProfile
+              role={role.name}
+              canEdit={data.getUser.id === currentUserId}
+              pictureUrl={profilePicture}
+            />
             <DataProfile
               address={currentAddress}
               mail={currentMail}
