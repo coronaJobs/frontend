@@ -57,6 +57,11 @@ export const GET_USER_PROFILE = gql`
         }
       }
       resumeUrl
+      finishedJobs {
+        id
+        name
+        description
+      }
       profilePicture
     }
   }

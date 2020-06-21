@@ -4,7 +4,12 @@ import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { DataProfile, PictureProfile, Loading, JobOffer } from "../containers";
 import { Container, Row, Card, ButtonGroup } from "react-bootstrap";
-import { EditProfileComponent, PostFormComponent, UpdateResumeComponent, DownloadResumeComponent } from "../components";
+import {
+  EditProfileComponent,
+  PostFormComponent,
+  UpdateResumeComponent,
+  DownloadResumeComponent,
+} from "../components";
 
 import "../assets/css/user/userProfile.css";
 import "../assets/css/user/editUser.css";
@@ -35,7 +40,7 @@ function UserProfile() {
   }, [loading]);
 
   if (loading || currentUserQuery.loading) return <Loading />;
-  const { name, address, role, mail, rut, phone, posts, resumeUrl, profilePicture } = data.getUser;
+  const { name, address, role, mail, rut, phone, posts, resumeUrl, finishedJobs, profilePicture } = data.getUser;
   const currentUserId = currentUserQuery.data.currentUser ? currentUserQuery.data.currentUser.id : null;
   // const currentUserRole = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.role : null;
   // const currentUserResumeUrl = currentUserQuery.data.currentUser? currentUserQuery.data.currentUser.resumeUrl : null;
@@ -62,7 +67,9 @@ function UserProfile() {
           </Row>
           <Row>
             {posts.length > 0 ? (
-              posts.map((post, index) => <JobOffer key={index} post={post} />)
+              posts.map((post, index) => (
+                <JobOffer key={index} post={post} role={"employer"} />
+              ))
             ) : (
               // <p>No has publicado ofertas en CoronaJobs.</p>
               <p>Sin ofertas publicadas hasta el momento.</p>
@@ -72,12 +79,22 @@ function UserProfile() {
       );
       break;
     case "employee":
-      formButton = null; // TODO: cuando esté listo lo de los trabajos realizados, colocarlos acá
       content = (
         <Container className="container box-margin" fluid>
-          {formButton ? (
-            <div id="experience-container">
-              <h3>Mis experiencias</h3>
+          {finishedJobs ? (
+            <div>
+              <div id="experience-container">
+                <h4>Mis experiencias</h4>
+              </div>
+              <Row>
+                {finishedJobs.length > 0 ? (
+                  finishedJobs.map((job, index) => (
+                    <JobOffer key={index} post={job} role={"employee"} />
+                  ))
+                ) : (
+                  <p>No has realizado trabajos en CoronaJobs.</p>
+                )}
+              </Row>
             </div>
           ) : null}
         </Container>
@@ -105,9 +122,9 @@ function UserProfile() {
               phone={currentPhone}
             />
             <ButtonGroup vertical>
-              {data.getUser.id === currentUserId ?
+              {data.getUser.id === currentUserId ? (
                 <EditProfileComponent
-                  key='editProfileButton'
+                  //key="editProfileButton"
                   dataUser={{
                     id: data.getUser.id,
                     name: currentName,
@@ -117,20 +134,18 @@ function UserProfile() {
                     phone: currentPhone,
                   }}
                   editUserUpdate={editUserUpdate}
-                /> : null
-              }
-              {data.getUser.id === currentUserId && role && role.id === 2 ?
+                />
+              ) : null}
+              {data.getUser.id === currentUserId && role && role.id === 2 ? (
                 <UpdateResumeComponent resumeUrlAvailable={!!resumeUrl} />
-              : null}
-              {role && role.id === 2 ?
-                  <DownloadResumeComponent resumeUrl={resumeUrl} />
-              : null}
+              ) : null}
+              {role && role.id === 2 ? (
+                <DownloadResumeComponent resumeUrl={resumeUrl} />
+              ) : null}
             </ButtonGroup>
           </Card.Body>
+          <div className="mb-5"> {content}</div>
         </Card>
-        <div className="mb-5">
-          {content}
-        </div>
       </Container>
     </div>
   );

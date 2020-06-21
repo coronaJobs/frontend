@@ -90,8 +90,9 @@ export default function PostShowComponent(props) {
 
   const { data, loading } = useQuery(GET_USER_APPLICATIONS, {
     fetchPolicy: "network-only",
-    variables: { id: currentUser.id },
+    variables: { id: currentUser ? currentUser.id : null },
   });
+
   if (loading) return <Loading />;
 
   const handleApplicant = (event, applicant) => {
