@@ -70,6 +70,7 @@ export const EDIT_USER = gql`
       phone
       address
       resumeUrl
+      profilePicture
     }
   }
 `;
@@ -80,6 +81,16 @@ export const RESUME_ERROR = gql`
       id
       name
       resumeUrl
+    }
+  }
+`;
+
+export const PROFILE_PICTURE_ERROR = gql`
+  mutation profilePictureUploadError{
+    profilePictureUploadError{
+      id
+      name
+      profilePicture
     }
   }
 `;

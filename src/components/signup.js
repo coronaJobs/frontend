@@ -66,7 +66,8 @@ export default function SignUpComponent() {
           ContentType: resume.type,
         },
         headers: {
-          'Content-Type': resume.type
+          'Content-Type': resume.type,
+          "x-amz-acl": "public-read",
         }
       };
       // console.log('RESUME URL');

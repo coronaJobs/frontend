@@ -12,7 +12,6 @@ export const CURRENT_USER = gql`
             id
             rut
             name
-            profilePicture
             role {
                 id
                 name
