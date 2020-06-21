@@ -34,20 +34,18 @@ function HomeUser(props) {
         <Spinner animation="grow" variant="danger" />
       ) : posts.length > 0 ? (
         <div>
-          <Container>
-            <div className="center margin-container">
-              <h2>
-                {props.currentUser.role.name === "employee"
-                  ? "Ofertas de trabajo"
-                  : "Mis ofertas de trabajo"}
-              </h2>
-              <p>
-                {props.currentUser.role.name === "employee"
-                  ? "Revisa las distintas ofertas de trabajo disponibles."
-                  : "Ofertas de trabajo vigentes."}
-              </p>
-            </div>
-            <Row>
+          <Container className="d-flex flex-column align-items-center">
+            <h2 className="mt-4">
+              {props.currentUser.role.name === "employee"
+                ? "Ofertas de trabajo"
+                : "Mis ofertas de trabajo"}
+            </h2>
+            <p>
+              {props.currentUser.role.name === "employee"
+                ? "Revisa las distintas ofertas de trabajo disponibles."
+                : "Ofertas de trabajo vigentes."}
+            </p>
+            <Row xs={1} md={2} lg={4} className="mb-5 d-flex justify-content-center">
               {posts.map((post, index) => (
                 <Col key={"profile-" + index.toString()} className="center">
                   <Image
@@ -71,6 +69,7 @@ function HomeUser(props) {
                 </Col>
               ))}
             </Row>
+            <hr />
           </Container>
         </div>
       ) : (

@@ -4,16 +4,22 @@ import { Redirect } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 // Bootstrap
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
 // Apollo & GraphQL
 import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_USER } from '../graphql/mutations/users';
+import { CREATE_USER, RESUME_ERROR } from '../graphql/mutations/users';
 import { IS_LOGGED_IN } from '../graphql/queries/inner_queries';
 
 // Custom Hooks
 import { useLogin } from '../hooks';
- 
+
+// Axios
+import axios from 'axios';
+
 
 export default function SignUpComponent() {
   const [name, setName] = useState('');
@@ -23,9 +29,10 @@ export default function SignUpComponent() {
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [role, setRole] = useState(1);
+  const [resume, setResume] = useState();
+  const [resumeMime, setResumeMime] = useState();
+  const [resumeName, setResumeName] = useState();
   const [validationError, setValidationError] = useState('');
-  // Is this state necessary??? (validForm)
-  // const [validForm, setValidForm] = useState(false);
 
   const { register, handleSubmit, errors, formState } = useForm();
   // Read the formState before render to subscribe the form state through Proxy
@@ -34,14 +41,50 @@ export default function SignUpComponent() {
   const [userCreated, setUserCreated] = useState(false);
   useLogin(mail, password, userCreated);
 
-  // TODO: profile picture & CV (proximo sprint)
-
   const { data } = useQuery(IS_LOGGED_IN);
   const { isLoggedIn } = data;
 
+  // TODO: Delete debug console logs
+  const [cancelResumeUpload] = useMutation(RESUME_ERROR, {
+    onCompleted({ resumeUploadError }) {
+      console.log('CANCEL RESUME ERROR MUTATION COMPLETED');
+      console.log(resumeUploadError);
+    },
+    onError(error){
+      console.log('ERROR CANCELLING RESUME');
+      console.log(error);
+    }
+  });
+
   const [signUp] = useMutation(CREATE_USER, {
-    onCompleted() {
+    onCompleted({ createUser }) {
       setUserCreated(true);
+      const parsedUrl = createUser.resumeUrl.split('?');
+      const options = {
+        params: {
+          Key: resume.name,
+          ContentType: resume.type,
+        },
+        headers: {
+          'Content-Type': resume.type
+        }
+      };
+      // console.log('RESUME URL');
+      // console.log(createUser);
+      axios.put(
+        // createUser.resumeUrl,
+        parsedUrl[0],
+        resume,
+        options
+      ).then(function (response) {
+        console.log('CV UPLOADED CORRECTLY');
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log('ERROR UPLOADING CV');
+        console.log(error);
+        cancelResumeUpload();
+      });
     },
     onError() {
       setValidationError('Error. Por favor inténtelo de nuevo.')
@@ -58,7 +101,8 @@ export default function SignUpComponent() {
       address: address,
       phone: phone,
       role: role,
-    }})
+      resumeUrl: resumeMime,
+    }});
   }
 
   return(
@@ -190,6 +234,41 @@ export default function SignUpComponent() {
                 </Col>
               </Row>
             </Form.Group>
+            {role && role === 2 ?
+              <Form.Group>
+                <Form.File
+                  id="resume-file"
+                  className="signup-file-input"
+                  custom
+                >
+                  <Form.File.Input
+                    name="resume"
+                    ref={register({
+                      pattern: {
+                        value: /^.*\.(pdf|PDF)$/,
+                        message: "Formato de archivo inválido."
+                      }
+                    })}
+                    isValid={!errors.resume && resume}
+                    isInvalid={!!errors.resume}
+                    onChange={(e)=>{
+                      const mime = e.target.files[0] ? e.target.files[0].type : null
+                      const filename = e.target.files[0] ? e.target.files[0].name : null
+                      setResume(e.target.files[0]);
+                      setResumeMime(mime);
+                      setResumeName(filename);
+                    }}
+                  />
+                  <Form.File.Label className="signup-file-input">Curriculum</Form.File.Label>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.resume ? `${resumeName} : ${errors.resume.message}` : null}
+                  </Form.Control.Feedback>
+                  <Form.Control.Feedback type="valid">
+                    {!errors.resume && resume ? `${resumeName} cargado con éxito` : null}
+                  </Form.Control.Feedback>
+                </Form.File>
+              </Form.Group>
+            : null}
             <Button
               variant="primary"
               block

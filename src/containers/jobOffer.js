@@ -6,7 +6,7 @@ import { Button, Col } from "react-bootstrap";
 function JobOffer({ post, role }) {
   return (
     <Col>
-      <h5>{post.name}</h5>
+      <h6>{post.name}</h6>
       <p>{post.description}</p>
       {/* TODO: Arreglar color botón */}
       {role === "employer" ? (
