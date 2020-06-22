@@ -45,7 +45,7 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
         {userLoggedIn ? (
           <Nav>
             {currentUser ? [
-              currentUser.role.id === 1 ? <EmployersLinks /> : <EmployeesLinks />,
+              currentUser.role.id === 1 ? <EmployersLinks key="employers-links" /> : <EmployeesLinks key="employees-links" />,
               <Nav.Link
                 href={currentUser ? `/users/${currentUser.id}` : "/"}
                 disabled={currentUser ? false : true}

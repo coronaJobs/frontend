@@ -3,7 +3,7 @@ import { GET_USER_PROFILE } from "../graphql/queries/users";
 import { useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import { DataProfile, PictureProfile, Loading, JobOffer } from "../containers";
-import { Container, Row, Card, ButtonGroup } from "react-bootstrap";
+import { Container, Row, Card, ButtonGroup, Col } from "react-bootstrap";
 import {
   EditProfileComponent,
   PostFormComponent,
@@ -71,7 +71,6 @@ function UserProfile() {
                 <JobOffer key={index} post={post} role={"employer"} />
               ))
             ) : (
-              // <p>No has publicado ofertas en CoronaJobs.</p>
               <p>Sin ofertas publicadas hasta el momento.</p>
             )}
           </Row>
@@ -84,9 +83,9 @@ function UserProfile() {
           {finishedJobs ? (
             <div>
               <div id="experience-container">
-                <h4>Mis experiencias</h4>
+                <h4 className="mx-4">Mis experiencias</h4>
               </div>
-              <Row>
+              <Row className="m-3 p-2 d-flex justify-content-between align-items-center">
                 {finishedJobs.length > 0 ? (
                   finishedJobs.map((job, index) => (
                     <JobOffer key={index} post={job} role={"employee"} />
@@ -137,14 +136,14 @@ function UserProfile() {
                 />
               ) : null}
               {data.getUser.id === currentUserId && role && role.id === 2 ? (
-                <UpdateResumeComponent resumeUrlAvailable={!!resumeUrl} />
+                <UpdateResumeComponent />
               ) : null}
               {role && role.id === 2 ? (
                 <DownloadResumeComponent resumeUrl={resumeUrl} />
               ) : null}
             </ButtonGroup>
           </Card.Body>
-          <div className="mb-5"> {content}</div>
+          <div className="my-5"> {content} </div>
         </Card>
       </Container>
     </div>
