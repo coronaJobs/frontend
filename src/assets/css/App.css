@@ -109,3 +109,7 @@ p {
 .right {
   text-align: right;
 }
+
+.avoid-hover {
+  pointer-events: none;
+}
