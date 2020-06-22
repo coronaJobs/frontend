@@ -1,8 +1,7 @@
-@import 'globalVariables.css';
+@import "globalVariables.css";
 
 .homeUser-post-picture {
   max-width: 12rem;
-  margin: 2rem;
 }
 
 .homeUser-application-button {
