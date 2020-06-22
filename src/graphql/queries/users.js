@@ -38,6 +38,7 @@ export const GET_USER_PROFILE = gql`
       address
       rut
       phone
+      rating
       role {
         id
         name
@@ -66,4 +67,3 @@ export const GET_USER_PROFILE = gql`
     }
   }
 `;
-
