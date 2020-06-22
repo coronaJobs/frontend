@@ -18,7 +18,7 @@ import { EDIT_USER, RESUME_ERROR } from "../../graphql/mutations/users";
 import axios from 'axios';
 
 
-export default function UpdateResumeComponent({ resumeUrlAvailable }) {
+export default function UpdateResumeComponent() {
   const [showModal, setShowModal] = useState(false);
   const [newResume, setNewResume] = useState();
   const [newResumeMime, setNewResumeMime] = useState();
@@ -55,10 +55,7 @@ export default function UpdateResumeComponent({ resumeUrlAvailable }) {
           "x-amz-acl": "public-read",
         }
       };
-      // console.log('RESUME URL');
-      // console.log(editUser.resumeUrl);
       axios.put(
-        // editUser.resumeUrl,
         parsedUrl[0],
         newResume,
         options
@@ -68,7 +65,7 @@ export default function UpdateResumeComponent({ resumeUrlAvailable }) {
         setShowModal(false);
         toast('Curriculum actualizado con éxito', {
           position: "top-center",
-          autoClose: false,
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
@@ -100,15 +97,9 @@ export default function UpdateResumeComponent({ resumeUrlAvailable }) {
 
   return(
     <Fragment>
-      {resumeUrlAvailable ? (
-        <Button onClick={handleShow} className="editUser-button-pink my-1" variant="outline-light">
-          Actualizar Curriculum
-        </Button>
-      ) : (
-        <Button variant="light" disabled>
-          Actualizar Curriculum No Disponible
-        </Button>
-      )}
+      <Button onClick={handleShow} className="editUser-button-pink my-1" variant="outline-light">
+        Actualizar Curriculum
+      </Button>
       <ToastContainer />
       <Modal show={showModal} onHide={handleClose} size="lg">
         <Modal.Header closeButton>
@@ -134,8 +125,6 @@ export default function UpdateResumeComponent({ resumeUrlAvailable }) {
                   isValid={!errors.resume && newResume}
                   isInvalid={!!errors.resume}
                   onChange={(e)=>{
-                    // const filename = e.currentTarget.value.split(/[\\,/]/).pop();
-                    // setNewResume(filename);
                     const mime = e.target.files[0] ? e.target.files[0].type : null
                     const filename = e.target.files[0] ? e.target.files[0].name : null
                     setNewResume(e.target.files[0]);

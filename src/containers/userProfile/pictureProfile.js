@@ -10,8 +10,6 @@ import { EDIT_USER, PROFILE_PICTURE_ERROR } from "../../graphql/mutations/users"
 // CSS & Bootstrap
 import "../../assets/css/user/userProfile.css";
 import { Col, Button, Form, Image, Modal } from "react-bootstrap";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 // Axios
 import axios from 'axios';
@@ -65,14 +63,6 @@ function PictureProfile(props) {
         console.log(response);
         setImgSrc(response.config.url);
         setShowModal(false);
-        // toast('Foto actualizada con éxito', {
-        //   position: "top-center",
-        //   autoClose: false,
-        //   hideProgressBar: false,
-        //   closeOnClick: true,
-        //   pauseOnHover: true,
-        //   draggable: true,
-        // })
       }).catch(function (error) {
         // console.log('ERROR UPLOADING PICTURE');
         // console.log(error);
@@ -99,7 +89,6 @@ function PictureProfile(props) {
 
   return (
     <Fragment>
-      <ToastContainer />
       <div className="center d-flex flex-column">
         <span>{props.role === "employer" ? "Empleador" : "Trabajador"}</span>
         <Image

@@ -13,41 +13,6 @@ import axios from 'axios';
 import { saveAs } from "file-saver";
 
 export default function DownloadResumeComponent({ resumeUrl }) {
-  const handleClick = () => {
-    const parsedUrl = resumeUrl.split('?');
-    axios.get(
-      // resumeUrl
-      parsedUrl[0]
-    ).then(function (response) {
-      // handle success
-      console.log('SUCCESS');
-      console.log(response);
-      console.log(response.headers["content-type"]);
-
-      // const byteCharacters = window.atob(response.data);
-      // const byteNumbers = new Array(byteCharacters.length);
-      // for (let i = 0; i < byteCharacters.length; i++) {
-      //   byteNumbers[i] = byteCharacters.charCodeAt(i);
-      // }
-      // const byteArray = new Uint8Array(byteNumbers);
-      // const file = new Blob([byteArray], { type: 'application/pdf;base64' });
-      // const file = new Blob([byteArray], { type: `${response.headers["content-type"]};base64` });
-      const file = new Blob([response.data], {type: `${response.headers["content-type"]}`});
-      saveAs(file, "cv.pdf");
-    }).catch(function (error) {
-      // handle error
-      console.log('ERROR');
-      console.log(error);
-      toast('No fue posible descargar el curriculum.', {
-        position: "top-center",
-        autoClose: false,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      })
-    })
-  };
   return (
     <Fragment>
       <ToastContainer />
@@ -55,12 +20,13 @@ export default function DownloadResumeComponent({ resumeUrl }) {
         <Button
           className="editUser-button-pink my-1"
           variant="outline-light"
-          onClick={handleClick}
+          href={resumeUrl.split('?')[0]}
+          target="_blank"
         >
           Descargar Curriculum
         </Button>
       ) : (
-        <Button variant="light" disabled>
+        <Button variant="light" disabled className="my-1">
           Curriculum No Disponible
         </Button>
       )}
