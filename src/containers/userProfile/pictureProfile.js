@@ -16,7 +16,7 @@ import axios from 'axios';
 
 // Others
 import DefaultPicture from "../../assets/images/userProfile-default.png";
-
+import RatingStars from "../ratingStars";
 
 function PictureProfile(props) {
   const [showModal, setShowModal] = useState(false);
@@ -95,6 +95,7 @@ function PictureProfile(props) {
           src={props.pictureUrl ? imageSrc : DefaultPicture}
           className="pictureProfile-picture-profile my-1"
         />
+        <RatingStars rating={props.rating}></RatingStars>
         {props.canEdit ? (
           <Button
             variant="outline-light"

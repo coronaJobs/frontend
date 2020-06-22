@@ -113,7 +113,12 @@ function UserProfile() {
             <h4> {currentName} </h4>
           </Card.Header>
           <Card.Body className="d-flex justify-content-around align-items-center">
-            <PictureProfile role={role.name} canEdit={data.getUser.id === currentUserId} pictureUrl={profilePicture} />
+            <PictureProfile
+              role={role.name}
+              canEdit={data.getUser.id === currentUserId}
+              pictureUrl={profilePicture}
+              rating={data.rating}
+            />
             <DataProfile
               address={currentAddress}
               mail={currentMail}

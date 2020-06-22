@@ -9,14 +9,14 @@ import "../../assets/css/post/show.css";
 
 export default function PostShow(props) {
   let { postId } = useParams();
-  const { data, loading } = useQuery(GET_POST, {
+  const { data, loading, refetch } = useQuery(GET_POST, {
     fetchPolicy: "network-only",
     variables: { id: parseInt(postId) },
   });
   if (props.userLoggedIn) {
     if (loading) return <Loading />;
     const post = { ...data.getPost };
-    return <PostShowComponent post={post} />;
+    return <PostShowComponent post={post} refetchPost={refetch} />;
   } else {
     return <Redirect to="/" />;
   }

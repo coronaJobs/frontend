@@ -6,6 +6,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import DefaultPicture from "../../assets/images/conectar-home.jpg";
 import { CURRENT_USER } from "../../graphql/queries/inner_queries";
 import { GET_USER_APPLICATIONS } from "../../graphql/queries/applications";
+import { REMOVE_EMPLOYEE } from "../../graphql/mutations/employees";
 import {
   CREATE_APPLICATION,
   ACCEPT_APPLICANT,
@@ -29,6 +30,7 @@ export default function PostShowComponent(props) {
     employees,
     id,
   } = props.post;
+  const { refetchPost } = props;
   function checkApplied(postId, userApplications) {
     return userApplications.some(function (application) {
       return application.id === postId;
@@ -88,6 +90,11 @@ export default function PostShowComponent(props) {
     onError() {},
   });
 
+  const [removeEmployee] = useMutation(REMOVE_EMPLOYEE, {
+    onCompleted() {},
+    onError() {},
+  });
+
   const { data, loading } = useQuery(GET_USER_APPLICATIONS, {
     fetchPolicy: "network-only",
     variables: { id: currentUser ? currentUser.id : null },
@@ -115,10 +122,21 @@ export default function PostShowComponent(props) {
     }
   };
 
-  const onHandleAccept = () => {
-    selected.map((applicant) =>
-      acceptApplicant({ variables: { offerId: id, applicantId: applicant } })
+  const onHandleAccept = async () => {
+    await selected.map(
+      async (applicant) =>
+        await acceptApplicant({
+          variables: { offerId: id, applicantId: applicant },
+        })
     );
+    refetchPost();
+  };
+
+  const handleFire = async () => {
+    await fired.map(async (worker) => {
+      await removeEmployee({ variables: { jobId: id, employeeId: worker } });
+    });
+    refetchPost();
   };
 
   const handleApplication = () => {
@@ -245,6 +263,14 @@ export default function PostShowComponent(props) {
                   onChange={(event) => handleWorker(event, employee.id)}
                 />
               ))}
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={handleFire}
+                className="signup-button"
+              >
+                Eliminar trabajadores seleccionados
+              </Button>
             </div>
           ) : null}
         </Col>
@@ -266,7 +292,7 @@ export default function PostShowComponent(props) {
               onClick={onHandleAccept}
               className="signup-button"
             >
-              Actualizar postulantes
+              Aceptar postulantes seleccionados
             </Button>
           </Col>
         ) : null}
@@ -287,4 +313,5 @@ PostShowComponent.propTypes = {
     employees: PropTypes.arrayOf(PropTypes.object).isRequired,
     id: PropTypes.number.isRequired,
   }),
+  refetchPost: PropTypes.func,
 };
