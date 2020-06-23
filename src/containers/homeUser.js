@@ -75,8 +75,9 @@ function HomeUser(props) {
                       pathname: `/posts/${post.id}`,
                     }}
                   >
-                    {" "}
-                    Postular{" "}
+                    {props.currentUser.role.name === "employee"
+                      ? "Postular"
+                      : "Ver oferta"}
                   </Link>
                 </Col>
               ))}

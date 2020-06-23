@@ -1,4 +1,4 @@
-@import 'globalVariables.css';
+@import "globalVariables.css";
 
 .homeDefault-signup-button {
   background: var(--button-primary-color);
@@ -11,7 +11,7 @@
 }
 
 .homeDefault-invitation-text {
-  font-size: 3.5vw; 
+  font-size: 3.5vw;
 }
 
 .homeDefault-image {
@@ -22,6 +22,7 @@
 .homeDefault-profile-picture {
   max-width: 12rem;
   margin: 2rem;
+  border-radius: 100%;
 }
 
 .homeDefault-background-gray {
