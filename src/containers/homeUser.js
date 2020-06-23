@@ -5,7 +5,7 @@ import { useQuery } from "@apollo/client";
 import { GET_ALL_POSTS } from "../graphql/queries/posts";
 import { GET_USER_PROFILE } from "../graphql/queries/users";
 import { Loading } from "../containers";
-import DefaultPicture from "../assets/images/userProfile-default.png";
+import DefaultPicture from "../assets/images/maletin.png";
 import { Spinner, Container, Row, Col, Image } from "react-bootstrap";
 import { PostFormComponent } from "../components";
 

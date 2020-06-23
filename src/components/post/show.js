@@ -144,7 +144,7 @@ export default function PostShowComponent(props) {
   };
   const applicationButton = !checkApplied(id, data.getUser.applications) ? (
     <Button
-      className="postShow-application-button"
+      className="postShow-application-button no-decoration"
       onClick={handleApplication}
       disabled={isApplied}
     >
@@ -176,13 +176,13 @@ export default function PostShowComponent(props) {
           currentUser.role.name === "employer" ? (
             <div>
               <Button
-                className="postShow-application-button mx-2"
+                className="postShow-application-button mx-2 no-decoration"
                 onClick={handleStart}
               >
                 Iniciar trabajo
               </Button>
               <Button
-                className="postShow-application-button mx-2"
+                className="postShow-application-button mx-2 no-decoration"
                 onClick={handleCancel}
               >
                 Cancelar trabajo
@@ -193,7 +193,7 @@ export default function PostShowComponent(props) {
           currentUser.role.name === "employer" ? (
             <div>
               <Button
-                className="postShow-application-button mx-2"
+                className="postShow-application-button mx-2 no-decoration"
                 onClick={handleFinish}
               >
                 Finalizar trabajo
@@ -268,7 +268,7 @@ export default function PostShowComponent(props) {
                 variant="primary"
                 type="submit"
                 onClick={handleFire}
-                className="signup-button"
+                className="signup-button no-decoration"
               >
                 Eliminar trabajadores seleccionados
               </Button>
@@ -291,7 +291,7 @@ export default function PostShowComponent(props) {
               variant="primary"
               type="submit"
               onClick={onHandleAccept}
-              className="signup-button"
+              className="signup-button no-decoration"
             >
               Aceptar postulantes seleccionados
             </Button>

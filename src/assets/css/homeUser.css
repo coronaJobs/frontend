@@ -13,3 +13,13 @@
   margin-top: 35px;
   text-shadow: none;
 }
+
+.no-decoration {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+.no-decoration:hover {
+  background-color: #f8f9fa;
+  color: black !important;
+}
