@@ -172,7 +172,8 @@ export default function PostShowComponent(props) {
           <h1 className="postShow-name">{name}</h1>
           <p>{description.substring(0, 100) + "..."}</p>
           <p>Vacantes: {applicantLimit}</p>
-          {state.name === "open" && currentUser.role.name === "employer" ? (
+          {(state.name === "open" || state.name === "closed") &&
+          currentUser.role.name === "employer" ? (
             <div>
               <Button
                 className="postShow-application-button mx-2"

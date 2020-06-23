@@ -12,17 +12,11 @@ function EmployeesLinks() {
     <Nav.Link href="/posts" key="available-posts">
       Ofertas Disponibles
     </Nav.Link>,
-    <Nav.Link href="/" key="current-applications">
-      Postulaciones Vigentes
-    </Nav.Link>,
   ];
 }
 
 function EmployersLinks() {
   return [
-    <Nav.Link key="new-post" href="/">
-      Nueva Oferta
-    </Nav.Link>,
     <Nav.Link key="available-posts" href="/">
       Ofertas Vigentes
     </Nav.Link>,
@@ -44,25 +38,22 @@ export default function CoronaNavBar({ userLoggedIn, currentUser }) {
       <Navbar.Collapse id="responsive-navbar-nav" className="collapse-style">
         {userLoggedIn ? (
           <Nav>
-            {currentUser ? [
-              currentUser.role.id === 1 ? <EmployersLinks key="employers-links" /> : <EmployeesLinks key="employees-links" />,
-              <Nav.Link
-                href={currentUser ? `/users/${currentUser.id}` : "/"}
-                disabled={currentUser ? false : true}
-                key='profile-nav-link'
-              >
-                Perfil
-              </Nav.Link>,
-              <Form inline className="ml-4" key="search-nav">
-                <Form.Group>
-                  <Form.Label>
-                    {" "}
-                    <i className="fas fa-search" />{" "}
-                  </Form.Label>
-                  <FormControl type="text" placeholder="Búsqueda" />
-                </Form.Group>
-              </Form>
-            ]: null}
+            {currentUser
+              ? [
+                  currentUser.role.id === 1 ? (
+                    <EmployersLinks key="employers-links" />
+                  ) : (
+                    <EmployeesLinks key="employees-links" />
+                  ),
+                  <Nav.Link
+                    href={currentUser ? `/users/${currentUser.id}` : "/"}
+                    disabled={currentUser ? false : true}
+                    key="profile-nav-link"
+                  >
+                    Perfil
+                  </Nav.Link>,
+                ]
+              : null}
           </Nav>
         ) : null}
         <Nav className="ml-auto">
