@@ -90,7 +90,7 @@ export default function LoginComponent() {
           <Button
             variant="primary"
             block
-            className="login-button"
+            className="login-button no-decoration"
             type="submit"
           >
             Ingresar

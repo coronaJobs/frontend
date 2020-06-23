@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import DefaultPicture from "../assets/images/userProfile-default.png";
+import DefaultPicture from "../assets/images/maletin.png";
 import { Spinner, Container, Row, Col, Image } from "react-bootstrap";
 import { SearchBar } from "./../components";
 
@@ -36,11 +36,12 @@ function Posts() {
                     src={DefaultPicture}
                     className="homeUser-post-picture"
                   />
+
                   <h3>{post.name}</h3>
                   <p>{post.description}</p>
                   <p className="italic-style">{post.commune.name}</p>
                   <Link
-                    className="homeUser-application-button strong-color some-space"
+                    className="homeUser-application-button strong-color some-space no-decoration"
                     to={{
                       pathname: `/posts/${post.id}`,
                     }}
