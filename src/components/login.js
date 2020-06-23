@@ -30,7 +30,6 @@ export default function LoginComponent() {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
       if (error.graphQLErrors[0].extensions.code === "UNAUTHENTICATED") {
         setValidationError("Credenciales inválidas");
       } else {
