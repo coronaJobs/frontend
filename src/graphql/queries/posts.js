@@ -32,6 +32,10 @@ export const GET_ALL_POSTS = gql`
       applicants {
         id
       }
+      commune {
+        id
+        name
+      }
     }
   }
 `;
