@@ -171,7 +171,7 @@ export default function PostShowComponent(props) {
         <Col className="postShow-main-description-col">
           <h1 className="postShow-name">{name}</h1>
           <p>{description.substring(0, 100) + "..."}</p>
-          <p>Vacantes: {applicantLimit}</p>
+          <p>Empleados requeridos: {applicantLimit}</p>
           {(state.name === "open" || state.name === "closed") &&
           currentUser.role.name === "employer" ? (
             <div>

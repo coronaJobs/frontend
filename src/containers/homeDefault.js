@@ -127,7 +127,9 @@ function HomeDefault() {
             <Col>
               <div className="center">
                 <Image
-                  src={DefaultPicture}
+                  src={
+                    "https://ca.slack-edge.com/T01249XKG5R-U012GN6QMQR-e0343547465a-512"
+                  }
                   className="homeDefault-profile-picture "
                 />
                 <h5 className="blue">Rafaela Karachon</h5>
@@ -140,7 +142,9 @@ function HomeDefault() {
             <Col>
               <div className="center">
                 <Image
-                  src={DefaultPicture}
+                  src={
+                    "https://ca.slack-edge.com/T01249XKG5R-U011XBM5S94-717dbbc9a9c0-512"
+                  }
                   className="homeDefault-profile-picture "
                 />
                 <h5 className="blue">Claudio Scheihing</h5>
@@ -150,10 +154,12 @@ function HomeDefault() {
             <Col>
               <div className="center">
                 <Image
-                  src={DefaultPicture}
+                  src={
+                    "https://ca.slack-edge.com/T01249XKG5R-U0122MZNLDT-19cc9f17174c-512"
+                  }
                   className="homeDefault-profile-picture "
                 />
-                <h5 className="blue">Daniela Vásquez</h5>
+                <h5 className="blue">Javier Aranda</h5>
                 <p>
                   "Me quedé sin trabajo, y CoronaJobs me permitió obtener una
                   fuente de ingreso de forma inmediata."
