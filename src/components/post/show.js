@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Row, Col, Image, Form, Button, Alert } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useQuery, useMutation } from "@apollo/client";
@@ -259,7 +260,7 @@ export default function PostShowComponent(props) {
                 <Form.Check
                   key={index}
                   type="checkbox"
-                  label={employee.name}
+                  label={<Link to={`/users/${employee.id}`}>{employee.name}</Link>}
                   checked={fired.includes(employee.id)}
                   onChange={(event) => handleWorker(event, employee.id)}
                 />
@@ -282,7 +283,7 @@ export default function PostShowComponent(props) {
               <Form.Check
                 key={index}
                 type="checkbox"
-                label={applicant.name}
+                label={<Link to={`/users/${applicant.id}`}>{applicant.name}</Link>}
                 checked={selected.includes(applicant.id)}
                 onChange={(event) => handleApplicant(event, applicant.id)}
               />
